@@ -8,7 +8,7 @@ class Dice{
 	int roll(){
 		Random r = new Random();
 		randomint = r.nextInt(7);
-		return (randomint == 0?1:n);
+		return (randomint == 0?1:randomint);
 	}
 	
 }
