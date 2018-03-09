@@ -33,11 +33,28 @@ public class LogicTester {
 	    theGame.setItemInPosition(4, 7, 2);
 	    //theGame.setItemInPosition(4, 5, 2);
 	    
+	    
+	  //Spacesplaced that are SouthEast of [4][4]
+	    //theGame.setItemInPosition(5, 5, 1);
+	    theGame.setItemInPosition(6, 6, 2);
+	    theGame.setItemInPosition(7, 7, 2);
+	    
+	    
+	    
 	    GameLogic logic = new GameLogic(8,8,0);
 	    
 	    ArrayList<int[]> freeSpacesN = logic.getNorthSpaces(4,4, theGame);
 	    ArrayList<int[]> freeSpacesNE = logic.getNorthEastSpaces(4,4, theGame);
 	    ArrayList<int[]> freeSpacesE = logic.getEastSpaces(4,4, theGame);
+	    ArrayList<int[]> freeSpacesSE = logic.getSouthEastSpaces(4,4, theGame);
+	    
+	    ArrayList<int[]> freeSpacesS = logic.getSouthSpaces(4,4, theGame);
+	    ArrayList<int[]> freeSpacesSW = logic.getSouthWestSpaces(4,4, theGame);
+	    ArrayList<int[]> freeSpacesW = logic.getWestSpaces(4,4, theGame);
+	    ArrayList<int[]> freeSpacesNW = logic.getNorthWestSpaces(4,4, theGame);
+
+
+
 
 	    
 	    
@@ -58,7 +75,39 @@ public class LogicTester {
 	    	System.out.println(a[0] + ", " + a[1]);
 	    }
 	    
+	    System.out.println("");
+	    System.out.println("Checking spaces SouthEast");
+	    for(int[] a : freeSpacesSE) {
+	    	System.out.println(a[0] + ", " + a[1]);
+	    }
 	    
+	    
+	    System.out.println("");
+	    System.out.println("");
+
+	    
+	    System.out.println("Checking spaces South");
+	    for(int[] a : freeSpacesS) {
+	    	System.out.println(a[0] + ", " + a[1]);
+	    }
+	    
+	    System.out.println("");
+	    System.out.println("Checking spaces SouthWest");
+	    for(int[] a : freeSpacesSW) {
+	    	System.out.println(a[0] + ", " + a[1]);
+	    }
+	    
+	    System.out.println("");
+	    System.out.println("Checking spaces West");
+	    for(int[] a : freeSpacesW) {
+	    	System.out.println(a[0] + ", " + a[1]);
+	    }
+	    
+	    System.out.println("");
+	    System.out.println("Checking spaces NorthWest");
+	    for(int[] a : freeSpacesNW) {
+	    	System.out.println(a[0] + ", " + a[1]);
+	    }
 	}
 
 
