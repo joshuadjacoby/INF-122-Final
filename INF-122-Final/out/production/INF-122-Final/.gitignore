@@ -3,8 +3,8 @@
 /GUI.class
 /GameLogic.class
 /GridGame.class
+/LogicTester.class
 /Main.class
 /Player.class
 /TicTacToe$buttonListener.class
 /TicTacToe.class
-/LogicTester.class
