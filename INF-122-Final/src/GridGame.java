@@ -1,5 +1,6 @@
+import javax.swing.*;
 
-class GridGame{
+public class GridGame extends JPanel{
 	private int[][] gameBoard;
 	private int rows;
 	private int columns;

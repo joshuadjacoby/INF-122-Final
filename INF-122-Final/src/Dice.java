@@ -1,4 +1,4 @@
-import java.util.Random
+import java.util.Random;
 
 class Dice{
 	private int randomint = 0;

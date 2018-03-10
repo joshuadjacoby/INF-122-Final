@@ -3,13 +3,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class TicTacToe extends JPanel
+public class TicTacToe extends GridGame
 {
 	JButton buttons[] = new JButton[9];
 	int alternate = 0;//if this number is a even, then put a X. If it's odd, then put an O
 
-	public TicTacToe()
+	public TicTacToe(int row, int col)
 	{
+		super(row, col);
 		setLayout(new GridLayout(3,3));
 		initializeButtons();
 	}
@@ -26,6 +27,7 @@ public class TicTacToe extends JPanel
 			//because this whole class is a JPanel already
 		}
 	}
+
 	public void resetButtons()
 	{
 		for(int i = 0; i <= 8; i++)
