@@ -1,10 +1,9 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
-class public GameButton extends JButton {
-  private x;
-  private y;
+@SuppressWarnings("serial")
+public class GameButton extends JButton {
+  private int x;
+  private int y;
 
   public GameButton(String name, int x, int y) {
     super(name);
@@ -12,11 +11,16 @@ class public GameButton extends JButton {
     this.y = y;
   }
 
-  public getX() {
+  public GameButton(int x, int y) {
+	    this.x = x;
+	    this.y = y;
+  }
+  
+  public int getX() {
     return this.x;
   }
 
-  public getY() {
+  public int getY() {
     return this.y;
   }
 }
