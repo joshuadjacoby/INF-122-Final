@@ -2,25 +2,25 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class GameButton extends JButton {
-  private int x;
-  private int y;
+  private int boardx;
+  private int boardy;
 
   public GameButton(String name, int x, int y) {
     super(name);
-    this.x = x;
-    this.y = y;
+    boardx = x;
+    boardy = y;
   }
 
   public GameButton(int x, int y) {
-	    this.x = x;
-	    this.y = y;
+	    boardx = x;
+	    boardy = y;
   }
   
   public int getX() {
-    return this.x;
+    return boardx;
   }
 
   public int getY() {
-    return this.y;
+    return boardy;
   }
 }

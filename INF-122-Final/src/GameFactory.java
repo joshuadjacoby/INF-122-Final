@@ -9,7 +9,7 @@ public class GameFactory {
 		return gameFactory;
 	}
 
-	public GridGame makeGame(String newGameType) {
+	public GridGame makeGame(String newGameType, GUI gui) {
 
 		switch (newGameType) {
 		case "Tic-Tac-Toe":

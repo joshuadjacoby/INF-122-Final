@@ -38,13 +38,20 @@ public class GUI extends JFrame implements ActionListener {
 		validate();
 	}
 
+	public void gameOver() {
+		remove(game);
+		setBounds(300, 200, 300, 100);
+		add(introPanel);
+		validate();
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() instanceof JComboBox) {
 			JComboBox cb = (JComboBox)e.getSource();
 			gameChoice = cb.getSelectedItem().toString();
 		} else if (e.getSource() instanceof JButton) {
-			game = GameFactory.getInstance().makeGame(gameChoice);
+			game = GameFactory.getInstance().makeGame(gameChoice, this);
 			startGame();
 		}
 	}
