@@ -1,3 +1,4 @@
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -8,11 +9,16 @@ public class TicTacToe extends GridGame {
 	private int player = 0;
 	public TicTacToe(int row, int col) {
 		super(row, col);
-		int index = 0;
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < col; j++) {
-				gameBoard[i][j] = new GameButton(Integer.toString(index), i, i);
-				index++;
+		
+		setLayout(new GridLayout(row,col));
+		initializeButtons();
+	}
+	
+	protected void initializeButtons()
+	{
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				gameBoard[i][j] = new GameButton(i, j);
 				gameBoard[i][j].setText("");
 				gameBoard[i][j].addActionListener(new buttonListener());
 				add(gameBoard[i][j]);	
@@ -99,7 +105,6 @@ public class TicTacToe extends GridGame {
 			return false;
 	}
 }
-
 
 //	// when a button is clicked, it generates an ActionEvent. Thus, each button needs an ActionListener. When it is clicked, it goes to this listener class that I have created and goes to the actionPerformed method. There (and in this class), we decide what we want to do.
 //	private class buttonListener implements ActionListener

@@ -1,18 +1,17 @@
 import java.util.*;
 
 class SnakesAndLadders extends GridGame{
-    private static final int BOARD_SIZE = 10;
+	public static final int BOARD_SIZE = 8;
 	private int turn;
 	private Dice dice;
 	private int winner;
-	private int[] positionOfPlayers;
-	private HashMap specialSpaces;
-
+	private int[] positionOfPlayers = {0,0};
+	private HashMap<Integer, Integer> specialSpaces;
+	
 	SnakesAndLadders(){
 		super(BOARD_SIZE,BOARD_SIZE);
-        dice = new Dice();
-        positionOfPlayers = {0,0};
-        specialSpaces = new Hashmap();
+		dice = new Dice();
+		specialSpaces = new HashMap<>();
 	}
 
 	int roll(){
@@ -30,5 +29,11 @@ class SnakesAndLadders extends GridGame{
 
 	void playerTurn(int move){
 
+	}
+
+	@Override
+	protected void initializeButtons() {
+		// TODO Auto-generated method stub
+		
 	}
 }

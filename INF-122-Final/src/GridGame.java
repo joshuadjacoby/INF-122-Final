@@ -1,5 +1,4 @@
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public abstract class GridGame extends JPanel{
 	protected int rows;
@@ -13,7 +12,6 @@ public abstract class GridGame extends JPanel{
 		this.cols = col;
 	}
 
-	public abstract initializeButtons() {
-	}
+	protected abstract void initializeButtons();
 
 }
