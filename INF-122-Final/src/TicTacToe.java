@@ -5,11 +5,12 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class TicTacToe extends GridGame {
-	
 	private int player = 1;
-	public TicTacToe(int row, int col) {
+	private GUI gui;
+
+	public TicTacToe(int row, int col, GUI gui) {
 		super(row, col);
-		
+		this.gui = gui;
 		setLayout(new GridLayout(row,col));
 		initializeButtons();
 	}
@@ -58,8 +59,7 @@ public class TicTacToe extends GridGame {
 			}
 			if(checkForWin() == true)
 			{
-				JOptionPane.showConfirmDialog(null, "Game Over.");
-				resetButtons();
+				gui.gameOver();
 			}
 			
 		}
@@ -105,26 +105,3 @@ public class TicTacToe extends GridGame {
 			return false;
 	}
 }
-
-//	// when a button is clicked, it generates an ActionEvent. Thus, each button needs an ActionListener. When it is clicked, it goes to this listener class that I have created and goes to the actionPerformed method. There (and in this class), we decide what we want to do.
-//	private class buttonListener implements ActionListener
-//	{
-//
-//		public void actionPerformed(ActionEvent e)
-//		{
-//
-//			JButton buttonClicked = (JButton)e.getSource(); //get the particular button that was clicked
-//			if(alternate%2 == 0)
-//				buttonClicked.setText("X");
-//			else
-//				buttonClicked.setText("O");
-//
-//			if(checkForWin() == true)
-//			{
-//				JOptionPane.showConfirmDialog(null, "Game Over.");
-//				resetButtons();
-//			}
-//
-//			alternate++;
-//
-//		}

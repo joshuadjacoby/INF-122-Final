@@ -9,11 +9,11 @@ public class GameFactory {
 		return gameFactory;
 	}
 
-	public GridGame makeGame(String newGameType) {
+	public GridGame makeGame(String newGameType, GUI gui) {
 
 		switch (newGameType) {
 			case "Tic-Tac-Toe":
-				return new TicTacToe(3, 3);
+				return new TicTacToe(3, 3, gui);
 			case "Checkers":
 			//	return new Checkers();
 				break;
