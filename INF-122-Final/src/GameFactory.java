@@ -12,16 +12,15 @@ public class GameFactory {
 	public GridGame makeGame(String newGameType) {
 
 		switch (newGameType) {
-			case "Tic-Tac-Toe":
-				return new TicTacToe(3, 3);
-			case "Checkers":
-			//	return new Checkers();
-				break;
-			case "Othello":
+		case "Tic-Tac-Toe":
+			return new TicTacToe(3, 3);
+		case "Checkers":
+			return new Checkers(8, 8);
+		case "Othello":
 			//	return new Othello();
-				break;
-			case "Snakes and Ladders":
-				return new SnakesAndLadders();
+			break;
+		case "Snakes and Ladders":
+			return new SnakesAndLadders();
 		}
 		return null;
 	}
