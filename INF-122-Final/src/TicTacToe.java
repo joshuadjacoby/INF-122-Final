@@ -6,7 +6,7 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class TicTacToe extends GridGame {
 	
-	private int player = 0;
+	private int player = 1;
 	public TicTacToe(int row, int col) {
 		super(row, col);
 		
@@ -18,7 +18,7 @@ public class TicTacToe extends GridGame {
 	{
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				gameBoard[i][j] = new GameButton(i, j);
+				gameBoard[i][j] = new JButton();
 				gameBoard[i][j].setText("");
 				gameBoard[i][j].addActionListener(new buttonListener());
 				add(gameBoard[i][j]);	
