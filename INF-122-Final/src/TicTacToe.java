@@ -1,15 +1,17 @@
+<<<<<<< HEAD
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class TicTacToe extends JPanel
+public class TicTacToe extends GridGame
 {
 	JButton buttons[] = new JButton[9];
 	int alternate = 0;//if this number is a even, then put a X. If it's odd, then put an O
 
-	public TicTacToe()
+	public TicTacToe(int row, int col)
 	{
+		super(row, col);
 		setLayout(new GridLayout(3,3));
 		initializeButtons();
 	}
@@ -26,6 +28,7 @@ public class TicTacToe extends JPanel
 			//because this whole class is a JPanel already
 		}
 	}
+
 	public void resetButtons()
 	{
 		for(int i = 0; i <= 8; i++)
@@ -101,3 +104,27 @@ public class TicTacToe extends JPanel
 
 	}
 }
+=======
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+class public TicTacToe {
+  public void initializeButtons {
+    for(int i = 0; i <= 8; i++)
+		{
+			buttons[i] = new JButton();
+			buttons[i].setText("");
+			buttons[i].addActionListener(new buttonListener());
+
+			add(buttons[i]); //adds this button to JPanel (note: no need for JPanel.add(...)
+			//because this whole class is a JPanel already
+		}
+  }
+
+  public void processLogic() {
+    
+  }
+}
+>>>>>>> e5994abf602309ea5c4508609172bb44ef8755be
