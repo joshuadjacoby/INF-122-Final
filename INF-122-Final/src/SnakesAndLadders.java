@@ -1,22 +1,18 @@
-package test;
+
 import java.util.*;
 
 class SnakesAndLadders {
 	private static final int BOARD_SIZE = 10;
 	private int turn = 1; // Game starts with Player 1's turn
-	private Dice dice;
-	private HashMap<Integer, ArrayList<Integer>> positionOfPlayers = new HashMap<Integer, ArrayList<Integer>>();
+	private Dice dice = new Dice();
+	private HashMap<Integer, ArrayList<Integer>> positionOfPlayers = new HashMap<Integer, ArrayList<Integer>>(){};
 	static HashMap<ArrayList<Integer>, ArrayList<Integer>> specialSpaces = new HashMap<ArrayList<Integer>, ArrayList<Integer>>();
 			
 	SnakesAndLadders(){
 		//super(BOARD_SIZE, BOARD_SIZE);
-	    dice = new Dice();
 	    // Initializes player position at bottom left corner
-	    ArrayList<Integer> player1Pos = new ArrayList<Integer>(Arrays.asList(9, 0));
-	    ArrayList<Integer> player2Pos = new ArrayList<Integer>(Arrays.asList(9, 0));
-	    // Updates ArrayList with start positions
-	    positionOfPlayers.put(1,player1Pos);
-	    positionOfPlayers.put(2,player2Pos);
+	    positionOfPlayers.put(1,new ArrayList<Integer>(Arrays.asList(9, 0)));
+	    positionOfPlayers.put(2,new ArrayList<Integer>(Arrays.asList(9, 0)));
 	    initializeButtons();
 	
 	    // Creates snakes	    
@@ -61,23 +57,16 @@ class SnakesAndLadders {
 
 	public void processLogic() {
 	}
-	
-	
-	public int roll(){
-		int roll = dice.roll();
-		System.out.println("Rolling dice --> " + Integer.toString(roll));
-		return roll;	
-	}
 
 	public void advancePlayer(int player, int diceRoll){
 	    ArrayList<Integer> currentPosition = positionOfPlayers.get(player);
-	    System.out.println("Player " + turn + "'s position: " + Integer.toString(currentPosition.get(0)) + ", " + Integer.toString(currentPosition.get(1)));
+	    System.out.println("Current position: " + Integer.toString(currentPosition.get(0)) + ", " + Integer.toString(currentPosition.get(1)));
 	    
 	    // If row is odd
 	    if ((currentPosition.get(0)) % 2 == 1) { 
 	      if ((9 - diceRoll) >= currentPosition.get(1)) { // If column + roll <= right edge of board
 	      	currentPosition.set(1, currentPosition.get(1) + diceRoll);
-	      	System.out.println("Advancing to " + Integer.toString(currentPosition.get(0)) + ", " + Integer.toString(currentPosition.get(1)));
+	      	System.out.println("Advancing Player "+ turn + " to " + Integer.toString(currentPosition.get(0)) + ", " + Integer.toString(currentPosition.get(1)));
 	      }
 	      
 	      else { // Moves carry over moves to the row above
@@ -111,7 +100,7 @@ class SnakesAndLadders {
 	public ArrayList<Integer> checkSnakeOrLadder(ArrayList<Integer> position){
     // Returns end position of a snake or ladder
 	    if (specialSpaces.containsKey(position)) {
-	    	System.out.println("Following snake/ladder to " + Integer.toString(specialSpaces.get(position).get(0)) + ", " + Integer.toString(specialSpaces.get(position).get(1)));
+	    	System.out.println("snake/ladder found, new position: " + Integer.toString(specialSpaces.get(position).get(0)) + ", " + Integer.toString(specialSpaces.get(position).get(1)));
 	    	return specialSpaces.get(position);
 	    }
 	    else {
@@ -122,7 +111,11 @@ class SnakesAndLadders {
 	
 	public boolean foundWinner() {
 		for (int i = 1; i <= 2; i++) {
-			if ((positionOfPlayers.get(i).get(0) <= 0) && (positionOfPlayers.get(i).get(1) <= 0)) {
+			if(positionOfPlayers.get(i).get(0) == -1){
+				System.out.println("Player " + Integer.toString(i) + " won!");
+		    	return true;
+			}
+			else if((positionOfPlayers.get(i).get(0) == 0) && (positionOfPlayers.get(i).get(1) == 0)) {
 				System.out.println("Player " + Integer.toString(i) + " won!");
 		    	return true;
 		    }
@@ -133,25 +126,27 @@ class SnakesAndLadders {
 	public void playGame(){
 		while (!foundWinner()) {
 			Scanner sc = new Scanner(System.in); // Replace scanner with click listening (when we connect to UI)
-			System.out.print("Enter any number & press enter to continue: ");
+			System.out.println("\nPlayer "+turn+"'s turn");
+			System.out.print("Enter any number: ");
 			int i = sc.nextInt();
+			int roll = dice.roll();
+			System.out.print("rolled a "+roll+"!\n");
+			advancePlayer(turn, roll); // 2) advance player based on dice number 
 			
-			advancePlayer(turn, 7); // 2) advance player based on dice number // HARD CODED 7 FOR ROLL
-		      
-			/*
-			 if (turn == 1) {
-				System.out.println("Player 2's turn is up!");
+			turn = ((turn == 1) ? 2 : 1);
+			/**
+			if (turn == 1) {
+				//System.out.println("Player 2's turn is up!");
 				turn = 2;
-			}
-			    
+			}   
 			else {
-				System.out.println("Player 1's turn is up!");
+				//System.out.println("Player 1's turn is up!");
 				turn = 1;
 			    }
-			}
 			*/
+			}
 		}
-	}
+	
 	
 	public static void main(String args[]) {
 		 SnakesAndLadders SNL = new SnakesAndLadders();
