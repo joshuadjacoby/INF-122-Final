@@ -16,7 +16,7 @@ public class GameFactory {
 				return new TicTacToe(3, 3);
 			case "Checkers":
 			//	return new Checkers();
-				break;
+				return new Checkers(8,8 , "w");
 			case "Othello":
 			//	return new Othello();
 				break;

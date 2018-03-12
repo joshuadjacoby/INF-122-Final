@@ -18,10 +18,10 @@ public class TicTacToe extends GridGame {
 	{
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				gameBoard[i][j] = new JButton();
+				gameBoard[i][j] = new GameButton(i,j, "");
 				gameBoard[i][j].setText("");
 				gameBoard[i][j].addActionListener(new buttonListener());
-				add(gameBoard[i][j]);	
+				add(gameBoard[i][j]);
 			}
 		}
 	}
@@ -45,15 +45,15 @@ public class TicTacToe extends GridGame {
 			JButton buttonClicked = (JButton)e.getSource();
 			if (buttonClicked.getText().equals("")) {
 				if (player == 1) {
-					buttonClicked.setText("X");
+					buttonClicked.setText("A");
 					player = 2;
 				}
 				else if (player == 2) {
-					buttonClicked.setText("O");
+					buttonClicked.setText("B");
 					player = 1;
 				}
 				else {
-					;
+
 				}
 			}
 			if(checkForWin() == true)
