@@ -146,10 +146,4 @@ class SnakesAndLadders {
 			*/
 			}
 		}
-	
-	
-	public static void main(String args[]) {
-		 SnakesAndLadders SNL = new SnakesAndLadders();
-		 SNL.playGame();
-	}
 }
