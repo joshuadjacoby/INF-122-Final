@@ -96,9 +96,11 @@ public class Othello extends GridGame {
 						if (gameBoard[currentX][currentY].getColor() == this.opponentColor) {
 							currentX += i;
 							currentY += j;
-							if (!gameBoard[currentX][currentY].isAPiece() && !gameBoard[currentX][currentY].isMarked()) {
-								gameBoard[currentX][currentY].setMark();
-								gameBoard[currentX][currentY].setColor(this.playerColor);
+							if ( 0 <= currentX && currentX < this.rows && 0 <= currentY && currentY < this.cols ) {
+								if (!gameBoard[currentX][currentY].isAPiece() && !gameBoard[currentX][currentY].isMarked()) {
+									gameBoard[currentX][currentY].setMark();
+									gameBoard[currentX][currentY].setColor(this.playerColor);
+								}
 							}
 						} else {
 							break;
