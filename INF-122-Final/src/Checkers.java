@@ -9,6 +9,8 @@ public class Checkers extends GridGame {
     private String currentPlayer = "w"; //1 == W,   2 == B
     private ArrayList currentPossibleMoves;
     private GameButton currPressedBtn;
+    private boolean itemchanged = false;
+
     private String moveFacing = "s";
     private String defaultItem = "";
     private boolean item_selected = false;
@@ -59,7 +61,7 @@ public class Checkers extends GridGame {
 
         return "w";
     }
-    private ArrayList checkAvailable1TileMoves(GameButton thebutton){
+    private ArrayList available1Dir1TileMoves(GameButton thebutton){
         ArrayList tempList = new ArrayList();
         if (moveFacing == "s"){
             GameButton se1 =  getButtonAt(thebutton.getGridRowLoc() + 1, thebutton.getGridColLoc() + 1);
@@ -90,7 +92,7 @@ public class Checkers extends GridGame {
         return tempList;
     }
 
-    private ArrayList checkAvailable2TileMoves(GameButton thebutton){
+    private ArrayList available1Dir2TileMoves(GameButton thebutton){
         ArrayList tempList = new ArrayList();
         if (moveFacing == "s"){
             GameButton se1 =  getButtonAt(thebutton.getGridRowLoc() + 1, thebutton.getGridColLoc() + 1);
@@ -136,11 +138,13 @@ public class Checkers extends GridGame {
         if(currPressedBtn.getGridColLoc() + 1 < buttonClicked.getGridColLoc()){
             //Going East
             if(moveFacing == "s"){
+                itemchanged = true;
                 ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() + 1][currPressedBtn.getGridColLoc() + 1]).setButtonValue("");
                 gameBoard[currPressedBtn.getGridRowLoc() + 1][currPressedBtn.getGridColLoc() + 1].setText("");
 
 
             }else if(moveFacing == "n"){
+                itemchanged = true;
                 ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() - 1][currPressedBtn.getGridColLoc() + 1]).setButtonValue("");
                 gameBoard[currPressedBtn.getGridRowLoc() - 1][currPressedBtn.getGridColLoc() + 1].setText("");
 
@@ -149,10 +153,12 @@ public class Checkers extends GridGame {
         }else if (currPressedBtn.getGridColLoc()- 1 > buttonClicked.getGridColLoc()){
             //Going West
             if(moveFacing == "s"){
+                itemchanged = true;
                 ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() + 1][currPressedBtn.getGridColLoc() - 1]).setButtonValue("");
                 gameBoard[currPressedBtn.getGridRowLoc() + 1][currPressedBtn.getGridColLoc() - 1].setText("");
 
             }else if(moveFacing == "n"){
+                itemchanged = true;
                 ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() - 1][currPressedBtn.getGridColLoc() - 1]).setButtonValue("");
                 gameBoard[currPressedBtn.getGridRowLoc() - 1][currPressedBtn.getGridColLoc() - 1].setText("");
 
@@ -161,14 +167,32 @@ public class Checkers extends GridGame {
     }
 
     private void movePeiceToButton(GameButton currAvailBtn){
-        gameBoard[currAvailBtn.getGridRowLoc()][currAvailBtn.getGridColLoc()].setText(currentPlayer);
-        ((GameButton<String>)gameBoard[currAvailBtn.getGridRowLoc()][currAvailBtn.getGridColLoc()]).setButtonValue(currentPlayer);
+        String nextVal = (String) currPressedBtn.getButtonValue();
+        if((currAvailBtn.getButtonValue()).equals("w") && currAvailBtn.getGridRowLoc() == rows -1){
+            //White made it to the bottom of the board, King white
+
+            nextVal = "wk";
+
+        }
+        else if((currAvailBtn.getButtonValue()).equals("b") && currAvailBtn.getGridRowLoc() == 0){
+            nextVal = "bk";
+            //Black made it to the top, king black
+        }
+
+        //The value should be depending on where they are placed
+        ((GameButton<String>)gameBoard[currAvailBtn.getGridRowLoc()][currAvailBtn.getGridColLoc()]).setButtonValue(nextVal);
+
+        String theText = ((GameButton<String>)gameBoard[currAvailBtn.getGridRowLoc()][currAvailBtn.getGridColLoc()]).getButtonValue();
+        gameBoard[currAvailBtn.getGridRowLoc()][currAvailBtn.getGridColLoc()].setText(theText);
+        ((GameButton<String>)gameBoard[currAvailBtn.getGridRowLoc()][currAvailBtn.getGridColLoc()]).setOwner(currentPlayer);
+
+
 
         gameBoard[currPressedBtn.getGridRowLoc()][currPressedBtn.getGridColLoc()].setText("");
-        //Wrong Color, FIX!!
         Color acolor = ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc()][currPressedBtn.getGridColLoc()]).getoriginalColor();
         gameBoard[currPressedBtn.getGridRowLoc()][currPressedBtn.getGridColLoc()].setBackground(acolor);
         ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc()][currPressedBtn.getGridColLoc()]).setButtonValue("");
+        ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc()][currPressedBtn.getGridColLoc()]).setOwner("");
         gameBoard[currPressedBtn.getGridRowLoc()][currPressedBtn.getGridColLoc()].setSelected(false);
 
 
@@ -194,7 +218,7 @@ public class Checkers extends GridGame {
 
             //Check to see is there is an item selected and item that was clicked now is the button that was selected,
             // then deselect the button and put item_selected = false;
-            if(item_selected == true && buttonClicked.getButtonValue() == currentPlayer && buttonClicked.isSelected() ){
+            if(item_selected == true && (buttonClicked.getOwner()).equals(currentPlayer)  && buttonClicked.isSelected() ){
                 buttonClicked.setBackground(buttonClicked.getoriginalColor());
                 buttonClicked.setSelected(false);
                 item_selected = false;
@@ -202,17 +226,21 @@ public class Checkers extends GridGame {
                 return;
             }
 
-            //If nothing was selected then select something
-            if(item_selected == false && buttonClicked.getButtonValue() == currentPlayer ){
+            //If nothing was selected then select a basic game peice
+            if(item_selected == false && (buttonClicked.getOwner()).equals(currentPlayer) ){
                 item_selected = true;
                 gameBoard[buttonClicked.getGridRowLoc()][buttonClicked.getGridColLoc()].setSelected(true);
                 gameBoard[buttonClicked.getGridRowLoc()][buttonClicked.getGridColLoc()].setBackground(Color.blue);
 
-                //Calculate the possible moves when the user clicks the first piece'
-                currentPossibleMoves.addAll(checkAvailable1TileMoves(buttonClicked));
-                currentPossibleMoves.addAll(checkAvailable2TileMoves(buttonClicked));
-                currPressedBtn = buttonClicked;
+                if ((buttonClicked.getButtonValue()).equals("w") || (buttonClicked.getButtonValue()).equals("b")){
+                    //Calculate the possible moves when the user clicks the first piece'
+                    currentPossibleMoves.addAll(available1Dir1TileMoves(buttonClicked));
+                    currentPossibleMoves.addAll(available1Dir2TileMoves(buttonClicked));
+                    currPressedBtn = (GameButton) gameBoard[buttonClicked.getGridRowLoc()][buttonClicked.getGridColLoc()];
+                }
                 return;
+
+
 
             }
 
@@ -225,38 +253,38 @@ public class Checkers extends GridGame {
                         && currAvailBtn.getGridColLoc() == buttonClicked.getGridColLoc()){
                     //This is a legal move!
                     //Do all of the changes to make the next move
-
-                    //Find out who is eaten
-                    checkForOverWritesBasic(buttonClicked);
-                    movePeiceToButton(currAvailBtn);
-                    clearPrevMoveState();
-                    if(currentPlayer == "w" && currAvailBtn.getGridRowLoc() == rows -1){
-                        //White made it to the bottom of the board, King white
+                    if ((currPressedBtn.getButtonValue()).equals("w") || (currPressedBtn.getButtonValue()).equals("b")){
+                        //Find out who is eaten
+                        checkForOverWritesBasic(buttonClicked);
+                        movePeiceToButton(currAvailBtn);
+                        clearPrevMoveState();
 
 
-                    }
-                    else if(currentPlayer == "b" && currAvailBtn.getGridRowLoc() == 0){
-                        //Black made it to the top, king black
-                    }
 
 
-                    ArrayList newOptions = checkAvailable2TileMoves(buttonClicked);
-                    if(newOptions.size() != 0){
-                        currentPlayer = getOtherPlayer();
+                        if(itemchanged == true){
+                            ArrayList newOptions = available1Dir2TileMoves(buttonClicked);
+                            if(newOptions.size() != 0){
+                                currentPlayer = getOtherPlayer();
+                                moveFacing = getOtherDirection();
+
+                            }
+                            itemchanged = false;
+                        }
+
+
+                        currentPlayer  = getOtherPlayer();
                         moveFacing = getOtherDirection();
-
                     }
 
-                    currentPlayer  = getOtherPlayer();
-                    moveFacing = getOtherDirection();
+
 
                     return;
-
-
-
                 }
 
             }
+
+
 
 
 
@@ -276,15 +304,19 @@ public class Checkers extends GridGame {
             for (int j = 0; j < cols; j++) {
 
                 if( theColor == placeOnColor && i >= 0 && i <= 2){
-                    gameBoard[i][j] = new GameButton<String>(i,j,"w" );
+                    gameBoard[i][j] = new GameButton<String>(i,j,"w", "w" );
                     gameBoard[i][j].setText("w");
+                    ((GameButton)gameBoard[i][j]).setOwner("w");
+
                 }
                 else if(theColor == placeOnColor && i >= 5 && i <= 7){
-                    gameBoard[i][j] = new GameButton<String>(i,j, "b");
+                    gameBoard[i][j] = new GameButton<String>(i,j, "b", "w");
                     gameBoard[i][j].setText("b");
+                    ((GameButton)gameBoard[i][j]).setOwner("b");
+
                 }
                 else{
-                    gameBoard[i][j] = new GameButton<String>(i,j,"");
+                    gameBoard[i][j] = new GameButton<String>(i,j,"", "");
                     gameBoard[i][j].setText("");
                 }
                 gameBoard[i][j].addActionListener(new Checkers.buttonListener());

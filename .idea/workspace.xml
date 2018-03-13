@@ -2,28 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e59202e-e328-4bdb-9ddc-83eda92dfae4" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/INF-122-Final/src/Checkers.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/INF-122-Final/src/GridGameMoveLogic.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/BoardGameEnvironment.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/BoardGameEnvironment.class" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/Controller.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/Controller.class" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/Dice.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/Dice.class" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/GUI.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/GUI.class" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/GameFactory.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/GameFactory.class" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/GameLogic.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/GridGame.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/GridGame.class" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/LogicTester.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/Main.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/Main.class" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/SnakesAndLadders.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/SnakesAndLadders.class" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/TicTacToe$buttonListener.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/TicTacToe$buttonListener.class" />
+      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/Checkers$buttonListener.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/Checkers$buttonListener.class" />
+      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/Checkers.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/Checkers.class" />
+      <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/GameButton.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/GameButton.class" />
       <change beforePath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/TicTacToe.class" afterPath="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/TicTacToe.class" />
+      <change beforePath="$PROJECT_DIR$/INF-122-Final/src/Checkers.java" afterPath="$PROJECT_DIR$/INF-122-Final/src/Checkers.java" />
       <change beforePath="$PROJECT_DIR$/INF-122-Final/src/GameButton.java" afterPath="$PROJECT_DIR$/INF-122-Final/src/GameButton.java" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/src/GameFactory.java" afterPath="$PROJECT_DIR$/INF-122-Final/src/GameFactory.java" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/src/GameLogic.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/src/GridGame.java" afterPath="$PROJECT_DIR$/INF-122-Final/src/GridGame.java" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/src/LogicTester.java" afterPath="$PROJECT_DIR$/INF-122-Final/src/Misc/LogicTester.java" />
-      <change beforePath="$PROJECT_DIR$/INF-122-Final/src/OldTicTacToe.java" afterPath="$PROJECT_DIR$/INF-122-Final/src/Misc/OldTicTacToe.java" />
       <change beforePath="$PROJECT_DIR$/INF-122-Final/src/TicTacToe.java" afterPath="$PROJECT_DIR$/INF-122-Final/src/TicTacToe.java" />
     </list>
     <ignored path="$PROJECT_DIR$/INF-122-Final/out/production/INF-122-Final/" />
@@ -35,7 +20,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.84236866">
+    <splitter split-orientation="horizontal" split-proportion="0.7606339">
       <split-first>
         <leaf>
           <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
@@ -78,8 +63,8 @@
           <file leaf-file-name="TicTacToe.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/INF-122-Final/src/TicTacToe.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="17">
-                  <caret line="20" column="56" lean-forward="false" selection-start-line="20" selection-start-column="56" selection-end-line="20" selection-end-column="56" />
+                <state relative-caret-position="105">
+                  <caret line="67" column="32" lean-forward="true" selection-start-line="67" selection-start-column="32" selection-end-line="70" selection-end-column="25" />
                   <folding />
                 </state>
               </provider>
@@ -97,36 +82,40 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="GameButton.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/INF-122-Final/src/GameButton.java">
+          <file leaf-file-name="Checkers.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/INF-122-Final/src/Checkers.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="87">
-                  <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+                <state relative-caret-position="215">
+                  <caret line="314" column="61" lean-forward="false" selection-start-line="314" selection-start-column="61" selection-end-line="314" selection-end-column="61" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#560#561#0" expanded="true" />
-                    <element signature="e#590#591#0" expanded="true" />
-                    <element signature="e#637#638#0" expanded="true" />
-                    <element signature="e#673#674#0" expanded="true" />
-                    <element signature="e#705#706#0" expanded="true" />
-                    <element signature="e#730#731#0" expanded="true" />
-                    <element signature="e#762#763#0" expanded="true" />
-                    <element signature="e#790#791#0" expanded="true" />
-                    <element signature="e#843#844#0" expanded="true" />
-                    <element signature="e#884#885#0" expanded="true" />
-                    <element signature="e#912#913#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Checkers.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/INF-122-Final/src/Checkers.java">
+          <file leaf-file-name="GameButton.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/INF-122-Final/src/GameButton.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="87">
-                  <caret line="252" column="0" lean-forward="false" selection-start-line="252" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
+                <state relative-caret-position="104">
+                  <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                    <element signature="e#244#245#0" expanded="true" />
+                    <element signature="e#266#267#0" expanded="true" />
+                    <element signature="e#306#307#0" expanded="true" />
+                    <element signature="e#334#335#0" expanded="true" />
+                    <element signature="e#783#784#0" expanded="true" />
+                    <element signature="e#813#814#0" expanded="true" />
+                    <element signature="e#860#861#0" expanded="true" />
+                    <element signature="e#896#897#0" expanded="true" />
+                    <element signature="e#953#954#0" expanded="true" />
+                    <element signature="e#985#986#0" expanded="true" />
+                    <element signature="e#1013#1014#0" expanded="true" />
+                    <element signature="e#1044#1045#0" expanded="true" />
+                    <element signature="e#1066#1067#0" expanded="true" />
+                    <element signature="e#1107#1108#0" expanded="true" />
+                    <element signature="e#1135#1136#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -139,8 +128,8 @@
           <file leaf-file-name="Checkers.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/INF-122-Final/src/Checkers.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-110">
-                  <caret line="99" column="24" lean-forward="true" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="26" />
+                <state relative-caret-position="1524">
+                  <caret line="281" column="0" lean-forward="false" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -167,6 +156,8 @@
       <find>theButton</find>
       <find>se2</find>
       <find>sw2</find>
+      <find>getOther</find>
+      <find>checkAvailable1TileMoves</find>
     </findStrings>
     <replaceStrings>
       <replace>currentPlayer</replace>
@@ -178,6 +169,8 @@
       <replace>ne2</replace>
       <replace>nw1</replace>
       <replace>nw2</replace>
+      <replace>available1Dir2TileMoves</replace>
+      <replace>available1Dir1TileMoves</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -192,11 +185,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/INF-122-Final/src/GameFactory.java" />
-        <option value="$PROJECT_DIR$/INF-122-Final/src/TicTacToe.java" />
         <option value="$PROJECT_DIR$/INF-122-Final/src/GameLogic.java" />
-        <option value="$PROJECT_DIR$/INF-122-Final/src/GameButton.java" />
         <option value="$PROJECT_DIR$/INF-122-Final/src/GridGameMoveLogic.java" />
         <option value="$PROJECT_DIR$/INF-122-Final/src/GridGame.java" />
+        <option value="$PROJECT_DIR$/INF-122-Final/src/GameButton.java" />
+        <option value="$PROJECT_DIR$/INF-122-Final/src/TicTacToe.java" />
         <option value="$PROJECT_DIR$/INF-122-Final/src/Checkers.java" />
       </list>
     </option>
@@ -400,12 +393,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1520710724542</updated>
-      <workItem from="1520733913670" duration="34026000" />
+      <workItem from="1520733913670" duration="42464000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34026000" />
+    <option name="totallyTimeSpent" value="42464000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -428,7 +421,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32478634" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32478634" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -440,7 +433,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42222223" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42222223" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -491,32 +484,42 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/INF-122-Final/src/Checkers.java</url>
-          <line>223</line>
+          <line>251</line>
           <properties />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/INF-122-Final/src/Checkers.java</url>
-          <line>94</line>
+          <line>96</line>
           <properties />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/INF-122-Final/src/Checkers.java</url>
+          <line>229</line>
+          <properties />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/INF-122-Final/src/Checkers.java</url>
+          <line>220</line>
+          <properties />
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="9" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
-        <watch expression="currentPossibleMoves" />
-        <watch expression="currPressedBtn" />
-        <watch expression="moveFacing" />
-        <watch expression="defaultItem" />
-        <watch expression="currPressedBtn.getGridRowLoc()" />
-        <watch expression="currPressedBtn.getGridColLoc()" />
-        <watch expression="se1" />
-        <watch expression="se2" />
-        <watch expression="sw1" />
-        <watch expression="sw2" />
-        <watch expression="newOptions" />
+        <watch expression="currentPlayer" />
+        <watch expression="item_selected" />
+        <watch expression="buttonClicked.getButtonValue()" />
+        <watch expression="currAvailBtn.getGridRowLoc()" />
+        <watch expression="(buttonClicked.getOwner()).equals(currentPlayer)" />
+        <watch expression="buttonClicked.getOwner()" />
+        <watch expression="moveFacing" language="JAVA" />
+        <watch expression="moveFacing" language="JAVA" />
+        <watch expression="buttonClicked" />
       </configuration>
     </watches-manager>
   </component>
@@ -549,14 +552,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="23" column="38" lean-forward="true" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/INF-122-Final/src/TicTacToe.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="20" column="56" lean-forward="false" selection-start-line="20" selection-start-column="56" selection-end-line="20" selection-end-column="56" />
           <folding />
         </state>
       </provider>
@@ -602,31 +597,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/INF-122-Final/src/TicTacToe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="67" column="32" lean-forward="true" selection-start-line="67" selection-start-column="32" selection-end-line="70" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/INF-122-Final/src/GameButton.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+        <state relative-caret-position="104">
+          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#560#561#0" expanded="true" />
-            <element signature="e#590#591#0" expanded="true" />
-            <element signature="e#637#638#0" expanded="true" />
-            <element signature="e#673#674#0" expanded="true" />
-            <element signature="e#705#706#0" expanded="true" />
-            <element signature="e#730#731#0" expanded="true" />
-            <element signature="e#762#763#0" expanded="true" />
-            <element signature="e#790#791#0" expanded="true" />
-            <element signature="e#843#844#0" expanded="true" />
-            <element signature="e#884#885#0" expanded="true" />
-            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#244#245#0" expanded="true" />
+            <element signature="e#266#267#0" expanded="true" />
+            <element signature="e#306#307#0" expanded="true" />
+            <element signature="e#334#335#0" expanded="true" />
+            <element signature="e#783#784#0" expanded="true" />
+            <element signature="e#813#814#0" expanded="true" />
+            <element signature="e#860#861#0" expanded="true" />
+            <element signature="e#896#897#0" expanded="true" />
+            <element signature="e#953#954#0" expanded="true" />
+            <element signature="e#985#986#0" expanded="true" />
+            <element signature="e#1013#1014#0" expanded="true" />
+            <element signature="e#1044#1045#0" expanded="true" />
+            <element signature="e#1066#1067#0" expanded="true" />
+            <element signature="e#1107#1108#0" expanded="true" />
+            <element signature="e#1135#1136#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/INF-122-Final/src/Checkers.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="252" column="0" lean-forward="false" selection-start-line="252" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
+        <state relative-caret-position="215">
+          <caret line="314" column="61" lean-forward="false" selection-start-line="314" selection-start-column="61" selection-end-line="314" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
