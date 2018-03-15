@@ -16,6 +16,9 @@ public class Checkers extends GridGame {
     private boolean item_selected = false;
     private GridGameMoveLogic gridGameMoveLogic;
 
+    private int p1Score = 12;
+    private int p2Score = 12;
+
     Checkers (int row, int col, String starter){
         super(row, col);
 
@@ -61,31 +64,62 @@ public class Checkers extends GridGame {
 
         return "w";
     }
+    private String getOtherPlayerKing(){
+
+        if(currentPlayer == "w"){
+            return "bk";
+        }
+
+        return "wk";
+    }
+
     private ArrayList available1Dir1TileMoves(GameButton thebutton, String direction){
         ArrayList tempList = new ArrayList();
         if (direction == "s"){
-            GameButton se1 =  getButtonAt(thebutton.getGridRowLoc() + 1, thebutton.getGridColLoc() + 1);
-            GameButton sw1 =  getButtonAt(thebutton.getGridRowLoc() + 1, thebutton.getGridColLoc() -1);
+            try{
+                GameButton se1 =  getButtonAt(thebutton.getGridRowLoc() + 1, thebutton.getGridColLoc() + 1);
+                if(se1 != null && se1.getButtonValue() == defaultItem){
+                    tempList.add(se1);
+                }
+            }
+            catch(Exception e){
+            }
 
-            if(se1 != null && se1.getButtonValue() == defaultItem){
-                tempList.add(se1);
+
+            try{
+                GameButton sw1 =  getButtonAt(thebutton.getGridRowLoc() + 1, thebutton.getGridColLoc() -1);
+                if(sw1 != null && sw1.getButtonValue() == defaultItem){
+                    tempList.add(sw1);
+                }}
+            catch(Exception e){
+
             }
-            if(sw1 != null && sw1.getButtonValue() == defaultItem){
-                tempList.add(sw1);
-            }
+
 
 
         }
         if(direction == "n"){
-            GameButton ne1 =  getButtonAt(thebutton.getGridRowLoc() - 1, thebutton.getGridColLoc() + 1);
-            GameButton nw1 =  getButtonAt(thebutton.getGridRowLoc() - 1, thebutton.getGridColLoc() -1);
+            try{
+                GameButton ne1 =  getButtonAt(thebutton.getGridRowLoc() - 1, thebutton.getGridColLoc() + 1);
+                if(ne1 != null && ne1.getButtonValue() == defaultItem){
+                    tempList.add(ne1);
+                }
+            }
+            catch(Exception e){
 
-            if(ne1 != null && ne1.getButtonValue() == defaultItem){
-                tempList.add(ne1);
             }
-            if(nw1 != null && nw1.getButtonValue() == defaultItem){
-                tempList.add(nw1);
+
+            try{
+
+                GameButton nw1 =  getButtonAt(thebutton.getGridRowLoc() - 1, thebutton.getGridColLoc() -1);
+                if(nw1 != null && nw1.getButtonValue() == defaultItem){
+                    tempList.add(nw1);
+                }
             }
+            catch(Exception e){
+
+            }
+
 
         }
 
@@ -94,45 +128,83 @@ public class Checkers extends GridGame {
 
     private ArrayList available1Dir2TileMoves(GameButton thebutton, String direction){
         ArrayList tempList = new ArrayList();
+        String otherPlayer = getOtherPlayer();
+        String otherKing = getOtherPlayerKing();
+
         if (direction == "s"){
-            GameButton se1 =  getButtonAt(thebutton.getGridRowLoc() + 1, thebutton.getGridColLoc() + 1);
-            GameButton se2 =  getButtonAt(thebutton.getGridRowLoc() + 2, thebutton.getGridColLoc() + 2);
+            try{
+                GameButton se1 =  getButtonAt(thebutton.getGridRowLoc() + 1, thebutton.getGridColLoc() + 1);
+                GameButton se2 =  getButtonAt(thebutton.getGridRowLoc() + 2, thebutton.getGridColLoc() + 2);
 
-            GameButton sw1 =  getButtonAt(thebutton.getGridRowLoc() + 1, thebutton.getGridColLoc() -1);
-            GameButton sw2 =  getButtonAt(thebutton.getGridRowLoc() + 2, thebutton.getGridColLoc() - 2);
+                if(se2 != null && (se1.getButtonValue() == otherPlayer || se1.getButtonValue() == otherKing) && se2.getButtonValue() == defaultItem){
+                    tempList.add(se2);
+                }
+            }catch(Exception e){
 
-            if(se2 != null && se1.getButtonValue() == getOtherPlayer() && se2.getButtonValue() == defaultItem){
-                tempList.add(se2);
             }
 
-            if(sw2 != null && sw1.getButtonValue() == getOtherPlayer() && sw2.getButtonValue() == defaultItem){
-                tempList.add(sw2);
+            try {
+                GameButton sw1 = getButtonAt(thebutton.getGridRowLoc() + 1, thebutton.getGridColLoc() - 1);
+                GameButton sw2 = getButtonAt(thebutton.getGridRowLoc() + 2, thebutton.getGridColLoc() - 2);
+
+                if (sw2 != null && (sw1.getButtonValue() == otherPlayer || sw1.getButtonValue() == otherKing) && sw2.getButtonValue() == defaultItem) {
+                    tempList.add(sw2);
+
+                }
+            }catch(Exception e){
 
             }
 
 
         }
         if(direction == "n"){
-            GameButton ne1 =  getButtonAt(thebutton.getGridRowLoc() - 1, thebutton.getGridColLoc() + 1);
-            GameButton ne2 =  getButtonAt(thebutton.getGridRowLoc() - 2, thebutton.getGridColLoc() + 2);
-
-            GameButton nw1 =  getButtonAt(thebutton.getGridRowLoc() - 1, thebutton.getGridColLoc() -1);
-            GameButton nw2 =  getButtonAt(thebutton.getGridRowLoc() - 2, thebutton.getGridColLoc() - 2);
-
-            if(ne2 != null && ne1.getButtonValue() == getOtherPlayer() && ne2.getButtonValue() == defaultItem){
-                tempList.add(ne2);
+            try{
+                GameButton ne1 =  getButtonAt(thebutton.getGridRowLoc() - 1, thebutton.getGridColLoc() + 1);
+                GameButton ne2 =  getButtonAt(thebutton.getGridRowLoc() - 2, thebutton.getGridColLoc() + 2);
+                if(ne2 != null && (ne1.getButtonValue() == otherPlayer || ne1.getButtonValue() == otherKing)&& ne2.getButtonValue() == defaultItem){
+                    tempList.add(ne2);
+                }
             }
+            catch(Exception e){}
 
-            if(nw2 != null && nw1.getButtonValue() == getOtherPlayer() && nw2.getButtonValue() == defaultItem){
-                tempList.add(nw2);
+
+
+            try{
+                GameButton nw1 =  getButtonAt(thebutton.getGridRowLoc() - 1, thebutton.getGridColLoc() -1);
+                GameButton nw2 =  getButtonAt(thebutton.getGridRowLoc() - 2, thebutton.getGridColLoc() - 2);
+
+                if(nw2 != null && (nw1.getButtonValue() == otherPlayer || nw1.getButtonValue() == otherKing) && nw2.getButtonValue() == defaultItem){
+                    tempList.add(nw2);
+
+                }
 
             }
+            catch(Exception e){}
 
         }
 
         return tempList;
     }
 
+    private void updateScore(){
+        int b = 0;
+        int w = 0;
+        for (int i = 0; i < rows; i++) {
+
+            for (int j = 0; j < cols; j++) {
+                GameButton theButton =(GameButton<String>)gameBoard[i][j];
+                if(theButton.getOwner() == "w"){
+                    w+=1;
+                }
+                if(theButton.getOwner() == "b"){
+                    b+=1;
+                }
+            }
+        }
+
+        p1Score = w;
+        p2Score = b;
+    }
 
     private void checkForOverWritesBasic(GameButton buttonClicked, String direction){
         if(currPressedBtn.getGridColLoc() + 1 < buttonClicked.getGridColLoc()){
@@ -185,7 +257,7 @@ public class Checkers extends GridGame {
                     ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() - 1][currPressedBtn.getGridColLoc() - 1]).setOwner("");
                     itemchanged = true;
                 }catch(Exception e){
-                    
+
                 }
 
 
@@ -330,7 +402,7 @@ public class Checkers extends GridGame {
                         if(itemchanged == true){
                             ArrayList newOptionsN = available1Dir2TileMoves(buttonClicked, "n");
                             ArrayList newOptionsS = available1Dir2TileMoves(buttonClicked, "s");
-                            if(newOptionsN.size() != 0 || newOptionsN.size() != 0){
+                            if(newOptionsN.size() != 0 || newOptionsS.size() != 0){
                                 currentPlayer = getOtherPlayer();
                                 moveFacing = getOtherDirection();
                             }
@@ -343,7 +415,13 @@ public class Checkers extends GridGame {
 
                     }
 
-
+                    //Check to see if game is over
+                    updateScore();
+                    if(p1Score == 0){
+                        JOptionPane.showConfirmDialog(null, "Game Over. Player 1 wins");
+                    }else if(p2Score == 0){
+                        JOptionPane.showConfirmDialog(null, "Game Over. Player 2 wins");
+                    }
 
                     return;
                 }
