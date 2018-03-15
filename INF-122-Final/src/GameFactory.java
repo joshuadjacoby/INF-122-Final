@@ -19,7 +19,7 @@ public class GameFactory {
 		case "Othello":
 			return new Othello(8, 8, gui);
 		case "Snakes and Ladders":
-			return new SnakesAndLadders();
+			return new SnakesAndLadders(gui);
 		}
 		return null;
 	}

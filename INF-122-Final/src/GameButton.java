@@ -24,6 +24,7 @@ public class GameButton extends JButton {
 	  this.boardRow = row;
 	  this.boardColumn = col;
 	  this.value = value;
+	  this.setText(this.value);
   }
 
   public Color getColor() {

@@ -1,18 +1,28 @@
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 
-class SnakesAndLadders {
+import javax.swing.JButton;
+
+class SnakesAndLadders extends GridGame{
 	private static final int BOARD_SIZE = 10;
 	private int turn = 1; // Game starts with Player 1's turn
 	private Dice dice = new Dice();
 	private HashMap<Integer, ArrayList<Integer>> positionOfPlayers = new HashMap<Integer, ArrayList<Integer>>(){};
 	static HashMap<ArrayList<Integer>, ArrayList<Integer>> specialSpaces = new HashMap<ArrayList<Integer>, ArrayList<Integer>>();
-			
-	SnakesAndLadders(){
-		//super(BOARD_SIZE, BOARD_SIZE);
-	    // Initializes player position at bottom left corner
+	GUI gui;
+	
+	SnakesAndLadders(GUI gui){
+		super(BOARD_SIZE, BOARD_SIZE);
+		initializeButtons();
+		setLayout(new GridLayout(0,BOARD_SIZE));
+		add(new GameButton(5,5,"dice"));
+		
+		// Initializes player position at bottom left corner
 	    positionOfPlayers.put(1,new ArrayList<Integer>(Arrays.asList(9, 0)));
 	    positionOfPlayers.put(2,new ArrayList<Integer>(Arrays.asList(9, 0)));
-	    initializeButtons();
+	    
 	
 	    // Creates snakes	    
 	    specialSpaces.put(new ArrayList<Integer>
@@ -39,21 +49,30 @@ class SnakesAndLadders {
 	    	(Arrays.asList(9, 7)), new ArrayList<Integer>(Arrays.asList(8, 6)));
 	}
 
-	public void initializeButtons() {
-		/*
-	    for (int i = 0; i <= 10; i++) {
-	    	for (int j = 0; j <= 10; j++) {
-	    		environment.gameBoard[i] = new JButton();
-	    		environment.gameBoard[i].setText("");
-	    		environment.gameBoard[i].addActionListener(new ticTacToeListener());
-	    	}
-	    	
-	      add(gameBoard[i]); //adds this button to JPanel (note: no need for JPanel.add(...)
-	      //because this whole class is a JPanel already
-	    }
-	  */
-	  }
+	protected void initializeButtons(){
+		for (int i = 0; i < rows; i++) 
+			for (int j = 0; j < cols; j++) {
+				gameBoard[i][j] = new GameButton(i, j, "");
+				gameBoard[i][j].setText("");
+				gameBoard[i][j].addActionListener(new buttonListener());
+				add(gameBoard[i][j]);	
+			}
+	
+	}
 
+	private class buttonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			JButton buttonClicked = (JButton)e.getSource();
+			if (buttonClicked.getText().equals("dice")) {
+				int roll = dice.roll();
+				advancePlayer(turn,roll);
+				turn = ((turn == 1) ? 2 : 1);
+			}
+			if(foundWinner() == true)
+				gui.gameOver();
+		}
+	}
+	
 	public void processLogic() {
 	}
 
@@ -121,7 +140,7 @@ class SnakesAndLadders {
 		}
 		return false;
 	}
-
+	/*
 	public void playGame(){
 		while (!foundWinner()) {
 			Scanner sc = new Scanner(System.in); // Replace scanner with click listening (when we connect to UI)
@@ -135,4 +154,5 @@ class SnakesAndLadders {
 			turn = ((turn == 1) ? 2 : 1);
 			}
 		}
+		*/
 }
