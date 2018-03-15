@@ -7,15 +7,6 @@ public class GameButton<T> extends JButton {
   private int boardColumn;
   private T value;
   private Color originalColor;
-
-  public String getOwner() {
-    return owner;
-  }
-
-  public void setOwner(String owner) {
-    this.owner = owner;
-  }
-
   private String owner;
 
 
@@ -60,6 +51,13 @@ public class GameButton<T> extends JButton {
 
   public void setButtonValue(T value) {
     this.value = value;
+  }
+  public String getOwner() {
+    return owner;
+  }
+
+  public void setOwner(String owner) {
+    this.owner = owner;
   }
 }
 
