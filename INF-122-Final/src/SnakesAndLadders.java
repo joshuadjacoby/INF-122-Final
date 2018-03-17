@@ -1,8 +1,8 @@
+//import java.awt.Color;
 //import java.awt.GridLayout;
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
 //import java.util.*;
-//
 //import javax.swing.JButton;
 //
 //class SnakesAndLadders extends GridGame{
@@ -15,14 +15,11 @@
 //
 //	SnakesAndLadders(GUI gui){
 //		super(BOARD_SIZE, BOARD_SIZE);
-//		initializeButtons();
 //		setLayout(new GridLayout(0,BOARD_SIZE));
-//		add(new GameButton(5,5,"dice"));
 //
 //		// Initializes player position at bottom left corner
 //	    positionOfPlayers.put(1,new ArrayList<Integer>(Arrays.asList(9, 0)));
 //	    positionOfPlayers.put(2,new ArrayList<Integer>(Arrays.asList(9, 0)));
-//
 //
 //	    // Creates snakes
 //	    specialSpaces.put(new ArrayList<Integer>
@@ -40,45 +37,122 @@
 //	    specialSpaces.put(new ArrayList<Integer>
 //	    	(Arrays.asList(3, 3)), new ArrayList<Integer>(Arrays.asList(1, 3)));
 //	    specialSpaces.put(new ArrayList<Integer>
-//	    	(Arrays.asList(4, 3)), new ArrayList<Integer>(Arrays.asList(1, 6)));
+//	    	(Arrays.asList(4, 9)), new ArrayList<Integer>(Arrays.asList(1, 6)));
 //	    specialSpaces.put(new ArrayList<Integer>
 //	    	(Arrays.asList(7, 0)), new ArrayList<Integer>(Arrays.asList(6, 1)));
 //	    specialSpaces.put(new ArrayList<Integer>
 //	    	(Arrays.asList(7, 8)), new ArrayList<Integer>(Arrays.asList(6, 8)));
 //	    specialSpaces.put(new ArrayList<Integer>
 //	    	(Arrays.asList(9, 7)), new ArrayList<Integer>(Arrays.asList(8, 6)));
+//	    initializeButtons();
 //	}
+//
+//	void setPlayers() {
+//		gameBoard[9][0].setText("1,2");
+//	}
+//
+//	void setLadders(int startRow,int startCol, int endRow, int endCol) {
+//		if(startCol == endCol)//straight up
+//			for(int x = startRow; x >= endRow; x--)
+//				gameBoard[x][startCol].setBackground(Color.green);
+//		else if(startCol < endCol)//up right
+//			for(int x = startRow, y = startCol;x >= endRow;x--,y++)
+//				gameBoard[x][y].setBackground(Color.green);
+//		else if(startCol > endCol)//up left
+//			for(int x = startRow, y = startCol;x >= endRow;x--,y--)
+//				gameBoard[x][y].setBackground(Color.green);
+//	}
+//
+//	void setSnakes(int startRow, int startCol, int endRow,int endCol) {
+//		if(startCol == endCol)//straight down
+//			for(int x = startRow; x <= endRow; x++)
+//				gameBoard[x][startCol].setBackground(Color.red);
+//		if(startCol < endCol)//up right
+//			for(int x = startRow, y = startCol;x <= endRow;x++,y++)
+//				gameBoard[x][y].setBackground(Color.red);
+//		if(startCol > endCol)//up left
+//			for(int x = startRow, y = startCol;x <= endRow;x++,y--)
+//				gameBoard[x][y].setBackground(Color.red);
+//	}
+//
+//	void setSnakesandLadders() {
+//		for(Map.Entry<ArrayList<Integer>, ArrayList<Integer>> coordinates : specialSpaces.entrySet()) {
+//			int startRow = coordinates.getKey().get(0);
+//			int startCol = coordinates.getKey().get(1);
+//			int endRow = coordinates.getValue().get(0);
+//			int endCol = coordinates.getValue().get(1);
+//			//set ladders
+//			if(startRow > endRow)
+//				setLadders(startRow,startCol,endRow,endCol);
+//			//set snakes
+//			else if(startRow < endRow)
+//				setSnakes(startRow,startCol,endRow,endCol);
+//		}
+//}
 //
 //	protected void initializeButtons(){
 //		for (int i = 0; i < rows; i++)
 //			for (int j = 0; j < cols; j++) {
-//				gameBoard[i][j] = new GameButton(i, j, "");
-//				gameBoard[i][j].setText("");
+//				GameButton button = new GameButton(i, j, "");
+//				gameBoard[i][j] = button;
 //				gameBoard[i][j].addActionListener(new buttonListener());
 //				add(gameBoard[i][j]);
 //			}
-//
+//		setSnakesandLadders();
+//		setPlayers();
+//		//add a special button for the dice
+//		GameButton button = new GameButton(5,5,"dice");
+//		button.addActionListener(new buttonListener());
+//		add(button);
 //	}
 //
 //	private class buttonListener implements ActionListener{
 //		public void actionPerformed(ActionEvent e){
 //			JButton buttonClicked = (JButton)e.getSource();
-//			if (buttonClicked.getText().equals("dice")) {
-//				int roll = dice.roll();
-//				advancePlayer(turn,roll);
-//				turn = ((turn == 1) ? 2 : 1);
-//			}
-//			if(foundWinner() == true)
+//			if (buttonClicked.getText().equals("dice"))
+//				advanceGame();
+//			checkEndGame();
+//		}
+//		private void advanceGame() {
+//			int roll = dice.roll();
+//			advancePlayer(turn,roll);
+//			turn = ((turn == 1) ? 2 : 1);
+//		}
+//
+//		private void checkEndGame() {
+//			if(foundWinner())
 //				gui.gameOver();
+//
 //		}
 //	}
 //
 //	public void processLogic() {
 //	}
 //
+//	public void separatePieces() {
+//		int currPlayerRow = positionOfPlayers.get(turn).get(0);
+//		int currPlayerCol = positionOfPlayers.get(turn).get(1);
+//		if(gameBoard[currPlayerRow][currPlayerCol].getText().equals("1,2"))
+//			gameBoard[currPlayerRow][currPlayerCol].setText(""+((turn == 1) ? 2 : 1));
+//		else
+//			gameBoard[currPlayerRow][currPlayerCol].setText("");
+//	}
+//
+//	public void updateBoard() {
+//		int currPlayerRow = positionOfPlayers.get(turn).get(0);
+//		int currPlayerCol = positionOfPlayers.get(turn).get(1);
+//		System.out.println(currPlayerRow + " " + currPlayerCol);
+//		if(gameBoard[currPlayerRow][currPlayerCol].getText().equals(""))
+//			gameBoard[currPlayerRow][currPlayerCol].setText(""+((turn == 1) ? 1 : 2));
+//		else if(!gameBoard[currPlayerRow][currPlayerCol].getText().equals(""))
+//			gameBoard[currPlayerRow][currPlayerCol].setText("1,2");
+//
+//	}
+//
 //	public void advancePlayer(int player, int diceRoll){
 //	    ArrayList<Integer> currentPosition = positionOfPlayers.get(player);
 //	    System.out.println("Current position: " + Integer.toString(currentPosition.get(0)) + ", " + Integer.toString(currentPosition.get(1)));
+//	    separatePieces();
 //
 //	    // If row is odd
 //	    if ((currentPosition.get(0)) % 2 == 1) {
@@ -112,8 +186,8 @@
 //	    }
 //	    currentPosition = checkSnakeOrLadder(currentPosition); // Moves the player if on a snake or ladder
 //	    positionOfPlayers.put(player, currentPosition); // Updates player position
+//	    updateBoard();
 //	}
-//
 //
 //	public ArrayList<Integer> checkSnakeOrLadder(ArrayList<Integer> position){
 //    // Returns end position of a snake or ladder
@@ -140,19 +214,4 @@
 //		}
 //		return false;
 //	}
-//	/*
-//	public void playGame(){
-//		while (!foundWinner()) {
-//			Scanner sc = new Scanner(System.in); // Replace scanner with click listening (when we connect to UI)
-//			System.out.println("\nPlayer "+turn+"'s turn");
-//			System.out.print("Enter any number: ");
-//			int i = sc.nextInt();
-//			int roll = dice.roll();
-//			System.out.print("rolled a "+ roll+"!\n");
-//			advancePlayer(turn, roll); // Advance player based on dice number
-//
-//			turn = ((turn == 1) ? 2 : 1);
-//			}
-//		}
-//		*/
 //}

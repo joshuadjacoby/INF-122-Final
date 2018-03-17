@@ -76,6 +76,7 @@ public abstract class BoardSpace extends JButton {
     {
         super.paintComponent(g);
         paintPiece(g);
+        this.repaint();
     }
 
     abstract void paintPiece(Graphics g);

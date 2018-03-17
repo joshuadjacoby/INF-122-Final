@@ -103,7 +103,6 @@ public class Othello extends GameBoard {
                                     OthelloSpace tempSpace = (OthelloSpace) getSpace(currentX, currentY);
                                     if (!tempSpace.hasPiece() && !tempSpace.isMarked()) {
                                         tempSpace.mark(this.playerColor);
-                                        System.out.println(tempSpace.isMarked());
                                     }
                                 }
                             }
