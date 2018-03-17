@@ -9,17 +9,17 @@ public class GameFactory {
 		return gameFactory;
 	}
 
-	public GridGame makeGame(String newGameType, GUI gui) {
+	public GameBoard makeGame(String newGameType, GUI gui) {
 
 		switch (newGameType) {
 		case "Tic-Tac-Toe":
-			return new TicTacToe(3, 3, gui);
+//			return new TicTacToe(3, 3, gui);
 		case "Checkers":
 			break;
 		case "Othello":
 			return new Othello(8, 8, gui);
 		case "Snakes and Ladders":
-			return new SnakesAndLadders(gui);
+//			return new SnakesAndLadders(gui);
 		}
 		return null;
 	}

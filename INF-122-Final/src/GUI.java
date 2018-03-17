@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 @SuppressWarnings("serial")
 public class GUI extends JFrame implements ActionListener {
 	String gameChoice;
-	GridGame game;
+	GameBoard game;
 	JPanel introPanel;
 
 	public GUI(String title) {
