@@ -13,7 +13,7 @@ public class GameFactory {
 
 		switch (newGameType) {
 		case "Tic-Tac-Toe":
-//			return new TicTacToe(3, 3, gui);
+			return new TicTacToe(3, 3, gui);
 		case "Checkers":
 			break;
 		case "Othello":
