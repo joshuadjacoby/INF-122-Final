@@ -10,16 +10,20 @@ import java.net.URL;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame implements ActionListener {
+	private static GUI gui;
+	private static final int introWidth = 700;
+	private static final int introHeight = 270;
 	String gameChoice;
-	GameBoard game;
 	JPanel introPanel;
-	String playerOne;
-	String playerTwo;
+	JTextField playerOneName;
+	JTextField playerTwoName;
+	PlayerManager pm = PlayerManager.getInstance();
+	State s = State.getInstance();
 
 	public GUI(String title) {
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(700, 270);
+		setSize(introWidth, introHeight);
 		setLocationRelativeTo(null);
 		gameChoice = "Tic-Tac-Toe";
 		playerOne = "Player 1";
@@ -32,6 +36,13 @@ public class GUI extends JFrame implements ActionListener {
 		introPanel.setLayout(new BoxLayout(introPanel, BoxLayout.PAGE_AXIS));
 		chooseGame();
 		setVisible(true);
+	}
+
+	public static GUI getInstance() {
+		if (gui == null) {
+			gui = new GUI("G6 Games");
+		}
+		return gui;
 	}
 
 	private void chooseGame() {
@@ -87,13 +98,13 @@ public class GUI extends JFrame implements ActionListener {
 
 	private void startGame() {
 		remove(introPanel);
-		add(game);
+		add(s,getGame());
 		validate();
 	}
 
-	public void gameOver(/*String winningPlayer, String losingPlayer*/) {
-		remove(game);
-		setSize(700, 270);
+	public void gameOver(String winningPlayer, String losingPlayer) {
+		remove(s.getGame());
+		setSize(introWidth, introHeight);
 		add(introPanel);
 		validate();
 	}
@@ -104,7 +115,23 @@ public class GUI extends JFrame implements ActionListener {
 			JComboBox cb = (JComboBox)e.getSource();
 			gameChoice = cb.getSelectedItem().toString();
 		} else if (e.getSource() instanceof JButton) {
-			game = GameFactory.getInstance().makeGame(gameChoice, this);
+			GameBoard game = GameFactory.getInstance().makeGame(gameChoice, this);
+			Player playerOne;
+			Player playerTwo;
+			if (!pm.playerExists(playerOneName.getText())) {
+				playerOne = new Player(playerOneName.getText(), pm.getPlayerIDCount());
+				pm.incrementPlayerIDCount();
+			} else {
+				playerOne = pm.findPlayer(playerOneName.getText());
+			}
+			if (!pm.playerExists(playerTwoName.getText())) {
+				playerTwo = new Player(playerTwoName.getText(), pm.getPlayerIDCount());
+				pm.incrementPlayerIDCount();
+			} else {
+				playerTwo = pm.findPlayer(playerTwoName.getText());
+			}
+			s.updatePlayers(playerOne, playerTwo);
+			s.updateGame(game);
 			startGame();
 		}
 	}
