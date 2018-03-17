@@ -14,7 +14,7 @@ public class TicTacToe extends GameBoard {
 		setLayout(new GridLayout(0,col));
 		initializeButtons();
 	}
-
+	
 	protected void initializeButtons()
 	{
 		for (int i = 0; i < rows; i++) {

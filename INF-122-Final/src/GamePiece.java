@@ -23,5 +23,4 @@ public class GamePiece {
     public Color getColor() { return color; }
 
     public int getOwnerNum() { return ownerNum; }
-   
 }
