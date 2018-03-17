@@ -12,16 +12,14 @@ public class GameFactory {
 	public GameBoard makeGame(String newGameType, GUI gui) {
 
 		switch (newGameType) {
-			case "Tic-Tac-Toe":
-				//return new TicTacToe(3, 3);
-			case "Checkers":
-			//	return new Checkers();
-				//return new Checkers(8,8 , "w");
-			case "Othello":
-			//	return new Othello();
-				break;
-			case "Snakes and Ladders":
-				//return new SnakesAndLadders();
+		case "Tic-Tac-Toe":
+			return new TicTacToe(3, 3, gui);
+		case "Checkers":
+			break;
+		case "Othello":
+			return new Othello(8, 8, gui);
+		case "Snakes and Ladders":
+//			return new SnakesAndLadders(gui);
 		}
 		return null;
 	}
