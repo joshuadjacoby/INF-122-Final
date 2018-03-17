@@ -20,12 +20,12 @@ public class OthelloSpace extends BoardSpace {
     public void mark(Color color) {
         hasMarker = true;
         markerColor = color;
-        this.validate();
+        this.repaint();
     }
     public void unmark() {
         hasMarker = false;
         markerColor = null;
-        this.validate();
+        this.repaint();
     }
     public boolean isMarked() { return hasMarker; }
 
