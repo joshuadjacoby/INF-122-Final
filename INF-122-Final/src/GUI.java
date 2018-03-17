@@ -17,12 +17,8 @@ public class GUI extends JFrame implements ActionListener {
 	public GUI(String title) {
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-<<<<<<< HEAD
-		setBounds(300, 0, 1000, 1000);
-=======
 		setSize(700, 270);
 		setLocationRelativeTo(null);
->>>>>>> gui
 		gameChoice = "Tic-Tac-Toe";
 		try {
 			introPanel = new JPanelWithBackground("src/images/space.jpg");
