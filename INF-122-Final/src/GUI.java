@@ -11,7 +11,7 @@ public class GUI extends JFrame implements ActionListener {
 	public GUI(String title) {
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(300, 200, 300, 100);
+		setBounds(300, 0, 1000, 1000);
 		gameChoice = "Tic-Tac-Toe";
 		introPanel = new JPanel();
 		chooseGame();
@@ -33,7 +33,6 @@ public class GUI extends JFrame implements ActionListener {
 
 	private void startGame() {
 		remove(introPanel);
-		setBounds(300, 200, 300, 300);
 		add(game);
 		validate();
 	}

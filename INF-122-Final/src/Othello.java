@@ -57,9 +57,6 @@ public class Othello extends GameBoard {
 		}
 	}
 
-	public void processLogic() {
-	}
-
 	public void resetButtons() {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
@@ -81,7 +78,7 @@ public class Othello extends GameBoard {
 	}
 	
 	public void allPossibleMoves() {
-		ArrayList<OthelloSpace> currentPlayerPieces = new ArrayList<OthelloSpace>();
+		ArrayList<OthelloSpace> currentPlayerPieces = new ArrayList<>();
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
                 if (getSpace(i, j).hasPiece()) {
@@ -106,6 +103,7 @@ public class Othello extends GameBoard {
                                     OthelloSpace tempSpace = (OthelloSpace) getSpace(currentX, currentY);
                                     if (!tempSpace.hasPiece() && !tempSpace.isMarked()) {
                                         tempSpace.mark(this.playerColor);
+                                        System.out.println(tempSpace.isMarked());
                                     }
                                 }
                             }
@@ -147,26 +145,29 @@ public class Othello extends GameBoard {
 			for (int j = -1; j < 2; j++) {
 				int currentX = x + i;
 				int currentY = y + j;
-                tempSpace = (OthelloSpace) getSpace(currentX,currentY);
 
 				while ( 0 <= currentX && currentX < this.rows && 0 <= currentY && currentY < this.cols ) {
+                    tempSpace = (OthelloSpace) getSpace(currentX,currentY);
                     if (tempSpace.hasPiece()) {
                         if (getPieceAt(currentX, currentY).getColor() == this.opponentColor) {
                             currentX += i;
                             currentY += j;
-                            tempSpace = (OthelloSpace) getSpace(currentX, currentY);
 
-                            if (tempSpace.hasPiece()) {
-                                if (getPieceAt(currentX, currentY).getColor() == this.playerColor && !tempSpace.isMarked()) {
-                                    while (currentX != x + i || currentY != y + j) {
-                                        currentX -= i;
-                                        currentY -= j;
-                                        getPieceAt(currentX, currentY).setColor(this.playerColor);
-                                        updateScore(this.playerColor, 1, 1);
+                            if(0 <= currentX && currentX < this.rows && 0 <= currentY && currentY < this.cols) {
+                                tempSpace = (OthelloSpace) getSpace(currentX, currentY);
+                                if (tempSpace.hasPiece()) {
+                                    if (getPieceAt(currentX, currentY).getColor() == this.playerColor && !tempSpace.isMarked()) {
+                                        while (currentX != x + i || currentY != y + j) {
+                                            currentX -= i;
+                                            currentY -= j;
+                                            getPieceAt(currentX, currentY).setColor(this.playerColor);
+                                            updateScore(this.playerColor, 1, 1);
+                                        }
+                                        valid = true;
                                     }
-                                    valid = true;
                                 }
                             }
+
                         } else {
                             break;
                         }

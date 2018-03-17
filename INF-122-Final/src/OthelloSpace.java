@@ -20,20 +20,21 @@ public class OthelloSpace extends BoardSpace {
     public void mark(Color color) {
         hasMarker = true;
         markerColor = color;
-        this.repaint();
+        this.validate();
     }
     public void unmark() {
         hasMarker = false;
         markerColor = null;
-        this.repaint();
+        this.validate();
     }
     public boolean isMarked() { return hasMarker; }
 
     public void paintPiece(Graphics g) {
+
         if (hasMarker) {
             g.setColor(markerColor);
             g.fillOval(getWidth() / 2 - 10, getHeight() / 2 - 10, 20, 20);
-        } else {
+        } else if (hasPiece()){
             g.setColor(piece.getColor());
             g.fillOval(getWidth() / 2 - 30, getHeight() / 2 - 30, 60, 60);
         }

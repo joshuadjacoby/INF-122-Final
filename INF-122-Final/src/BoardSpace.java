@@ -50,7 +50,7 @@ public abstract class BoardSpace extends JButton {
     {
         this.backgroundColor = color;
         this.setBackground(color);
-        this.repaint();
+        this.validate();
     }
     public Color getBgColor() { return backgroundColor; }
 
@@ -60,13 +60,13 @@ public abstract class BoardSpace extends JButton {
     {
         piece = gamePiece;
         hasPiece = true;
-        this.repaint();
+        this.validate();
     }
     public void clearGamePiece()
     {
         piece = null;
         hasPiece = false;
-        this.repaint();
+        this.validate();
     }
 
     // hasPiece getter
@@ -75,10 +75,7 @@ public abstract class BoardSpace extends JButton {
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        if(hasPiece)
-        {
-            paintPiece(g);
-        }
+        paintPiece(g);
     }
 
     abstract void paintPiece(Graphics g);
