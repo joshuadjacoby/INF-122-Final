@@ -2,94 +2,62 @@ import javax.swing.*;
 import java.awt.*;
 
 @SuppressWarnings("serial")
-public class GameButton extends JButton {
+public class GameButton<T> extends JButton {
   private int boardRow;
   private int boardColumn;
-  private String value;
-  private Color pieceColor;
-  private boolean isPiece = false;
-  private boolean marker = false;
+  private T value;
+  private Color originalColor;
+  private String owner;
 
-  public GameButton(int row, int col, String buttonVal, Color color) {
-    super();
-    this.boardRow = row;
-    this.boardColumn = col;
-    this.value = buttonVal;
-    this.pieceColor = color;
-    this.isPiece = true;
-  }
-  
-  public GameButton(int row, int col, String value) {
-	  super();
-	  this.boardRow = row;
-	  this.boardColumn = col;
-	  this.value = value;
-	  this.setText(this.value);
+
+
+  public GameButton(String name, int row, int col, T buttonVal, String theowner) {
+    super(name);
+    boardRow = row;
+    boardColumn = col;
+    value = buttonVal;
+    originalColor = null;
+    owner = theowner;
   }
 
-  public Color getColor() {
-    return this.pieceColor;
+
+  public GameButton( int row, int col, T buttonVal, String theowner) {
+    boardRow = row;
+    boardColumn = col;
+    value = buttonVal;
+    owner = theowner;
   }
 
-  public void setColor(Color color) {
-    this.pieceColor = color;
-    this.isPiece = true;
-    this.repaint();
-  }
-  
-  public void clearSpace() {
-	  this.pieceColor = null;
-	  this.isPiece = false;
-	  this.marker = false;
-	  this.repaint();
+
+  public Color getoriginalColor() {
+    return originalColor;
   }
 
-  public int getGameX() {
+  public void setoriginalColor(Color color) {
+    this.originalColor = color;
+  }
+
+  public int getGridRowLoc() {
     return boardRow;
   }
 
-  public int getGameY() {
+  public int getGridColLoc() {
     return boardColumn;
   }
 
-  public String getButtonValue() {
+  public T getButtonValue() {
     return value;
   }
 
-  public void setButtonValue(String value) {
+  public void setButtonValue(T value) {
     this.value = value;
   }
-  
-  public boolean isAPiece() {
-	  return this.isPiece;
+  public String getOwner() {
+    return owner;
   }
-  
-  public boolean isMarked() {
-	  return this.marker;
-  }
-  
-  public void setMark() {
-	  this.marker = true;
-  }
-  
-  public void unMark() {
-	  this.marker = false;
-  }
-  
-  public void paintComponent(Graphics g)
-  {
-      if (!isPiece)
-          super.paintComponent(g);
-      else {
-    	  if (marker) {
-    		  super.paintComponent(g);
-    		  g.setColor(this.pieceColor);
-              g.fillOval(getWidth()/2 - 10, getHeight()/2 - 10, 20, 20);
-    	  } else {
-    		  super.paintComponent(g);
-    		  g.setColor(this.pieceColor);
-              g.fillOval(getWidth()/2 - 30, getHeight()/2 - 30, 60, 60);
-    	  }
-      }       
+
+  public void setOwner(String owner) {
+    this.owner = owner;
   }
 }
+

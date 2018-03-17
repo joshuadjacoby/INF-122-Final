@@ -41,7 +41,7 @@
 //	    
 //	    
 //	    
-//	    GameLogic logic = new GameLogic(8,8,0);
+//	    GridGameMoveLogic logic = new GridGameMoveLogic(8,8,0);
 //	    
 //	    ArrayList<int[]> freeSpacesN = logic.getNorthSpaces(4,4, theGame);
 //	    ArrayList<int[]> freeSpacesNE = logic.getNorthEastSpaces(4,4, theGame);

@@ -1,31 +1,3 @@
-<<<<<<< Updated upstream
-
-class Player{
-	private int playerNum;
-	private int score = 0;
-	
-	Player(){}
-	
-	void setPlayerNum(int num){
-		this.playerNum = num;
-	}
-	
-	int getPlayerNum(){
-		return playerNum;
-	}
-	
-	int updateScore(int newScore){//should be able to handle increasing/decreasing score
-		this.score += newScore;
-		return this.score;
-	}
-	
-	int getScore(){
-		return this.score;
-	}
-	
-	
-}
-=======
 import java.awt.*;
 
 class Player{
@@ -33,7 +5,7 @@ class Player{
     private int playerID;
     private int numberOfWins;
     private int numberOfLosses;
-	
+
 	Player(String name, int id){
 	    this.name = name;
 	    this.playerID = id;
@@ -69,4 +41,3 @@ class Player{
 		this.numberOfLosses++;
 	}
 }
->>>>>>> Stashed changes
