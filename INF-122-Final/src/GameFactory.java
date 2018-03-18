@@ -13,15 +13,15 @@ public class GameFactory {
 
 		switch (newGameType) {
 			case "Tic-Tac-Toe":
-				return new TicTacToe(3, 3);
+//				return new TicTacToe(3, 3);
 			case "Checkers":
 			//	return new Checkers();
-				return new Checkers(8,8 , "w");
+				return new Checkers(8,8 , 1);
 			case "Othello":
 			//	return new Othello();
 				break;
 			case "Snakes and Ladders":
-				return new SnakesAndLadders();
+//				return new SnakesAndLadders();
 		}
 		return null;
 	}

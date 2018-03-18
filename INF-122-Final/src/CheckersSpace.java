@@ -44,8 +44,7 @@ public class CheckersSpace extends BoardSpace {
 class CheckersPieceBlack extends GamePiece {
     public CheckersPieceBlack()
     {
-        super("black", Color.BLACK, 2);
-    }
+        super("black", Color.BLACK, 2);}
 }
 
 class CheckersPieceWhite extends GamePiece {

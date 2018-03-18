@@ -54,8 +54,12 @@ public abstract class BoardSpace extends JButton {
         this.repaint();
     }
     public void setOriginalColor(Color color){
-        this.originalColor = color
+        this.originalColor = color;
     }
+    public Color getOriginalColor(){
+        return this.originalColor;
+    }
+    
     public Color getBgColor() { return backgroundColor; }
 
     // game piece getter, setter & clear

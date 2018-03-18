@@ -8,7 +8,7 @@ public abstract class GameBoard extends JPanel {
 
 	public GameBoard(int row, int col) {
 		gameBoard = new BoardSpace[row][col];
-		this.rows = row;x
+		this.rows = row;
         this.cols = col;
     }
 
@@ -21,15 +21,17 @@ public abstract class GameBoard extends JPanel {
 
     protected GamePiece getPieceAt(int x, int y)
     {
-        if (getSpace(,y).hasPiece())
+        if (getSpace(x,y).hasPiece())
         {
             return getSpace(x,y).getGamePiece();
         }
         else
             return null;
     }
-    protected void setPieceAt(int x, int y, GamePieece item) {
-        setSpace(x, y, getSpace(x,y).setGamePiece(item));
+    protected void setPieceAt(int x, int y, GamePiece item) {
+    	BoardSpace space = getSpace(x,y);
+    	space.setGamePiece(item);
+        setSpace(x, y, space);
 
     }
 
