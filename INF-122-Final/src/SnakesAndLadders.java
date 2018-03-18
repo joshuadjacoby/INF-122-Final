@@ -183,7 +183,18 @@ public class SnakesAndLadders extends GameBoard {
 				
 			}
 			
+			if ((player1x == 0) && (player1y - roll <= 0) && (turn == 1)) {
+				gameBoard[0][0].setGamePiece(new SNLPieceBlack()); //
+				foundWinner(1);
+			}
+			
+			if ((player2x == 0) && (player2y - roll <= 0) && (turn == 2)) {
+				gameBoard[0][0].setGamePiece(new SNLPieceWhite()); //
+				foundWinner(2);
+			}
 			advancePlayer(turn,roll);
+				
+			
 			player1x = getPlayer1Position().get(0);
 			player1y = getPlayer1Position().get(1);
 			
@@ -200,12 +211,8 @@ public class SnakesAndLadders extends GameBoard {
 			else {
 				gameBoard[player2x][player2y].setGamePiece(new SNLPieceWhite());
 			}
+
 			turn = ((turn == 1) ? 2 : 1);
-		}
-		
-		private void checkEndGame() {
-			if(foundWinner())
-				gui.gameOver();
 	}
 	
 	public void processLogic() {
@@ -281,7 +288,7 @@ public class SnakesAndLadders extends GameBoard {
 	    updateBoard();
 	}
 	
-	public void showSNLAlert() {
+	public void showSNLAlert() { // put this in panel
 		if (turn == 1) {
 			JOptionPane.showMessageDialog(null, "Black has landed on a snake or ladder! Follow it!");
 		}
@@ -295,7 +302,7 @@ public class SnakesAndLadders extends GameBoard {
     // Returns end position of a snake or ladder
 	    if (specialSpaces.containsKey(position)) { // position = <2,3>
 	    	System.out.println("snake/ladder found, new position: " + Integer.toString(specialSpaces.get(position).get(0)) + ", " + Integer.toString(specialSpaces.get(position).get(1)));
-	    	showSNLAlert();
+	    	// showSNLAlert(); // move this to panel 
 	    	return specialSpaces.get(position);
 	    }
 	    else {
@@ -304,18 +311,9 @@ public class SnakesAndLadders extends GameBoard {
 	    }
 	}
 	
-	public boolean foundWinner() {
-		for (int i = 1; i <= 2; i++) {
-			if(positionOfPlayers.get(i).get(0) == -1){
-				System.out.println("Player " + Integer.toString(i) + " won!");
-		    	return true;
-			}
-			else if((positionOfPlayers.get(i).get(0) == 0) && (positionOfPlayers.get(i).get(1) == 0)) {
-				System.out.println("Player " + Integer.toString(i) + " won!");
-		    	return true;
-		    }
-		}
-		return false;
+	public void foundWinner(int playerNum) {
+		JOptionPane.showMessageDialog(null, "Player " + Integer.toString(playerNum) + " won!");
+		gui.gameOver();
 	}
 
 private class SNLButtonListener extends ButtonListener {
