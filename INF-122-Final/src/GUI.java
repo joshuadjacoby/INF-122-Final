@@ -12,7 +12,9 @@ import java.net.URL;
 public class GUI extends JFrame implements ActionListener {
 	private static GUI gui = null;
 	private static final int introWidth = 700;
-	private static final int introHeight = 600;
+	private static final int introHeight = 270;
+	private static final int gameWidth = 1000;
+    private static final int gameHeight = 800;
 	String gameChoice;
 	JPanel introPanel;
 	JPanel gameContainer;
@@ -29,12 +31,12 @@ public class GUI extends JFrame implements ActionListener {
 		setSize(introWidth, introHeight);
 		setLocationRelativeTo(null);
 		gameChoice = "Tic-Tac-Toe";
-		try {
-			introPanel = new JPanelWithBackground("src/images/space.jpg");
-		} catch(IOException e){
-			introPanel = new JPanel();
-		}
-		introPanel.setLayout(new BoxLayout(introPanel, BoxLayout.PAGE_AXIS));
+        try {
+            introPanel = new JPanelWithBackground("src/images/space.jpg");
+        } catch(IOException e){
+            introPanel = new JPanel();
+        }
+        introPanel.setLayout(new BoxLayout(introPanel, BoxLayout.PAGE_AXIS));
 	}
 
 	public static GUI getInstance() {
@@ -48,6 +50,14 @@ public class GUI extends JFrame implements ActionListener {
 		s = State.getInstance();
 		chooseGame();
 	}
+
+    private void showIntroPanel(JPanel toRemove) {
+        remove(toRemove);
+        setSize(introWidth, introHeight);
+        add(introPanel);
+        introPanel.repaint();
+        validate();
+    }
 
 	private void chooseGame() {
 		String gameNames[] = {"Tic-Tac-Toe", "Checkers", "Othello", "Snakes and Ladders"};
@@ -101,13 +111,15 @@ public class GUI extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 
-	private void startGame() {
-		remove(introPanel);
+	private void startGame(JPanel toRemove, GameBoard game) {
+		remove(toRemove);
+        s.setGame(game);
 		statsContainer = new JPanel();
 		gameContainer = new JPanel();
 		gameContainer.setLayout(new BoxLayout(gameContainer, BoxLayout.X_AXIS));
 		gameContainer.add(s.getGame());
 		gameContainer.add(statsContainer);
+		setSize(gameWidth, gameHeight);
 		add(gameContainer);
 		validate();
 	}
@@ -115,19 +127,11 @@ public class GUI extends JFrame implements ActionListener {
 	public void gameOver(/*String winningPlayer, String losingPlayer*/) {
 		int reply = JOptionPane.showConfirmDialog(null, "Do you want to play again?", "Game Over!", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-        	remove(s.getGame());
-        	s.setGame(GameFactory.getInstance().makeGame(gameChoice, this));
-        	add(s.getGame());
-        	validate();
+        	startGame(gameContainer, GameFactory.getInstance().makeGame(gameChoice, this));
         }
         else {
-        	JOptionPane.showMessageDialog(null, "GOODBYE");
-			remove(s.getGame());
-			validate();
-			setSize(700, 270);
-			add(introPanel);
-			introPanel.repaint();
-			validate();
+        	JOptionPane.showMessageDialog(null, "kbye");
+			showIntroPanel(gameContainer);
         }
 	}
 
@@ -153,8 +157,7 @@ public class GUI extends JFrame implements ActionListener {
 				playerTwo = pm.findPlayer(playerTwoName.getText());
 			}
 			s.setPlayers(playerOne, playerTwo);
-			s.setGame(game);
-			startGame();
+			startGame(introPanel, game);
 		}
 	}
 
