@@ -7,6 +7,10 @@ public class State {
 	private int playerTwoScore;
 	private GUI gui;
 
+	public State() {
+		gui = GUI.getInstance();
+	}
+
 	public static State getInstance() {
 		if (state == null) {
 			state = new State();
@@ -27,10 +31,6 @@ public class State {
 		{
 
 		}
-	}
-
-	public void setGUI(GUI g) {
-		this.gui = g;
 	}
 
 	public void setPlayers(Player p1, Player p2) {
