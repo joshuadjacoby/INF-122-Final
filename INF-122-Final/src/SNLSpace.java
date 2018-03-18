@@ -9,14 +9,15 @@ public class SNLSpace extends BoardSpace {
     private boolean hasMarker;
     private Color markerColor;
     Image snakeHeadImg;
-    Image snakeTailImg;
+    Image ladderImg;
 
     // construct empty space
     public SNLSpace(int row, int col, String spaceValue) {
         super(row, col, spaceValue);
         
         try {
-        	snakeHeadImg = ImageIO.read(getClass().getResource("images/snake-head.png"));
+        	snakeHeadImg = ImageIO.read(getClass().getResource("images/snake.png"));
+        	ladderImg = ImageIO.read(getClass().getResource("images/stairs.png"));
         }
         catch (Exception ex) {
         	System.out.println(ex);
@@ -32,13 +33,18 @@ public class SNLSpace extends BoardSpace {
 
     public boolean isMarked() { return hasMarker; }
 
-    
+    @Override
     void paintPiece(Graphics g) {
     	if(hasPiece())
 		{
-            if(getGamePiece().getName().equals("S")) // change condition
+            if(getGamePiece().getName().equals("S"))
             {
                 setIcon(new ImageIcon(snakeHeadImg));
+            }
+            
+            if(getGamePiece().getName().equals("L"))
+            {
+                setIcon(new ImageIcon(ladderImg));
             }
 		}
     }
@@ -47,6 +53,12 @@ public class SNLSpace extends BoardSpace {
 class SnakeHead extends GamePiece {	
 	public SnakeHead() {
 		super("S", null, 1); // change S later
+	}
+}
+
+class Ladder extends GamePiece {	
+	public Ladder() {
+		super("L", null, 1); // change S later
 	}
 }
     

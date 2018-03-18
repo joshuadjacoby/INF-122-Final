@@ -92,26 +92,32 @@ public class SnakesAndLadders extends GameBoard {
 	void setLadders(int startRow,int startCol, int endRow, int endCol) {
 		if(startCol == endCol)//straight up
 			for(int x = startRow; x >= endRow; x--)
-				getSpace(x, startCol).setIcon(new ImageIcon("snakeHead.jpg"));
-				// getSpace(x, startCol).setBgColor(new Color(0, 255, 0));
+				//getSpace(x, startCol).setGamePiece(new SnakeHead());
+				//getSpace(x, startCol).setBgColor(new Color(0, 255, 0));
+				getSpace(x, startCol).setGamePiece(new Ladder());
 		else if(startCol < endCol)//up right
 			for(int x = startRow, y = startCol;x >= endRow;x--,y++)
-				getSpace(x, y).setBgColor(new Color(0, 255, 0));
+				//getSpace(x, y).setBgColor(new Color(0, 255, 0));
+				getSpace(x, y).setGamePiece(new Ladder());
 		else if(startCol > endCol)//up left
 			for(int x = startRow, y = startCol;x >= endRow;x--,y--)
-				getSpace(x, y).setBgColor(new Color(0, 255, 0));
+				//getSpace(x, y).setBgColor(new Color(0, 255, 0));
+				getSpace(x, y).setGamePiece(new Ladder());
 	}
 	
 	void setSnakes(int startRow, int startCol, int endRow,int endCol) {
 		if(startCol == endCol)//straight down
 			for(int x = startRow; x <= endRow; x++)
-				getSpace(x, startCol).setBgColor(new Color(225, 0, 0));
+				//getSpace(x, startCol).setBgColor(new Color(225, 0, 0));
+				getSpace(x, startCol).setGamePiece(new SnakeHead());
 		if(startCol < endCol)//up right
 			for(int x = startRow, y = startCol;x <= endRow;x++,y++)
-				getSpace(x, y).setBgColor(new Color(225, 0, 0));
+				// getSpace(x, y).setBgColor(new Color(225, 0, 0));
+				getSpace(x, y).setGamePiece(new SnakeHead());
 		if(startCol > endCol)//up left
 			for(int x = startRow, y = startCol;x <= endRow;x++,y--)
-				getSpace(x, y).setBgColor(new Color(225, 0, 0));
+				//getSpace(x, y).setBgColor(new Color(225, 0, 0));
+				getSpace(x, y).setGamePiece(new SnakeHead());
 	}
 	
 	public void setSnakesandLadders() {
