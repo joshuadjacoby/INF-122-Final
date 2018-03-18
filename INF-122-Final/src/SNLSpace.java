@@ -8,16 +8,18 @@ import javax.imageio.ImageIO;
 public class SNLSpace extends BoardSpace {
     private boolean hasMarker;
     private Color markerColor;
-    Image snakeHeadImg;
+    Image snakeImg;
     Image ladderImg;
+    Image diceImg;
 
     // construct empty space
     public SNLSpace(int row, int col, String spaceValue) {
         super(row, col, spaceValue);
         
         try {
-        	snakeHeadImg = ImageIO.read(getClass().getResource("images/snake.png"));
+        	snakeImg = ImageIO.read(getClass().getResource("images/snake.png"));
         	ladderImg = ImageIO.read(getClass().getResource("images/stairs.png"));
+        	diceImg = ImageIO.read(getClass().getResource("images/dice.png"));
         }
         catch (Exception ex) {
         	System.out.println(ex);
@@ -39,26 +41,56 @@ public class SNLSpace extends BoardSpace {
 		{
             if(getGamePiece().getName().equals("S"))
             {
-                setIcon(new ImageIcon(snakeHeadImg));
+                setIcon(new ImageIcon(snakeImg));
             }
             
             if(getGamePiece().getName().equals("L"))
             {
                 setIcon(new ImageIcon(ladderImg));
             }
+            
+            if(getGamePiece().getName().equals("D"))
+            {
+                setIcon(new ImageIcon(diceImg));
+            }
+            
+            
+            if (getGamePiece().getName().equals("P1,P2")) {
+            	g.setColor(Color.WHITE);
+            	g.fillOval(getWidth() / 4 - 30, getHeight() / 4 - 30, 60, 60);
+            	g.setColor(Color.BLACK);
+            	g.fillOval(getWidth() * 3/4 - 30, getHeight() * 3/4 - 30, 60, 60);
+            	this.repaint();
+            }
+            if (getGamePiece().getName().equals("P1")) {
+            	g.setColor(Color.BLACK);
+            	g.fillOval(getWidth()/2 - 30, getHeight()/2 - 30, 60, 60);
+            }
+            
+            if (getGamePiece().getName().equals("P2")) {
+            	g.setColor(Color.WHITE);
+            	g.fillOval(getWidth()/2 - 30, getHeight()/2 - 30, 60, 60);
+            }
 		}
+    	
     }
 }
 
-class SnakeHead extends GamePiece {	
-	public SnakeHead() {
-		super("S", null, 1); // change S later
+class Snake extends GamePiece {	
+	public Snake() {
+		super("S", null, 1);
 	}
 }
 
 class Ladder extends GamePiece {	
 	public Ladder() {
-		super("L", null, 1); // change S later
+		super("L", null, 1);
+	}
+}
+
+class DiceBtn extends GamePiece {	
+	public DiceBtn() {
+		super("D", null, 1);
 	}
 }
     
@@ -66,14 +98,21 @@ class Ladder extends GamePiece {
 class SNLPieceBlack extends GamePiece {
     public SNLPieceBlack()
     {
-        super("black", Color.BLACK, 1);
+        super("P1", null, 1);
     }
 }
 
 class SNLPieceWhite extends GamePiece {
     public SNLPieceWhite()
     {
-        super("white", Color.WHITE, 2);
+        super("P2", null, 2);
+    }
+}
+
+class SNLBothPieces extends GamePiece {
+    public SNLBothPieces()
+    {
+        super("P1,P2", null, 2);
     }
 }
 

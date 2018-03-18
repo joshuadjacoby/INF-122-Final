@@ -12,9 +12,11 @@ import java.net.URL;
 public class GUI extends JFrame implements ActionListener {
 	private static GUI gui = null;
 	private static final int introWidth = 700;
-	private static final int introHeight = 270;
+	private static final int introHeight = 600;
 	String gameChoice;
 	JPanel introPanel;
+	JPanel gameContainer;
+	JPanel statsContainer;
 	JTextField playerOneName;
 	JTextField playerTwoName;
 	PlayerManager pm;
@@ -101,7 +103,12 @@ public class GUI extends JFrame implements ActionListener {
 
 	private void startGame() {
 		remove(introPanel);
-		add(s.getGame());
+		statsContainer = new JPanel();
+		gameContainer = new JPanel();
+		gameContainer.setLayout(new BoxLayout(gameContainer, BoxLayout.X_AXIS));
+		gameContainer.add(s.getGame());
+		gameContainer.add(statsContainer);
+		add(gameContainer);
 		validate();
 	}
 

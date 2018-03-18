@@ -1,8 +1,13 @@
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
@@ -15,7 +20,7 @@ public class SnakesAndLadders extends GameBoard {
 	static HashMap<ArrayList<Integer>, ArrayList<Integer>> specialSpaces = new HashMap<ArrayList<Integer>, ArrayList<Integer>>();
 	private GUI gui;
 	
-	public SnakesAndLadders(int row, int col, GUI gui){
+	public SnakesAndLadders(int row, int col, GUI gui) {
 		super(row, col);
 		this.gui = gui;
 	
@@ -76,23 +81,34 @@ public class SnakesAndLadders extends GameBoard {
 		}
 		
 		
+		
 		setSnakesandLadders();
 		setPlayers();
 		//add a special button for the dice
-		SNLSpace button = new SNLSpace(-1, -1, "dice");
+		SNLSpace button = new SNLSpace(0, 0, "dice");
 		button.setText("Roll Dice");
+//		button.setIcon(new ImageIcon(this.getClass().getResource("/images/button_next.jpg")));
+//		getSpace(0, 0).setGamePiece(new DiceBtn());
+		//button.setIcon(ImageIO.read(getClass().getResource("images/dice.png")))
+		
+		
 		button.addActionListener(new SNLButtonListener());
 		add(button);
+		//gui.statsContainer.add(button);
 	}
 
 	void setPlayers() {
-		gameBoard[9][0].setText("1,2");
+		//gameBoard[9][0].setText("Start");
+		gameBoard[0][0].setText("Finish");
+		//gameBoard[player1x][player1y].setGamePiece(new SNLPieceBlack());
+		gameBoard[9][0].setGamePiece(new SNLBothPieces());
+		
 	}
 	
 	void setLadders(int startRow,int startCol, int endRow, int endCol) {
 		if(startCol == endCol)//straight up
 			for(int x = startRow; x >= endRow; x--)
-				//getSpace(x, startCol).setGamePiece(new SnakeHead());
+				//getSpace(x, startCol).setGamePiece(new Snake());
 				//getSpace(x, startCol).setBgColor(new Color(0, 255, 0));
 				getSpace(x, startCol).setGamePiece(new Ladder());
 		else if(startCol < endCol)//up right
@@ -109,18 +125,19 @@ public class SnakesAndLadders extends GameBoard {
 		if(startCol == endCol)//straight down
 			for(int x = startRow; x <= endRow; x++)
 				//getSpace(x, startCol).setBgColor(new Color(225, 0, 0));
-				getSpace(x, startCol).setGamePiece(new SnakeHead());
+				getSpace(x, startCol).setGamePiece(new Snake());
 		if(startCol < endCol)//up right
 			for(int x = startRow, y = startCol;x <= endRow;x++,y++)
 				// getSpace(x, y).setBgColor(new Color(225, 0, 0));
-				getSpace(x, y).setGamePiece(new SnakeHead());
+				getSpace(x, y).setGamePiece(new Snake());
 		if(startCol > endCol)//up left
 			for(int x = startRow, y = startCol;x <= endRow;x++,y--)
 				//getSpace(x, y).setBgColor(new Color(225, 0, 0));
-				getSpace(x, y).setGamePiece(new SnakeHead());
+				getSpace(x, y).setGamePiece(new Snake());
 	}
 	
 	public void setSnakesandLadders() {
+		gameBoard[9][0].clearGamePiece();
 		System.out.println("first");
 		for(Map.Entry<ArrayList<Integer>, ArrayList<Integer>> coordinates : specialSpaces.entrySet()) {
 			int startRow = coordinates.getKey().get(0);
@@ -140,7 +157,49 @@ public class SnakesAndLadders extends GameBoard {
 		private void advanceGame() {
 			int roll = dice.roll();
 			System.out.println("Roll: " + roll);
+			int player1x = getPlayer1Position().get(0);
+			int player1y = getPlayer1Position().get(1);
+			
+			int player2x = getPlayer2Position().get(0);
+			int player2y = getPlayer2Position().get(1);
+			
+			if (turn == 1) {
+				if (gameBoard[player1x][player1y].getText().equals("P1,P2")) { // if spot with P1 & P2
+					gameBoard[player2x][player2y].clearGamePiece(); // clears SNLBothPieces()
+					gameBoard[player2x][player2y].setGamePiece(new SNLPieceWhite()); // fill space with P2's piece
+				}
+				else { // otherwise, just clear the cell
+					gameBoard[player1x][player1y].clearGamePiece();
+				}
+			}
+			else {
+				if (gameBoard[player1x][player1y].getText().equals("P1,P2")) { // if spot with P1 & P2
+					gameBoard[player2x][player2y].clearGamePiece(); // clears SNLBothPieces()
+					gameBoard[player2x][player2y].setGamePiece(new SNLPieceBlack()); // fill space with P1's piece
+				}
+				else { // otherwise, just clear the cell
+					gameBoard[player2x][player2y].clearGamePiece();
+				}
+				
+			}
+			
 			advancePlayer(turn,roll);
+			player1x = getPlayer1Position().get(0);
+			player1y = getPlayer1Position().get(1);
+			
+			player2x = getPlayer2Position().get(0);
+			player2y = getPlayer2Position().get(1);
+			if (turn == 1) {
+				gameBoard[player1x][player1y].setGamePiece(new SNLPieceBlack());
+			}
+			
+			if ((player1x == player2x) && (player1y == player2y)) {
+				gameBoard[player1x][player1y].setGamePiece(new SNLBothPieces());
+			}
+			
+			else {
+				gameBoard[player2x][player2y].setGamePiece(new SNLPieceWhite());
+			}
 			turn = ((turn == 1) ? 2 : 1);
 		}
 		
@@ -152,24 +211,33 @@ public class SnakesAndLadders extends GameBoard {
 	public void processLogic() {
 	}
 	
+		
 	public void separatePieces() {
 		int currPlayerRow = positionOfPlayers.get(turn).get(0);
 		int currPlayerCol = positionOfPlayers.get(turn).get(1);
-		if(gameBoard[currPlayerRow][currPlayerCol].getText().equals("1,2")) {
-			gameBoard[currPlayerRow][currPlayerCol].setText(""+((turn == 1) ? 2 : 1));
+		if(gameBoard[currPlayerRow][currPlayerCol].getValue().equals("P1,P2")) {
+			gameBoard[currPlayerRow][currPlayerCol].setValue(""+((turn == 1) ? "P2" : "P1"));
 		}	
 		else
-			gameBoard[currPlayerRow][currPlayerCol].setText("");
+			gameBoard[currPlayerRow][currPlayerCol].setValue("");
+	}
+	
+	public ArrayList<Integer> getPlayer1Position() {
+		return positionOfPlayers.get(1);
+	}
+	
+	public ArrayList<Integer> getPlayer2Position() {
+		return positionOfPlayers.get(2);
 	}
 	
 	public void updateBoard() {
 		int currPlayerRow = positionOfPlayers.get(turn).get(0);
 		int currPlayerCol = positionOfPlayers.get(turn).get(1);
 		System.out.println(currPlayerRow + " " + currPlayerCol);
-		if(gameBoard[currPlayerRow][currPlayerCol].getText().equals(""))
-			gameBoard[currPlayerRow][currPlayerCol].setText(""+((turn == 1) ? 1 : 2));
-		else if(!gameBoard[currPlayerRow][currPlayerCol].getText().equals(""))
-			gameBoard[currPlayerRow][currPlayerCol].setText("1,2");
+		if(gameBoard[currPlayerRow][currPlayerCol].getValue().equals(""))
+			gameBoard[currPlayerRow][currPlayerCol].setValue(""+((turn == 1) ? "P1" : "P2"));
+		else if(!gameBoard[currPlayerRow][currPlayerCol].getValue().equals(""))
+			gameBoard[currPlayerRow][currPlayerCol].setValue("P1,P2");
 		
 	}
 	
@@ -212,11 +280,22 @@ public class SnakesAndLadders extends GameBoard {
 	    positionOfPlayers.put(player, currentPosition); // Updates player position
 	    updateBoard();
 	}
+	
+	public void showSNLAlert() {
+		if (turn == 1) {
+			JOptionPane.showMessageDialog(null, "Black has landed on a snake or ladder! Follow it!");
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "White has landed on a snake or ladder! Follow it!");
+		}
+		
+	}
 
 	public ArrayList<Integer> checkSnakeOrLadder(ArrayList<Integer> position){
     // Returns end position of a snake or ladder
-	    if (specialSpaces.containsKey(position)) {
+	    if (specialSpaces.containsKey(position)) { // position = <2,3>
 	    	System.out.println("snake/ladder found, new position: " + Integer.toString(specialSpaces.get(position).get(0)) + ", " + Integer.toString(specialSpaces.get(position).get(1)));
+	    	showSNLAlert();
 	    	return specialSpaces.get(position);
 	    }
 	    else {
