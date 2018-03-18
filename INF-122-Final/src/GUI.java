@@ -102,12 +102,11 @@ public class GUI extends JFrame implements ActionListener {
 		validate();
 	}
 
-	public void gameOver(String winningPlayer, String losingPlayer) {
-		remove(s.getGame());
-		setSize(introWidth, introHeight);
-		add(introPanel);
-		validate();
-	}
+// 	public void gameOver(String winningPlayer, String losingPlayer) {
+// 		remove(s.getGame());
+// 		setSize(introWidth, introHeight);
+// 		add(introPanel);
+// 		validate();
 	public void gameOver(/*String winningPlayer, String losingPlayer*/) {
 		int reply = JOptionPane.showConfirmDialog(null, "Do you want to play again?", "Game Over!", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
@@ -118,12 +117,12 @@ public class GUI extends JFrame implements ActionListener {
         }
         else {
         	JOptionPane.showMessageDialog(null, "GOODBYE");
-           	remove(game);
-           	validate();
-	   		setSize(700, 270);
-	   		add(introPanel);
-	   		introPanel.repaint();
-	   		validate();
+			remove(game);
+			validate();
+			setSize(700, 270);
+			add(introPanel);
+			introPanel.repaint();
+			validate();
         }
 	}
 
