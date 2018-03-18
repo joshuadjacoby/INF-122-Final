@@ -5,7 +5,7 @@ public class State {
 	private GameBoard game;
 	private int playerOneScore;
 	private int playerTwoScore;
-	private GUI gui = GUI.getInstance();
+	private GUI gui;
 
 	public static State getInstance() {
 		if (state == null) {
@@ -18,23 +18,27 @@ public class State {
 		if (playerOneScore > playerTwoScore) {
 			playerOne.incrementWins();
 			playerTwo.incrementLosses();
-			gui.gameOver(playerOne.getName(), playerTwo.getName());
+			gui.gameOver(/*playerTwo.getName(), playerOne.getName()*/);
 		} else if (playerOneScore < playerTwoScore) {
 			playerTwo.incrementWins();
 			playerOne.incrementLosses();
-			gui.gameOver(playerTwo.getName(), playerOne.getName());
+			gui.gameOver(/*playerTwo.getName(), playerOne.getName()*/);
 		} else
 		{
 
 		}
 	}
 
-	public void updatePlayers(Player p1, Player p2) {
+	public void setGUI(GUI g) {
+		this.gui = g;
+	}
+
+	public void setPlayers(Player p1, Player p2) {
 		this.playerOne = p1;
 		this.playerTwo = p2;
 	}
 
-	public void updateGame(GameBoard g) {
+	public void setGame(GameBoard g) {
 		this.game = g;
 	}
 

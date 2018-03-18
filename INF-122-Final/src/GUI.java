@@ -10,24 +10,24 @@ import java.net.URL;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame implements ActionListener {
-	private static GUI gui;
 	private static final int introWidth = 700;
 	private static final int introHeight = 270;
 	String gameChoice;
 	JPanel introPanel;
 	JTextField playerOneName;
 	JTextField playerTwoName;
-	PlayerManager pm = PlayerManager.getInstance();
-	State s = State.getInstance();
+	PlayerManager pm;
+	State s;
 
 	public GUI(String title) {
 		super(title);
+		pm = PlayerManager.getInstance();
+		s = State.getInstance();
+		s.setGUI(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(introWidth, introHeight);
 		setLocationRelativeTo(null);
 		gameChoice = "Tic-Tac-Toe";
-		playerOne = "Player 1";
-		playerTwo = "Player 2";
 		try {
 			introPanel = new JPanelWithBackground("src/images/space.jpg");
 		} catch(IOException e){
@@ -36,13 +36,6 @@ public class GUI extends JFrame implements ActionListener {
 		introPanel.setLayout(new BoxLayout(introPanel, BoxLayout.PAGE_AXIS));
 		chooseGame();
 		setVisible(true);
-	}
-
-	public static GUI getInstance() {
-		if (gui == null) {
-			gui = new GUI("G6 Games");
-		}
-		return gui;
 	}
 
 	private void chooseGame() {
@@ -98,7 +91,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	private void startGame() {
 		remove(introPanel);
-		add(s,getGame());
+		add(s.getGame());
 		validate();
 	}
 
@@ -110,14 +103,14 @@ public class GUI extends JFrame implements ActionListener {
 	public void gameOver(/*String winningPlayer, String losingPlayer*/) {
 		int reply = JOptionPane.showConfirmDialog(null, "Do you want to play again?", "Game Over!", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-        	remove(game);
-        	game = GameFactory.getInstance().makeGame(gameChoice, this);
-        	add(game);
+        	remove(s.getGame());
+        	s.setGame(GameFactory.getInstance().makeGame(gameChoice, this));
+        	add(s.getGame());
         	validate();
         }
         else {
         	JOptionPane.showMessageDialog(null, "GOODBYE");
-			remove(game);
+			remove(s.getGame());
 			validate();
 			setSize(700, 270);
 			add(introPanel);
@@ -147,8 +140,8 @@ public class GUI extends JFrame implements ActionListener {
 			} else {
 				playerTwo = pm.findPlayer(playerTwoName.getText());
 			}
-			s.updatePlayers(playerOne, playerTwo);
-			s.updateGame(game);
+			s.setPlayers(playerOne, playerTwo);
+			s.setGame(game);
 			startGame();
 		}
 	}

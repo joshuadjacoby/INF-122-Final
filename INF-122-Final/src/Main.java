@@ -3,6 +3,6 @@ public class Main {
 
 	public static void main(String[] args)
 	{
-		GUI gui = GUI.getInstance();
+		GUI app = new GUI("G6 Games");
 	}
 }
