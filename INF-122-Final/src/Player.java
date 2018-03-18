@@ -2,35 +2,42 @@ import java.awt.*;
 
 class Player{
 	private String name;
-	private String password;
-    private int num;
-	private int score;
-	private Color color;
-	
-	Player(String name, String password, int num, int score, Color color){
+    private int playerID;
+    private int numberOfWins;
+    private int numberOfLosses;
+
+	Player(String name, int id){
 	    this.name = name;
-	    this.password = password;
-	    this.num = num;
-	    this.score = score;
-	    this.color = color;
+	    this.playerID = id;
+	    this.numberOfWins = 0;
+	    this.numberOfLosses = 0;
     }
-	
-	void setPlayerNum(int num){
-		this.num = num;
+
+	public String getName() {
+		return name;
 	}
-	
-	int getPlayerNum(){
-		return num;
+
+	public int getPlayerID() {
+		return playerID;
 	}
-	
-	int updateScore(int newScore){//should be able to handle increasing/decreasing score
-		this.score += newScore;
-		return this.score;
+
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
 	}
-	
-	int getScore(){
-		return this.score;
+
+	public int getNumberOfWins() {
+		return numberOfWins;
 	}
-	
-	
+
+	public void incrementWins() {
+		this.numberOfWins++;
+	}
+
+	public int getNumberOfLosses() {
+		return numberOfLosses;
+	}
+
+	public void incrementLosses() {
+		this.numberOfLosses++;
+	}
 }

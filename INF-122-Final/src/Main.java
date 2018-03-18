@@ -3,6 +3,6 @@ public class Main {
 
 	public static void main(String[] args)
 	{
-		GUI gui = new GUI("Group 6 Games");
+		GUI app = new GUI("G6 Games");
 	}
 }

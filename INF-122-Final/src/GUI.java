@@ -10,20 +10,24 @@ import java.net.URL;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame implements ActionListener {
+	private static final int introWidth = 700;
+	private static final int introHeight = 270;
 	String gameChoice;
-	GameBoard game;
 	JPanel introPanel;
-	String playerOne;
-	String playerTwo;
+	JTextField playerOneName;
+	JTextField playerTwoName;
+	PlayerManager pm;
+	State s;
 
 	public GUI(String title) {
 		super(title);
+		pm = PlayerManager.getInstance();
+		s = State.getInstance();
+		s.setGUI(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(700, 270);
+		setSize(introWidth, introHeight);
 		setLocationRelativeTo(null);
 		gameChoice = "Tic-Tac-Toe";
-		playerOne = "Player 1";
-		playerTwo = "Player 2";
 		try {
 			introPanel = new JPanelWithBackground("src/images/space.jpg");
 		} catch(IOException e){
@@ -87,26 +91,31 @@ public class GUI extends JFrame implements ActionListener {
 
 	private void startGame() {
 		remove(introPanel);
-		add(game);
+		add(s.getGame());
 		validate();
 	}
 
+// 	public void gameOver(String winningPlayer, String losingPlayer) {
+// 		remove(s.getGame());
+// 		setSize(introWidth, introHeight);
+// 		add(introPanel);
+// 		validate();
 	public void gameOver(/*String winningPlayer, String losingPlayer*/) {
 		int reply = JOptionPane.showConfirmDialog(null, "Do you want to play again?", "Game Over!", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-        	remove(game);
-        	game = GameFactory.getInstance().makeGame(gameChoice, this);
-        	add(game);
+        	remove(s.getGame());
+        	s.setGame(GameFactory.getInstance().makeGame(gameChoice, this));
+        	add(s.getGame());
         	validate();
         }
         else {
         	JOptionPane.showMessageDialog(null, "GOODBYE");
-           	remove(game);
-           	validate();
-	   		setSize(700, 270);
-	   		add(introPanel);
-	   		introPanel.repaint();
-	   		validate();
+			remove(s.getGame());
+			validate();
+			setSize(700, 270);
+			add(introPanel);
+			introPanel.repaint();
+			validate();
         }
 	}
 
@@ -116,7 +125,23 @@ public class GUI extends JFrame implements ActionListener {
 			JComboBox cb = (JComboBox)e.getSource();
 			gameChoice = cb.getSelectedItem().toString();
 		} else if (e.getSource() instanceof JButton) {
-			game = GameFactory.getInstance().makeGame(gameChoice, this);
+			GameBoard game = GameFactory.getInstance().makeGame(gameChoice, this);
+			Player playerOne;
+			Player playerTwo;
+			if (!pm.playerExists(playerOneName.getText())) {
+				playerOne = new Player(playerOneName.getText(), pm.getPlayerIDCount());
+				pm.incrementPlayerIDCount();
+			} else {
+				playerOne = pm.findPlayer(playerOneName.getText());
+			}
+			if (!pm.playerExists(playerTwoName.getText())) {
+				playerTwo = new Player(playerTwoName.getText(), pm.getPlayerIDCount());
+				pm.incrementPlayerIDCount();
+			} else {
+				playerTwo = pm.findPlayer(playerTwoName.getText());
+			}
+			s.setPlayers(playerOne, playerTwo);
+			s.setGame(game);
 			startGame();
 		}
 	}
