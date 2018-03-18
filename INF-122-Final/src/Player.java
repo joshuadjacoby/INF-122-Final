@@ -5,12 +5,11 @@ class Player{
     private int playerID;
     private int numberOfWins;
     private int numberOfLosses;
+    private int numberOfTies;
 
 	Player(String name, int id){
 	    this.name = name;
 	    this.playerID = id;
-	    this.numberOfWins = 0;
-	    this.numberOfLosses = 0;
     }
 
 	public String getName() {
@@ -39,5 +38,13 @@ class Player{
 
 	public void incrementLosses() {
 		this.numberOfLosses++;
+	}
+
+	public int getNumberOfTies() {
+		return numberOfTies;
+	}
+
+	public void incrementTies() {
+		this.numberOfTies++;
 	}
 }

@@ -29,7 +29,9 @@ public class State {
 			gui.gameOver(/*playerTwo.getName(), playerOne.getName()*/);
 		} else
 		{
-
+			playerOne.incrementTies();
+			playerTwo.incrementTies();
+			gui.gameOver(/*playerTwo.getName(), playerOne.getName()*/);
 		}
 	}
 
