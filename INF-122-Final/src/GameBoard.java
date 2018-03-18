@@ -8,9 +8,9 @@ public abstract class GameBoard extends JPanel {
 
 	public GameBoard(int row, int col) {
 		gameBoard = new BoardSpace[row][col];
-		this.rows = row;
-		this.cols = col;
-	}
+		this.rows = row;x
+        this.cols = col;
+    }
 
     protected void setSpace(int x, int y, BoardSpace space)
     {
@@ -21,12 +21,16 @@ public abstract class GameBoard extends JPanel {
 
     protected GamePiece getPieceAt(int x, int y)
     {
-	    if (getSpace(x,y).hasPiece())
+        if (getSpace(,y).hasPiece())
         {
             return getSpace(x,y).getGamePiece();
         }
         else
             return null;
+    }
+    protected void setPieceAt(int x, int y, GamePieece item) {
+        setSpace(x, y, getSpace(x,y).setGamePiece(item));
+
     }
 
 	protected abstract void initializeButtons();

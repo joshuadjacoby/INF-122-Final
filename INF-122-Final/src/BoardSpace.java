@@ -10,6 +10,7 @@ public abstract class BoardSpace extends JButton {
     protected int boardColumn;
     protected String value;
     protected Color backgroundColor;
+    protected Color originalColor;
 
     protected GamePiece piece;
     private boolean hasPiece;
@@ -51,6 +52,9 @@ public abstract class BoardSpace extends JButton {
         this.backgroundColor = color;
         this.setBackground(color);
         this.repaint();
+    }
+    public void setOriginalColor(Color color){
+        this.originalColor = color
     }
     public Color getBgColor() { return backgroundColor; }
 
