@@ -65,7 +65,7 @@ public class GUI extends JFrame implements ActionListener {
 		playerOnePanel.setLayout(new BoxLayout(playerOnePanel, BoxLayout.PAGE_AXIS));
 		JLabel playerOneLabel = new JLabel("Player 1");
 		playerOneLabel.setForeground(Color.WHITE);
-		JTextField playerOneName = new JTextField("Player 1");
+		playerOneName = new JTextField("Player 1");
 		playerOnePanel.add(playerOneLabel);
 		playerOnePanel.add(playerOneName);
 
@@ -74,7 +74,7 @@ public class GUI extends JFrame implements ActionListener {
 		playerTwoPanel.setLayout(new BoxLayout(playerTwoPanel, BoxLayout.PAGE_AXIS));
 		JLabel playerTwoLabel = new JLabel("Player 2");
 		playerTwoLabel.setForeground(Color.WHITE);
-		JTextField playerTwoName = new JTextField("Player 2");
+		playerTwoName = new JTextField("Player 2");
 		playerTwoPanel.add(playerTwoLabel);
 		playerTwoPanel.add(playerTwoName);
 
