@@ -117,12 +117,12 @@ public class GUI extends JFrame implements ActionListener {
         }
         else {
         	JOptionPane.showMessageDialog(null, "GOODBYE");
-           	remove(game);
-           	validate();
-	   		setSize(700, 270);
-	   		add(introPanel);
-	   		introPanel.repaint();
-	   		validate();
+			remove(game);
+			validate();
+			setSize(700, 270);
+			add(introPanel);
+			introPanel.repaint();
+			validate();
         }
 	}
 
