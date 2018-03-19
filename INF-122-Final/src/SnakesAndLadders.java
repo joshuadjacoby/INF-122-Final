@@ -88,36 +88,49 @@ public class SnakesAndLadders extends GameBoard {
 		setSnakesandLadders();
 		setPlayers();
 		//add a special button for the dice
-		SNLSpace button = new SNLSpace(0, 0, "dice");
-		button.setText("Roll Dice");
+//		SNLSpace button = new SNLSpace(0, 0, "dice");
+//		button.setText("Roll Dice");
 //		button.setIcon(new ImageIcon(this.getClass().getResource("/images/button_next.jpg")));
 //		getSpace(0, 0).setGamePiece(new DiceBtn());
 		//button.setIcon(ImageIO.read(getClass().getResource("images/dice.png")))
 		
 		
-		button.addActionListener(this);
-		add(button);
+//		button.addActionListener(this);
+//		add(button);
 		//gui.statsContainer.add(button);
 	}
 
     protected void statsPanelInfo(JPanel gameStatsPanel)
     {
+        // game stats panel
         TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Game Stats");
-
         gameStatsPanel.setBorder(title);
+        gameStatsPanel.setLayout(new BoxLayout(gameStatsPanel, BoxLayout.Y_AXIS));
 
-        // player turn
+        // player turn panel
         JPanel playerTurnPanel = new JPanel();
+        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Player Turn");
+        title.setTitleJustification(TitledBorder.CENTER);
+        playerTurnPanel.setBorder(title);
+
+        // player turn label
         playerTurnLabel = new JLabel();
         updatePlayerTurnLabel();
-        // player turn style
-        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Turn");
-        title.setTitleJustification(TitledBorder.CENTER);
-        playerTurnLabel.setBorder(title);
         playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
-        // player turn add to panel
+
+        // add to player turn panel
         playerTurnPanel.add(playerTurnLabel);
+
+        // dice button panel
+        JPanel dicePanel = new JPanel();
+        JButton diceButton = new JButton("Roll Dice!");
+        diceButton.setName("dice");
+        diceButton.addActionListener(this);
+        dicePanel.add(diceButton);
+
+        // add to game stats panel
         gameStatsPanel.add(playerTurnPanel);
+        gameStatsPanel.add(dicePanel);
     }
 
     private void updatePlayerTurnLabel()
@@ -376,13 +389,14 @@ public class SnakesAndLadders extends GameBoard {
 	}
 
     public void actionPerformed(ActionEvent e) {
-    	
-        SNLSpace spaceClicked = (SNLSpace) e.getSource();
-        
-        if (spaceClicked.getValue() == "dice") {
-        	updatePlayerTurnLabel();
-            advanceGame();
-        }
+		if (e.getSource() instanceof JButton) {
+			JButton buttonClicked = (JButton) e.getSource();
+			if(buttonClicked.getName().equals("dice"))
+			{
+				updatePlayerTurnLabel();
+				advanceGame();
+			}
+		}
     }
 }
 

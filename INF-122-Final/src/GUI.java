@@ -11,7 +11,7 @@ public class GUI extends JFrame implements ActionListener {
 	private static GUI gui = null;
 	private static final int introWidth = 700;
 	private static final int introHeight = 270;
-	private static final int gameWidth = 1200;
+	private static final int gameWidth = 1500;
     private static final int gameHeight = 800;
 	String gameChoice;
 	JPanel introPanel;
@@ -56,6 +56,7 @@ public class GUI extends JFrame implements ActionListener {
         add(introPanel);
         introPanel.repaint();
         validate();
+		setLocationRelativeTo(null);
     }
 
 	private void chooseGame() {
@@ -127,6 +128,7 @@ public class GUI extends JFrame implements ActionListener {
 		setSize(gameWidth, gameHeight);
 		add(gameContainer);
 		validate();
+        setLocationRelativeTo(null);
 	}
 
 	private void startStatsPanel(GameBoard game)
