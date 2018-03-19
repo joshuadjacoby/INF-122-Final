@@ -16,11 +16,9 @@ public class Othello extends GameBoard {
 
 	private JLabel blackScoreLabel = new JLabel("Black: " + blackScore);
 	private JLabel whiteScoreLabel = new JLabel("White: " + whiteScore);
-	private GUI gui;
 
 	public Othello(int row, int col, GUI gui) {
-		super(row, col);
-		this.gui = gui;
+		super(row, col, gui);
 		setLayout(new GridLayout(0, col));
 		initializeButtons();
 		add(blackScoreLabel);
@@ -57,13 +55,18 @@ public class Othello extends GameBoard {
 		}
 	}
 
-	public void resetButtons() {
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				getSpace(i,j).setText("");
-			}
-		}
-	}
+    protected void statsPanelInfo(JPanel statsPanel)
+    {
+        statsPanel.add(new JLabel("Custom TTT info"));
+    }
+
+//	public void resetButtons() {
+//		for (int i = 0; i < rows; i++) {
+//			for (int j = 0; j < cols; j++) {
+//				getSpace(i,j).setText("");
+//			}
+//		}
+//	}
 	
 	public void updateScore(Color player, int black, int white) {
 		if (player == Color.BLACK) {

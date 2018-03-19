@@ -1,13 +1,18 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public abstract class GameBoard extends JPanel {
 	protected int rows;
 	protected int cols;
+    protected GUI gui;
+    protected State state;
 	private Player[] players;
 	private BoardSpace[][] gameBoard;
 
-	public GameBoard(int row, int col) {
+	public GameBoard(int row, int col, GUI gui) {
 		gameBoard = new BoardSpace[row][col];
+		this.gui = gui;
+        state = State.getInstance();
 		this.rows = row;
 		this.cols = col;
 	}
@@ -30,4 +35,19 @@ public abstract class GameBoard extends JPanel {
     }
 
 	protected abstract void initializeButtons();
+    protected abstract void statsPanelInfo(JPanel gameStatsPanel);
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() instanceof JButton) {
+            JComboBox cb = (JComboBox)e.getSource();
+
+        }
+    }
+
+    private class GameBoardButtonListener extends ButtonListener {
+        public void actionPerformed(ActionEvent e) {
+            JButton buttonClicked = (JButton) e.getSource();
+
+        }
+    }
 }

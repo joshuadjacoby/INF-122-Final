@@ -113,14 +113,39 @@ public class GUI extends JFrame implements ActionListener {
 	private void startGame(JPanel toRemove, GameBoard game) {
 		remove(toRemove);
         s.setGame(game);
-		statsContainer = new JPanel();
+		startGameContainer(game);
+	}
+
+	private void startGameContainer(GameBoard game){
 		gameContainer = new JPanel();
 		gameContainer.setLayout(new BoxLayout(gameContainer, BoxLayout.X_AXIS));
 		gameContainer.add(s.getGame());
+
+		startStatsPanel(game);
+
 		gameContainer.add(statsContainer);
 		setSize(gameWidth, gameHeight);
 		add(gameContainer);
 		validate();
+	}
+
+	private void startStatsPanel(GameBoard game)
+	{
+		statsContainer = new JPanel();
+		statsContainer.setLayout(new BoxLayout(statsContainer, BoxLayout.PAGE_AXIS));
+
+
+        // menu buttons
+        JPanel menuButtons = new JPanel();
+        menuButtons.setLayout(new BoxLayout(menuButtons, BoxLayout.LINE_AXIS));
+        menuButtons.add(new JButton("Restart Game"));
+        menuButtons.add(new JButton("Quit Game"));
+        statsContainer.add(menuButtons);
+
+        // custom game stats
+        JPanel gameStatsContainer = new JPanel();
+        game.statsPanelInfo(gameStatsContainer);
+        statsContainer.add(gameStatsContainer);
 	}
 
 	public void gameOver(/*String winningPlayer, String losingPlayer*/) {

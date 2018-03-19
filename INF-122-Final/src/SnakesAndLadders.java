@@ -18,11 +18,9 @@ public class SnakesAndLadders extends GameBoard {
 	
 	private HashMap<Integer, ArrayList<Integer>> positionOfPlayers = new HashMap<Integer, ArrayList<Integer>>(){};
 	static HashMap<ArrayList<Integer>, ArrayList<Integer>> specialSpaces = new HashMap<ArrayList<Integer>, ArrayList<Integer>>();
-	private GUI gui;
 	
 	public SnakesAndLadders(int row, int col, GUI gui) {
-		super(row, col);
-		this.gui = gui;
+		super(row, col, gui);
 	
 		// Initializes player position at bottom left corner
 	    positionOfPlayers.put(1,new ArrayList<Integer>(Arrays.asList(9, 0)));
@@ -55,7 +53,7 @@ public class SnakesAndLadders extends GameBoard {
 	    setLayout(new GridLayout(0, col));
 	    initializeButtons();
 
-		
+
 	}
 	
 	protected void initializeButtons() {
@@ -96,6 +94,11 @@ public class SnakesAndLadders extends GameBoard {
 		add(button);
 		//gui.statsContainer.add(button);
 	}
+
+    protected void statsPanelInfo(JPanel statsPanel)
+    {
+        statsPanel.add(new JLabel("Custom TTT info"));
+    }
 
 	void setPlayers() {
 		//gameBoard[9][0].setText("Start");

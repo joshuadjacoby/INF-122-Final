@@ -6,12 +6,11 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class TicTacToe extends GameBoard {
 	private int player = 1;
-	private GUI gui;
-	private int winner; //it's a tie if 0, 1 if player 1 won...	
+
+    private JLabel playerTurnLabel;
 
 	public TicTacToe(int row, int col, GUI gui) {
-		super(row, col);
-		this.gui = gui;
+		super(row, col, gui);
 		setLayout(new GridLayout(0,col));
 		initializeButtons();
 	}
@@ -28,15 +27,21 @@ public class TicTacToe extends GameBoard {
 		}
 	}
 
-	public boolean isBoardFull() {
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				if (!getSpace(i,j).hasPiece()) // if no piece on this space then it is not full
-					return false;
-			}
-		}
-		return true;
-	}
+    protected void statsPanelInfo(JPanel gameStatsPanel)
+    {
+        gameStatsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Game Stats"));
+
+        // player turn
+        playerTurnLabel = new JLabel();
+        updatePlayerTurnLabel();
+        playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
+        gameStatsPanel.add(playerTurnLabel);
+    }
+
+    private void updatePlayerTurnLabel()
+    {
+        playerTurnLabel.setText("PLAYER " + player);
+    }
 
 	public boolean checkForWin()
 	{
@@ -84,6 +89,7 @@ public class TicTacToe extends GameBoard {
 	private class TicTacToeButtonListener extends ButtonListener {
 		public void actionPerformed(ActionEvent e) {
 			TicTacToeSpace spaceClicked = (TicTacToeSpace) e.getSource();
+
             if (!spaceClicked.hasPiece()) {
                 if (player == 1) {
                     spaceClicked.setGamePiece(new TicTacToeX());
@@ -94,22 +100,14 @@ public class TicTacToe extends GameBoard {
                     player = 1;
                 }
                 else {
-                	
+
                 }
             }
-            if( checkForWin() )
+            if(checkForWin())
             {
-            	if (player == 2)
-            		winner=1;//System.out.println("Player1 Won");
-            	if (player == 1)
-            		winner=2;//System.out.println("Player2 Won");
                 gui.gameOver();
             }
-            else if (isBoardFull()) {
-            	winner=0; 
-            	System.out.println("Tie" + winner);
-            	gui.gameOver();
-            }
+            updatePlayerTurnLabel();
 		}
 	}
 
