@@ -12,6 +12,7 @@ public class GameFactory {
 	public GameBoard makeGame(String newGameType, GUI gui) {
 
 		switch (newGameType) {
+<<<<<<< HEAD
 		case "Tic-Tac-Toe":
 			return new TicTacToe(3, 3, gui);
 		case "Checkers":
@@ -20,6 +21,18 @@ public class GameFactory {
 			return new Othello(8, 8, gui);
 		case "Snakes and Ladders":
 			return new SnakesAndLadders(10, 10, gui);
+=======
+			case "Tic-Tac-Toe":
+//				return new TicTacToe(3, 3);
+			case "Checkers":
+			//	return new Checkers();
+				return new Checkers(8,8 , 1);
+			case "Othello":
+			//	return new Othello();
+				break;
+			case "Snakes and Ladders":
+//				return new SnakesAndLadders();
+>>>>>>> CheckersRefactoring
 		}
 		return null;
 	}
