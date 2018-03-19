@@ -142,8 +142,14 @@ public class GUI extends JFrame implements ActionListener {
         // menu buttons
         JPanel menuButtons = new JPanel();
         menuButtons.setLayout(new BoxLayout(menuButtons, BoxLayout.LINE_AXIS));
-        menuButtons.add(new JButton("Restart Game"));
-        menuButtons.add(new JButton("Quit Game"));
+
+        JButton restartButton = new JButton("Restart Game");
+        restartButton.addActionListener(this);
+        JButton quitButton = new JButton("Quit Game");
+        quitButton.addActionListener(this);
+        menuButtons.add(restartButton);
+        menuButtons.add(quitButton);
+
         statsContainer.add(menuButtons);
 	}
 
@@ -158,29 +164,48 @@ public class GUI extends JFrame implements ActionListener {
         }
 	}
 
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() instanceof JComboBox) {
 			JComboBox cb = (JComboBox)e.getSource();
 			gameChoice = cb.getSelectedItem().toString();
 		} else if (e.getSource() instanceof JButton) {
-			GameBoard game = GameFactory.getInstance().makeGame(gameChoice, this);
-			Player playerOne;
-			Player playerTwo;
-			if (!pm.playerExists(playerOneName.getText())) {
-				playerOne = new Player(playerOneName.getText(), pm.getPlayerIDCount());
-				pm.incrementPlayerIDCount();
-			} else {
-				playerOne = pm.findPlayer(playerOneName.getText());
-			}
-			if (!pm.playerExists(playerTwoName.getText())) {
-				playerTwo = new Player(playerTwoName.getText(), pm.getPlayerIDCount());
-				pm.incrementPlayerIDCount();
-			} else {
-				playerTwo = pm.findPlayer(playerTwoName.getText());
-			}
-			s.setPlayers(playerOne, playerTwo);
-			startGame(introPanel, game);
+            JButton buttonClicked = (JButton) e.getSource();
+
+            if(buttonClicked.getText().equals("Restart Game"))
+            {
+                int reply = JOptionPane.showConfirmDialog(null, "Restart Game?", "Restart Game", JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION) {
+                    startGame(gameContainer, GameFactory.getInstance().makeGame(gameChoice, this));
+                }
+            }
+            else if(buttonClicked.getText().equals("Quit Game"))
+            {
+                int reply = JOptionPane.showConfirmDialog(null, "Quit Game and return to main menu?", "Quit Game", JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION) {
+                    showIntroPanel(gameContainer);
+                }
+            }
+            else {
+                GameBoard game = GameFactory.getInstance().makeGame(gameChoice, this);
+                Player playerOne;
+                Player playerTwo;
+                if (!pm.playerExists(playerOneName.getText())) {
+                    playerOne = new Player(playerOneName.getText(), pm.getPlayerIDCount());
+                    pm.incrementPlayerIDCount();
+                } else {
+                    playerOne = pm.findPlayer(playerOneName.getText());
+                }
+                if (!pm.playerExists(playerTwoName.getText())) {
+                    playerTwo = new Player(playerTwoName.getText(), pm.getPlayerIDCount());
+                    pm.incrementPlayerIDCount();
+                } else {
+                    playerTwo = pm.findPlayer(playerTwoName.getText());
+                }
+                s.setPlayers(playerOne, playerTwo);
+                startGame(introPanel, game);
+            }
 		}
 	}
 

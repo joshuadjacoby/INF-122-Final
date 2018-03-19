@@ -51,7 +51,7 @@ public class Othello extends GameBoard {
                     setSpace(i, j, new OthelloSpace(i, j, ""));
 				}
 		        getSpace(i,j).setBgColor(new Color(0,102,0));
-                getSpace(i,j).addActionListener(new OthelloButtonListener());
+                getSpace(i,j).addActionListener(this);
 		        add(getSpace(i,j));
 		      }
 		}
@@ -235,31 +235,29 @@ public class Othello extends GameBoard {
         return true;
     }
 
-    private class OthelloButtonListener extends ButtonListener {
-        public void actionPerformed(ActionEvent e) {
-            OthelloSpace spaceClicked = (OthelloSpace) e.getSource();
+    public void actionPerformed(ActionEvent e) {
+        OthelloSpace spaceClicked = (OthelloSpace) e.getSource();
 
-            if (validMove(spaceClicked.getPosX(), spaceClicked.getPosY())) {
-                if (playerColor.equals(Color.BLACK)) {
-                    spaceClicked.setGamePiece(new OthelloPieceBlack());
-                    spaceClicked.unmark();
-                    updateScore(playerColor, 1, 0);
-                    playerColor = Color.WHITE;
-                    opponentColor = Color.BLACK;
-                } else {
-                    spaceClicked.setGamePiece(new OthelloPieceWhite());
-                    spaceClicked.unmark();
-                    updateScore(playerColor, 0, 1);
-                    playerColor = Color.BLACK;
-                    opponentColor = Color.WHITE;
-                }
-                clearHintMarks();
-                allPossibleMoves();
-                if (checkForWin()) {
-                    gui.gameOver();
-                }
+        if (validMove(spaceClicked.getPosX(), spaceClicked.getPosY())) {
+            if (playerColor.equals(Color.BLACK)) {
+                spaceClicked.setGamePiece(new OthelloPieceBlack());
+                spaceClicked.unmark();
+                updateScore(playerColor, 1, 0);
+                playerColor = Color.WHITE;
+                opponentColor = Color.BLACK;
+            } else {
+                spaceClicked.setGamePiece(new OthelloPieceWhite());
+                spaceClicked.unmark();
+                updateScore(playerColor, 0, 1);
+                playerColor = Color.BLACK;
+                opponentColor = Color.WHITE;
             }
-
+            clearHintMarks();
+            allPossibleMoves();
+            if (checkForWin()) {
+                gui.gameOver();
+            }
         }
+
     }
 }

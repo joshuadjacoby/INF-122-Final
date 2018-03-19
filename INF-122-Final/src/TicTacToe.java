@@ -23,7 +23,7 @@ public class TicTacToe extends GameBoard {
 			for (int j = 0; j < cols; j++) {
 				setSpace(i,j,new TicTacToeSpace(i, j, ""));
 				getSpace(i,j).setBgColor(Color.WHITE);
-				getSpace(i,j).addActionListener(new TicTacToeButtonListener());
+				getSpace(i,j).addActionListener(this);
 				add(getSpace(i,j));
 			}
 		}
@@ -135,36 +135,33 @@ public class TicTacToe extends GameBoard {
         return false;
 	}
 
-
-	private class TicTacToeButtonListener extends ButtonListener {
-		public void actionPerformed(ActionEvent e) {
-            TicTacToeSpace spaceClicked = (TicTacToeSpace) e.getSource();
-            if (!spaceClicked.hasPiece()) {
-                if (player == 1) {
-                    spaceClicked.setGamePiece(new TicTacToeX());
-                    player = 2;
-                }
-                else if (player == 2) {
-                    spaceClicked.setGamePiece(new TicTacToeO());
-                    player = 1;
-                }
-                updatePlayerTurnLabel();
+    public void actionPerformed(ActionEvent e) {
+        TicTacToeSpace spaceClicked = (TicTacToeSpace) e.getSource();
+        if (!spaceClicked.hasPiece()) {
+            if (player == 1) {
+                spaceClicked.setGamePiece(new TicTacToeX());
+                player = 2;
             }
-            if( checkForWin() )
-            {
-                if (player == 2)
-                    winner=1;//System.out.println("Player1 Won");
-                if (player == 1)
-                    winner=2;//System.out.println("Player2 Won");
-                updatePlayerTurnLabel();
-                gui.gameOver();
+            else if (player == 2) {
+                spaceClicked.setGamePiece(new TicTacToeO());
+                player = 1;
             }
-            else if (isBoardFull()) {
-                winner=0;
-                updatePlayerTurnLabel();
-                gui.gameOver();
-            }
-		}
-	}
+            updatePlayerTurnLabel();
+        }
+        if( checkForWin() )
+        {
+            if (player == 2)
+                winner=1;//System.out.println("Player1 Won");
+            if (player == 1)
+                winner=2;//System.out.println("Player2 Won");
+            updatePlayerTurnLabel();
+            gui.gameOver();
+        }
+        else if (isBoardFull()) {
+            winner=0;
+            updatePlayerTurnLabel();
+            gui.gameOver();
+        }
+    }
 
 }

@@ -1,7 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public abstract class GameBoard extends JPanel {
+public abstract class GameBoard extends JPanel implements ActionListener {
 	protected int rows;
 	protected int cols;
     protected GUI gui;
@@ -36,18 +37,5 @@ public abstract class GameBoard extends JPanel {
 
 	protected abstract void initializeButtons();
     protected abstract void statsPanelInfo(JPanel gameStatsPanel);
-
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JButton) {
-            JComboBox cb = (JComboBox)e.getSource();
-
-        }
-    }
-
-    private class GameBoardButtonListener extends ButtonListener {
-        public void actionPerformed(ActionEvent e) {
-            JButton buttonClicked = (JButton) e.getSource();
-            
-        }
-    }
+    public abstract void actionPerformed(ActionEvent e);
 }

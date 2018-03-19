@@ -73,7 +73,7 @@ public class SnakesAndLadders extends GameBoard {
 				
 				getSpace(i, j).setText(Integer.toString(result));
 				
-				getSpace(i,j).addActionListener(new SNLButtonListener());
+				getSpace(i,j).addActionListener(this);
 				add(getSpace(i,j));
 			}
 		}
@@ -90,7 +90,7 @@ public class SnakesAndLadders extends GameBoard {
 		//button.setIcon(ImageIO.read(getClass().getResource("images/dice.png")))
 		
 		
-		button.addActionListener(new SNLButtonListener());
+		button.addActionListener(this);
 		add(button);
 		//gui.statsContainer.add(button);
 	}
@@ -322,15 +322,13 @@ public class SnakesAndLadders extends GameBoard {
 		gui.gameOver();
 	}
 
-private class SNLButtonListener extends ButtonListener {
     public void actionPerformed(ActionEvent e) {
         SNLSpace spaceClicked = (SNLSpace) e.getSource();
-        
+
         if (spaceClicked.getValue() == "dice") {
-        	advanceGame();
+            advanceGame();
         }
     }
-}
 }
 
 
