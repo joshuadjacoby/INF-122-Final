@@ -20,7 +20,6 @@ public class SnakesAndLadders extends GameBoard {
 	
 	private int winner = -1; 
 	private JLabel playerTurnLabel;
-	private JButton diceButton;
 	
 	private HashMap<Integer, ArrayList<Integer>> positionOfPlayers = new HashMap<Integer, ArrayList<Integer>>(){};
 	static HashMap<ArrayList<Integer>, ArrayList<Integer>> specialSpaces = new HashMap<ArrayList<Integer>, ArrayList<Integer>>();
@@ -42,7 +41,7 @@ public class SnakesAndLadders extends GameBoard {
 	    specialSpaces.put(new ArrayList<Integer>
 	    	(Arrays.asList(5, 5)), new ArrayList<Integer>(Arrays.asList(7, 5)));
 	    specialSpaces.put(new ArrayList<Integer>
-	    	(Arrays.asList(7, 2)), new ArrayList<Integer>(Arrays.asList(8, 3)));	    
+	    	(Arrays.asList(7, 2)), new ArrayList<Integer>(Arrays.asList(9, 4)));	    
 	
 	    // Creates ladders
 	    specialSpaces.put(new ArrayList<Integer>
@@ -84,72 +83,41 @@ public class SnakesAndLadders extends GameBoard {
 			}
 		}
 		
-		
-		
 		setSnakesandLadders();
 		setPlayers();
 		//add a special button for the dice
-//		SNLSpace button = new SNLSpace(0, 0, "dice");
-//		button.setText("Roll Dice");
+		SNLSpace button = new SNLSpace(0, 0, "dice");
+		button.setText("Roll Dice");
 //		button.setIcon(new ImageIcon(this.getClass().getResource("/images/button_next.jpg")));
 //		getSpace(0, 0).setGamePiece(new DiceBtn());
 		//button.setIcon(ImageIO.read(getClass().getResource("images/dice.png")))
 		
 		
-//		button.addActionListener(this);
-//		add(button);
+		button.addActionListener(this);
+		add(button);
 		//gui.statsContainer.add(button);
 	}
 
-    protected void statsPanelInfo(JPanel gameStatsPanel)
-    {
-        // game stats panel
+    protected void statsPanelInfo(JPanel gameStatsPanel){
         TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Game Stats");
+
         gameStatsPanel.setBorder(title);
-        gameStatsPanel.setLayout(new BoxLayout(gameStatsPanel, BoxLayout.Y_AXIS));
 
-        // player turn panel
+        // player turn
         JPanel playerTurnPanel = new JPanel();
-
-        // player turn label
         playerTurnLabel = new JLabel();
         updatePlayerTurnLabel();
-        playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
-        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Player Turn");
+        // player turn style
+        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Turn");
         title.setTitleJustification(TitledBorder.CENTER);
         playerTurnLabel.setBorder(title);
-
-        // add to player turn panel
+        playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
+        // player turn add to panel
         playerTurnPanel.add(playerTurnLabel);
-
-        // dice button panel
-        JPanel dicePanel = new JPanel();
-        diceButton = new JButton("Roll Dice!");
-        diceButton.setName("dice");
-        diceButton.addActionListener(this);
-        diceButton.setEnabled(true);
-        dicePanel.add(diceButton);
-
-        // player info
-        JPanel playerInfoPanel = new JPanel();
-        playerInfoPanel.setLayout(new BoxLayout(playerInfoPanel, BoxLayout.Y_AXIS));
-        JLabel p1info = new JLabel(State.getInstance().getPlayerOne().getName() + " = BLACK");
-        JLabel p2info = new JLabel(State.getInstance().getPlayerTwo().getName() + " = WHITE");
-        p1info.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
-        p2info.setBorder(BorderFactory.createEmptyBorder(0,0,20,0));
-        p1info.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
-        p2info.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
-        playerInfoPanel.add(p1info);
-        playerInfoPanel.add(p2info);
-
-        // add to game stats panel
         gameStatsPanel.add(playerTurnPanel);
-        gameStatsPanel.add(dicePanel);
-        gameStatsPanel.add(playerInfoPanel);
     }
 
-    private void updatePlayerTurnLabel()
-    {
+    private void updatePlayerTurnLabel(){
         TitledBorder title;
         switch(winner)
         {
@@ -186,6 +154,8 @@ public class SnakesAndLadders extends GameBoard {
 		//gameBoard[9][0].setText("Start");
 		getSpace(0,0).setText("Finish");
 		//gameBoard[player1x][player1y].setGamePiece(new SNLPieceBlack());
+		getSpace(9,0).setValue("P1,P2");
+		getSpace(9,0).setText("Start");
 		getSpace(9,0).setGamePiece(new SNLBothPieces());
 		
 	}
@@ -222,7 +192,7 @@ public class SnakesAndLadders extends GameBoard {
 	}
 	
 	public void setSnakesandLadders() {
-		getSpace(9,0).clearGamePiece();
+		// getSpace(9,0).clearGamePiece();
 		for(Map.Entry<ArrayList<Integer>, ArrayList<Integer>> coordinates : specialSpaces.entrySet()) {
 			int startRow = coordinates.getKey().get(0);
 			int startCol = coordinates.getKey().get(1);
@@ -237,85 +207,67 @@ public class SnakesAndLadders extends GameBoard {
 		}		
 }
 	
-		private void advanceGame() {
-			int roll = dice.roll();
-			System.out.println("Roll: " + roll);
-			int player1x = getPlayer1Position().get(0);
-			int player1y = getPlayer1Position().get(1);
-			
-			int player2x = getPlayer2Position().get(0);
-			int player2y = getPlayer2Position().get(1);
-			
-			if (turn == 1) {
-				if (getSpace(player1x,player1y).getText().equals("P1,P2")) { // if spot with P1 & P2
-					getSpace(player2x,player2y).clearGamePiece(); // clears SNLBothPieces()
-                    getSpace(player2x,player2y).setGamePiece(new SNLPieceWhite()); // fill space with P2's piece
-				}
-				else { // otherwise, just clear the cell
-					getSpace(player1x,player1y).clearGamePiece();
-				}
-			}
-			else {
-				if (getSpace(player1x,player1y).getText().equals("P1,P2")) { // if spot with P1 & P2
-					getSpace(player2x,player2y).clearGamePiece(); // clears SNLBothPieces()
-					getSpace(player2x,player2y).setGamePiece(new SNLPieceBlack()); // fill space with P1's piece
-				}
-				else { // otherwise, just clear the cell
-                    getSpace(player2x,player2y).clearGamePiece();
-				}
-			}
-			
-			if ((player1x == 0) && (player1y - roll <= 0) && (turn == 1)) {
-				getSpace(0,0).setGamePiece(new SNLPieceBlack()); //
-                winner = 1;
-                updatePlayerTurnLabel();
-				foundWinner(1);
-			}
-			else if ((player2x == 0) && (player2y - roll <= 0) && (turn == 2)) {
-				getSpace(0,0).setGamePiece(new SNLPieceWhite()); //
-                winner = 2;
-                updatePlayerTurnLabel();
-				foundWinner(2);
-			}
-			else {
-                advancePlayer(turn, roll);
-            }
-				
-			
-			player1x = getPlayer1Position().get(0);
-			player1y = getPlayer1Position().get(1);
-			
-			player2x = getPlayer2Position().get(0);
-			player2y = getPlayer2Position().get(1);
-			if (turn == 1) {
-				getSpace(player1x,player1y).setGamePiece(new SNLPieceBlack());
-			}
-            else if (turn == 2) {
-                getSpace(player2x,player2y).setGamePiece(new SNLPieceWhite());
-            }
-
-            if ((player1x == player2x) && (player1y == player2y)) {
-				getSpace(player1x,player1y).setGamePiece(new SNLBothPieces());
-			}
-
-
-			turn = ((turn == 1) ? 2 : 1);
-
-            updatePlayerTurnLabel();
-	}
-	
-	public void processLogic() {
-	}
-	
+	private void advanceGame() {
+		int roll = dice.roll();
+		System.out.println();
+		System.out.println("Roll: " + roll);
+		System.out.println("Turn: " + turn);
+		int player1x = getPlayer1Position().get(0);
+		int player1y = getPlayer1Position().get(1);
+		int player2x = getPlayer2Position().get(0);
+		int player2y = getPlayer2Position().get(1);
 		
-	public void separatePieces() {
-		int currPlayerRow = positionOfPlayers.get(turn).get(0);
-		int currPlayerCol = positionOfPlayers.get(turn).get(1);
-		if(getSpace(currPlayerRow,currPlayerCol).getValue().equals("P1,P2")) {
-			getSpace(currPlayerRow,currPlayerCol).setValue(""+((turn == 1) ? "P2" : "P1"));
-		}	
-		else
-			getSpace(currPlayerRow,currPlayerCol).setValue("");
+		if (turn == 1) {
+			if (getSpace(player1x,player1y).getValue().equals("P1,P2")) { // if spot with P1 & P2
+				getSpace(player2x,player2y).clearGamePiece(); // clears SNLBothPieces()
+				getSpace(player2x,player2y).setGamePiece(new SNLPieceWhite()); // fill space with P2's piece
+				
+			}
+			else { // if P1 & P2 on separate spaces, just clear the cell
+				getSpace(player1x,player1y).clearGamePiece();
+			}
+		}
+		else { // if P2's turn
+			if (getSpace(player2x,player2y).getValue().equals("P1,P2")) { // if spot with P1 & P2
+				getSpace(player2x,player2y).clearGamePiece(); // clears SNLBothPieces()
+				getSpace(player1x,player1y).setGamePiece(new SNLPieceBlack()); // fill space with P1's piece
+			}
+			else { // otherwise, just clear the cell
+                getSpace(player2x,player2y).clearGamePiece();
+			}
+		}
+		updatePlayerTurnLabel();
+		
+		//win conditions
+		if ((player1x == 0) && (player1y - roll <= 0) && (turn == 1)) {
+			getSpace(0,0).setGamePiece(new SNLPieceBlack()); //
+			foundWinner(1);
+		}
+		else if ((player2x == 0) && (player2y - roll <= 0) && (turn == 2)) {
+			getSpace(0,0).setGamePiece(new SNLPieceWhite()); //
+			foundWinner(2);
+		}
+		//if no one won, advance player
+		else 
+            advancePlayer(turn, roll);
+        
+		player1x = getPlayer1Position().get(0);
+		player1y = getPlayer1Position().get(1);
+		
+		player2x = getPlayer2Position().get(0);
+		player2y = getPlayer2Position().get(1);
+		if (turn == 1) {
+			getSpace(player1x,player1y).setGamePiece(new SNLPieceBlack());
+		}
+        else if (turn == 2) {
+            getSpace(player2x,player2y).setGamePiece(new SNLPieceWhite());
+        }
+
+        if ((player1x == player2x) && (player1y == player2y)) {
+			getSpace(player1x,player1y).setGamePiece(new SNLBothPieces());
+		}
+        
+		turn = ((turn == 1) ? 2 : 1);
 	}
 	
 	public ArrayList<Integer> getPlayer1Position() {
@@ -329,19 +281,26 @@ public class SnakesAndLadders extends GameBoard {
 	public void updateBoard() {
 		int currPlayerRow = positionOfPlayers.get(turn).get(0);
 		int currPlayerCol = positionOfPlayers.get(turn).get(1);
-		System.out.println(currPlayerRow + " " + currPlayerCol);
 
-        if(getSpace(currPlayerRow,currPlayerCol).getValue().equals(""))
+        if(getSpace(currPlayerRow,currPlayerCol).getValue().equals("")) // if nothing there, update with the current player
             getSpace(currPlayerRow,currPlayerCol).setValue(""+((turn == 1) ? "P1" : "P2"));
-        else if(!getSpace(currPlayerRow,currPlayerCol).getValue().equals(""))
-            getSpace(currPlayerRow,currPlayerCol).setValue("P1,P2");
-
+        else if (!getSpace(currPlayerRow,currPlayerCol).getValue().equals("")) // if something there, update with both
+        	getSpace(currPlayerRow,currPlayerCol).setValue("P1,P2"); 
+        else // if both on same spot, set the space to whoever's turn it's not
+        	getSpace(currPlayerRow,currPlayerCol).setValue(""+((turn == 1) ? "P2" : "P1")); 
+        
 	}
 	
 	public void advancePlayer(int player, int diceRoll){
 	    ArrayList<Integer> currentPosition = positionOfPlayers.get(player);
 	    System.out.println("Current position: " + Integer.toString(currentPosition.get(0)) + ", " + Integer.toString(currentPosition.get(1)));
-	    separatePieces();
+	    boolean together = false;
+	    int notPlayer = (turn == 1) ? 2 : 1;
+	    
+	    if(currentPosition.equals(positionOfPlayers.get(notPlayer)))
+	    	together = true;
+	    	
+	    updateBoard();
 	    
 	    // If row is odd
 	    if ((currentPosition.get(0)) % 2 == 1) { 
@@ -376,7 +335,13 @@ public class SnakesAndLadders extends GameBoard {
 	    currentPosition = checkSnakeOrLadder(currentPosition); // Moves the player if on a snake or ladder
 	    positionOfPlayers.put(player, currentPosition); // Updates player position
 	    
-	    updateBoard();
+	    if(together) {
+	    	if(turn == 1)
+	    		getSpace(positionOfPlayers.get(notPlayer).get(0),positionOfPlayers.get(notPlayer).get(1)).setGamePiece(new SNLPieceWhite());
+	    	else
+	    		getSpace(positionOfPlayers.get(notPlayer).get(0),positionOfPlayers.get(notPlayer).get(1)).setGamePiece(new SNLPieceBlack());
+	    }
+	    //updateBoard();
 	}
 	
 	public void showSNLAlert() { // put this in panel
@@ -405,19 +370,17 @@ public class SnakesAndLadders extends GameBoard {
 	public void foundWinner(int playerNum) {
 		JOptionPane.showMessageDialog(null, "Player " + Integer.toString(playerNum) + " won!");
 		winner = playerNum;
-		diceButton.setEnabled(false);
 		gui.gameOver();
 	}
 
     public void actionPerformed(ActionEvent e) {
-		if (e.getSource() instanceof JButton) {
-			JButton buttonClicked = (JButton) e.getSource();
-			if(buttonClicked.getName().equals("dice"))
-			{
-				updatePlayerTurnLabel();
-				advanceGame();
-			}
-		}
+    	
+        SNLSpace spaceClicked = (SNLSpace) e.getSource();
+        
+        if (spaceClicked.getValue() == "dice") {
+        	updatePlayerTurnLabel();
+            advanceGame();
+        }
     }
 }
 
