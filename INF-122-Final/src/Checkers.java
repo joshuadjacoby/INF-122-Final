@@ -235,32 +235,23 @@ public class Checkers extends GameBoard {
             //Going East
 
             if(direction == "s"){
-//                try{
+                try{
                 	
                 	CheckersSpace overWriteSpace = (CheckersSpace) getSpace(currPressedSpace.getPosX() + 1, currPressedSpace.getPosY() + 1);
                 	overWriteSpace.clearGamePiece();
                 	itemchanged = true;
-                	
-//                    ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() + 1][currPressedBtn.getGridColLoc() + 1]).setButtonValue("");
-//                    gameBoard[currPressedBtn.getGridRowLoc() + 1][currPressedBtn.getGridColLoc() + 1].setText("");
-//                    ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() + 1][currPressedBtn.getGridColLoc() + 1]).setOwner("");
-                    
-//                }catch(Exception e){
-//
-//                }
+                }catch(Exception e){
+
+                }
             }else if(direction == "n"){
-//                try{
+                try{
                 	CheckersSpace overWriteSpace = (CheckersSpace) getSpace(currPressedSpace.getPosX() - 1, currPressedSpace.getPosY() + 1);
                 	overWriteSpace.clearGamePiece();
                 	itemchanged = true;
-                	
-//                    ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() - 1][currPressedBtn.getGridColLoc() + 1]).setButtonValue("");
-//                    gameBoard[currPressedBtn.getGridRowLoc() - 1][currPressedBtn.getGridColLoc() + 1].setText("");
-//                    ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() - 1][currPressedBtn.getGridColLoc() + 1]).setOwner("");
-                    
-//                }catch(Exception e){
-//
-//                }
+
+                }catch(Exception e){
+
+                }
 
 
 
@@ -269,33 +260,24 @@ public class Checkers extends GameBoard {
         	//currPressedSpace.getPosY() + 1 < spaceClicked.getPosY()
         	//Going West
           if(direction == "s"){
-//              try{
+              try{
             	  CheckersSpace overWriteSpace = (CheckersSpace) getSpace(currPressedSpace.getPosX() + 1, currPressedSpace.getPosY() - 1);
 	              overWriteSpace.clearGamePiece();
 	              itemchanged = true;
-//                  ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() + 1][currPressedBtn.getGridColLoc() - 1]).setButtonValue("");
-//                  gameBoard[currPressedBtn.getGridRowLoc() + 1][currPressedBtn.getGridColLoc() - 1].setText("");
-//                  ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() + 1][currPressedBtn.getGridColLoc() - 1]).setOwner("");
-//                  itemchanged = true;
-//              }catch(Exception e){
-//
-//              }
+              }catch(Exception e){
+
+              }
 
 
 
           }else if(direction == "n"){
-//              try{
+              try{
             	  CheckersSpace overWriteSpace = (CheckersSpace) getSpace(currPressedSpace.getPosX() - 1, currPressedSpace.getPosY() - 1);
 	              overWriteSpace.clearGamePiece();
 	              itemchanged = true;
-	              
-//                  ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() - 1][currPressedBtn.getGridColLoc() - 1]).setButtonValue("");
-//                  gameBoard[currPressedBtn.getGridRowLoc() - 1][currPressedBtn.getGridColLoc() - 1].setText("");
-//                  ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc() - 1][currPressedBtn.getGridColLoc() - 1]).setOwner("");
-//                  itemchanged = true;
-//              }catch(Exception e){
-//
-//              }
+              }catch(Exception e){
+
+              }
 
 
           }
@@ -325,23 +307,25 @@ public class Checkers extends GameBoard {
         setSpace(currAvailSpace.getPosX(), currAvailSpace.getPosY(), currAvailSpace);
         setSpace(currPressedSpace.getPosX(), currPressedSpace.getPosY(), currPressedSpace);
 
-        
-        
-        
-        
-//        gameBoard[currPressedBtn.getGridRowLoc()][currPressedBtn.getGridColLoc()].setText("");
-//        Color acolor = ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc()][currPressedBtn.getGridColLoc()]).getoriginalColor();
-//        gameBoard[currPressedBtn.getGridRowLoc()][currPressedBtn.getGridColLoc()].setBackground(acolor);
-//        ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc()][currPressedBtn.getGridColLoc()]).setButtonValue("");
-//        ((GameButton<String>)gameBoard[currPressedBtn.getGridRowLoc()][currPressedBtn.getGridColLoc()]).setOwner("");
-//        gameBoard[currPressedBtn.getGridRowLoc()][currPressedBtn.getGridColLoc()].setSelected(false);
-
     }
     
     private void clearPrevMoveState(){
         currentPossibleMoves = new ArrayList();
         currPressedSpace = null;
         item_selected = false;
+    }
+
+    private void toggleAvailHint(ArrayList<CheckersSpace> thespaces){
+        for(int ind = 0; ind < thespaces.size(); ind++ ){
+            thespaces.get(ind).mark(Color.decode("#57BF24"));
+        }
+
+    }
+    private void unToggleAvailHint(ArrayList<CheckersSpace> thespaces){
+        for(int ind = 0; ind < thespaces.size(); ind++ ){
+            thespaces.get(ind).unmark();
+        }
+
     }
 
         
@@ -365,22 +349,17 @@ public class Checkers extends GameBoard {
         	if(currGamePiece != null && item_selected == true && currGamePiece.getOwnerNum() == currentPlayer && currSpaceClicked.isSelected()) {
         		currSpaceClicked.setBgColor(currSpaceClicked.getOriginalColor());
         		currSpaceClicked.setSelected(false);
+        		unToggleAvailHint(currentPossibleMoves);
         		item_selected = false;
         		currPressedSpace = null;
         		return;
-//              if(item_selected == true && (buttonClicked.getOwner()).equals(currentPlayer)  && buttonClicked.isSelected() ){
-//              buttonClicked.setBackground(buttonClicked.getoriginalColor());
-//              buttonClicked.setSelected(false);
-//              item_selected = false;
-//              currPressedBtn = null;
-//              return;
-//          }
         	}
         	if(currGamePiece != null && item_selected == false && currGamePiece.getOwnerNum() == currentPlayer) {
         		item_selected = true;
         		currSpaceClicked.setSelected(true);
         		currSpaceClicked.setBgColor(Color.BLUE);
         		String pieceName = currGamePiece.getName();
+                currentPossibleMoves = new ArrayList<Checkers>();
         		
         		if(pieceName == "black" || pieceName == "white") {
                   currentPossibleMoves.addAll(available1Dir1TileMoves(currSpaceClicked, moveFacing));
@@ -389,8 +368,7 @@ public class Checkers extends GameBoard {
         			
         		}
         		if(pieceName == "blackking" || pieceName == "whiteking") {
-                  //Calculate the possible moves when the user clicks the first piece'
-        		  currentPossibleMoves = new ArrayList<Checkers>();
+                  //Calculate the possible moves when the user clicks the first piece
         			
         		  currentPossibleMoves.addAll(available1Dir1TileMoves(currSpaceClicked, "n"));
                   currentPossibleMoves.addAll(available1Dir2TileMoves(currSpaceClicked, "n"));
@@ -400,8 +378,8 @@ public class Checkers extends GameBoard {
                   currentPossibleMoves.addAll(available1Dir2TileMoves(currSpaceClicked, "s"));
                   currPressedSpace = currSpaceClicked;
         		}
-        		
-        		return;
+                toggleAvailHint(currentPossibleMoves);
+                return;
         	}
         
 
@@ -430,6 +408,7 @@ public class Checkers extends GameBoard {
                         //Find out who is eaten
                         checkForOverWritesBasic(currSpaceClicked, moveFacing );
                         movePeiceToButton(currSpaceClicked);
+                        unToggleAvailHint(currentPossibleMoves);
                         clearPrevMoveState();
                         if(itemchanged == true){
                             ArrayList newOptions = available1Dir2TileMoves(currSpaceClicked, moveFacing);
@@ -448,6 +427,7 @@ public class Checkers extends GameBoard {
                     else if ((currPressedSpace.getGamePiece().getName()).equals("whiteking") || (currPressedSpace.getGamePiece().getName()).equals("blackking")){
                         checkForOverWritesKing(currSpaceClicked);
                         movePeiceToButton(currSpaceClicked);
+                        unToggleAvailHint(currentPossibleMoves);
                         clearPrevMoveState();
 
                         if(itemchanged == true){
@@ -469,9 +449,10 @@ public class Checkers extends GameBoard {
                     //Check to see if game is over
                     updateScore();
                     if(p1Score == 0){
-                        JOptionPane.showConfirmDialog(null, "Game Over. Player 1 wins");
-                    }else if(p2Score == 0){
+                        //HELP ME HERE**************************************************
                         JOptionPane.showConfirmDialog(null, "Game Over. Player 2 wins");
+                    }else if(p2Score == 0){
+                        JOptionPane.showConfirmDialog(null, "Game Over. Player 1 wins");
                     }
 
                     return;
