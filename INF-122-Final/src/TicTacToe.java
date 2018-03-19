@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
 public class TicTacToe extends GameBoard {
@@ -29,13 +30,22 @@ public class TicTacToe extends GameBoard {
 
     protected void statsPanelInfo(JPanel gameStatsPanel)
     {
-        gameStatsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Game Stats"));
+        TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Game Stats");
+
+        gameStatsPanel.setBorder(title);
 
         // player turn
+        JPanel playerTurnPanel = new JPanel();
         playerTurnLabel = new JLabel();
         updatePlayerTurnLabel();
+        // player turn style
+        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Turn");
+        title.setTitleJustification(TitledBorder.CENTER);
+        playerTurnLabel.setBorder(title);
         playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
-        gameStatsPanel.add(playerTurnLabel);
+        // player turn add to panel
+        playerTurnPanel.add(playerTurnLabel);
+        gameStatsPanel.add(playerTurnPanel);
     }
 
     private void updatePlayerTurnLabel()
