@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-/images/
+/bin/
+/.gitignore
 /.project
-=======
-/Checkers$buttonListener.class
-/Checkers.class
->>>>>>> CheckersRefactoring
+/5024-200.png
+/Misc/
+/images/

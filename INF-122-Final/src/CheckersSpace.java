@@ -3,6 +3,8 @@ import java.awt.*;
 public class CheckersSpace extends BoardSpace {
     private boolean hasMarker;
     private Color markerColor;
+    protected Color backgroundColor;
+    protected Color originalColor;
 
     // construct empty space
     public CheckersSpace(int row, int col, String spaceValue) {
@@ -14,6 +16,13 @@ public class CheckersSpace extends BoardSpace {
     // construct space with piece
     public CheckersSpace(int row, int col, String spaceValue, GamePiece gamePiece) {
         super(row, col, spaceValue, gamePiece);
+    }
+    
+    public void setOriginalColor(Color color){
+        this.originalColor = color;
+    }
+    public Color getOriginalColor(){
+        return this.originalColor;
     }
 
     // hintMarker setters
