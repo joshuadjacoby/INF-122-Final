@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +9,12 @@ import java.util.ArrayList;
 
 public class Checkers extends GameBoard {
 
+	private int winner = -1;
+	private JLabel blackScoreLabel;
+	private JLabel whiteScoreLabel;
+	
+    private JLabel playerTurnLabel;
+    
     private int currentPlayer = 1; //1 == W,   2 == B
     private ArrayList currentPossibleMoves;
     private CheckersSpace currPressedSpace; // currPressedBtn
@@ -30,7 +38,74 @@ public class Checkers extends GameBoard {
 
 
     }
+    
+    protected void statsPanelInfo(JPanel gameStatsPanel)
+    {
+        Box box = Box.createVerticalBox();        
+        TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Game Stats");
 
+        gameStatsPanel.setBorder(title);
+
+        // player turn
+        JPanel playerTurnPanel = new JPanel();
+        playerTurnLabel = new JLabel();
+        
+        // player turn style
+        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Turn");
+        title.setTitleJustification(TitledBorder.CENTER);
+        playerTurnLabel.setBorder(title);
+        playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
+        // player turn add to panel
+        playerTurnPanel.add(playerTurnLabel);
+        
+        box.add(playerTurnLabel);
+        
+        whiteScoreLabel = new JLabel(State.getInstance().getPlayerOne().getName() + ": " + p1Score + " (White)");
+        blackScoreLabel = new JLabel(State.getInstance().getPlayerTwo().getName() + ": " + p2Score + " (Black)");
+        
+        blackScoreLabel.setFont(new Font("", Font.BOLD, 24));
+        whiteScoreLabel.setFont(new Font("", Font.BOLD, 24));
+        
+        
+        box.add(whiteScoreLabel);
+        box.add(blackScoreLabel);
+        updatePlayerTurnLabel();
+        
+        gameStatsPanel.add(box);
+    }
+
+    private void updatePlayerTurnLabel()
+    {
+        TitledBorder title;
+        switch(winner)
+        {
+            case 0:
+                playerTurnLabel.setText("NO WINNER");
+                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+                title.setTitleJustification(TitledBorder.CENTER);
+                playerTurnLabel.setBorder(title);
+                break;
+            case 1:
+                playerTurnLabel.setText(State.getInstance().getPlayerOne().getName() + " WINS!");
+                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+                title.setTitleJustification(TitledBorder.CENTER);
+                playerTurnLabel.setBorder(title);
+                break;
+            case 2:
+                playerTurnLabel.setText(State.getInstance().getPlayerTwo().getName() + " WINS!");
+                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+                title.setTitleJustification(TitledBorder.CENTER);
+                playerTurnLabel.setBorder(title);
+                break;
+            default:
+                if (currentPlayer==1) {
+                    playerTurnLabel.setText(State.getInstance().getPlayerOne().getName());
+                } else {
+                    playerTurnLabel.setText(State.getInstance().getPlayerTwo().getName());
+                }
+                break;
+        }
+    }
 //    public boolean checkForWin()
 //    {
 //        //Change
@@ -227,6 +302,8 @@ public class Checkers extends GameBoard {
 
         p1Score = w;
         p2Score = b;
+        whiteScoreLabel.setText(State.getInstance().getPlayerOne().getName() + ": " + p1Score + " (White)");
+        blackScoreLabel.setText(State.getInstance().getPlayerTwo().getName() + ": " + p2Score + " (Black)");
     }
 
     private void checkForOverWritesBasic(CheckersSpace spaceClicked, String direction){
@@ -305,7 +382,7 @@ public class Checkers extends GameBoard {
         
         setSpace(currAvailSpace.getPosX(), currAvailSpace.getPosY(), currAvailSpace);
         setSpace(currPressedSpace.getPosX(), currPressedSpace.getPosY(), currPressedSpace);
-
+        
     }
     
     private void clearPrevMoveState(){
@@ -450,8 +527,10 @@ public class Checkers extends GameBoard {
                     if(p1Score == 0){
                         //HELP ME HERE**************************************************
                         JOptionPane.showConfirmDialog(null, "Game Over. Player 2 wins");
+                        winner = 2;
                     }else if(p2Score == 0){
                         JOptionPane.showConfirmDialog(null, "Game Over. Player 1 wins");
+                        winner = 1;
                     }
 
                     return;
@@ -520,11 +599,6 @@ public class Checkers extends GameBoard {
         return tColor;
     }
 
-	@Override
-	protected void statsPanelInfo(JPanel gameStatsPanel) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
