@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -9,12 +10,16 @@ import java.util.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
 
 @SuppressWarnings("serial")
 public class SnakesAndLadders extends GameBoard {
 	private int turn = 1; // Game starts with Player 1's turn
 	private Dice dice = new Dice();
+	
+	private int winner = -1; 
+	private JLabel playerTurnLabel;
 	
 	private HashMap<Integer, ArrayList<Integer>> positionOfPlayers = new HashMap<Integer, ArrayList<Integer>>(){};
 	static HashMap<ArrayList<Integer>, ArrayList<Integer>> specialSpaces = new HashMap<ArrayList<Integer>, ArrayList<Integer>>();
@@ -95,9 +100,58 @@ public class SnakesAndLadders extends GameBoard {
 		//gui.statsContainer.add(button);
 	}
 
-    protected void statsPanelInfo(JPanel statsPanel)
+    protected void statsPanelInfo(JPanel gameStatsPanel)
     {
-        statsPanel.add(new JLabel("Custom TTT info"));
+        TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Game Stats");
+
+        gameStatsPanel.setBorder(title);
+
+        // player turn
+        JPanel playerTurnPanel = new JPanel();
+        playerTurnLabel = new JLabel();
+        updatePlayerTurnLabel();
+        // player turn style
+        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Turn");
+        title.setTitleJustification(TitledBorder.CENTER);
+        playerTurnLabel.setBorder(title);
+        playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
+        // player turn add to panel
+        playerTurnPanel.add(playerTurnLabel);
+        gameStatsPanel.add(playerTurnPanel);
+    }
+
+    private void updatePlayerTurnLabel()
+    {
+        TitledBorder title;
+        switch(winner)
+        {
+
+            case 0:
+                playerTurnLabel.setText("NO WINNER");
+                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+                title.setTitleJustification(TitledBorder.CENTER);
+                playerTurnLabel.setBorder(title);
+                break;
+            case 1:
+                playerTurnLabel.setText(State.getInstance().getPlayerOne().getName() + " WINS!");
+                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+                title.setTitleJustification(TitledBorder.CENTER);
+                playerTurnLabel.setBorder(title);
+                break;
+            case 2:
+                playerTurnLabel.setText(State.getInstance().getPlayerTwo().getName() + " WINS!");
+                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+                title.setTitleJustification(TitledBorder.CENTER);
+                playerTurnLabel.setBorder(title);
+                break;
+            default:
+                if (turn==1) {
+                    playerTurnLabel.setText(State.getInstance().getPlayerOne().getName());
+                } else {
+                    playerTurnLabel.setText(State.getInstance().getPlayerTwo().getName());
+                }
+                break;
+        }
     }
 
 	void setPlayers() {
@@ -141,13 +195,11 @@ public class SnakesAndLadders extends GameBoard {
 	
 	public void setSnakesandLadders() {
 		getSpace(9,0).clearGamePiece();
-		System.out.println("first");
 		for(Map.Entry<ArrayList<Integer>, ArrayList<Integer>> coordinates : specialSpaces.entrySet()) {
 			int startRow = coordinates.getKey().get(0);
 			int startCol = coordinates.getKey().get(1);
 			int endRow = coordinates.getValue().get(0);
 			int endCol = coordinates.getValue().get(1);
-			System.out.println(startCol + ", " + endCol);
 			//set ladders 
 			if(startRow > endRow) 
 				setLadders(startRow,startCol,endRow,endCol);
@@ -183,8 +235,8 @@ public class SnakesAndLadders extends GameBoard {
 				else { // otherwise, just clear the cell
                     getSpace(player2x,player2y).clearGamePiece();
 				}
-				
 			}
+			updatePlayerTurnLabel();
 			
 			if ((player1x == 0) && (player1y - roll <= 0) && (turn == 1)) {
 				getSpace(0,0).setGamePiece(new SNLPieceBlack()); //
@@ -290,6 +342,7 @@ public class SnakesAndLadders extends GameBoard {
 	    }
 	    currentPosition = checkSnakeOrLadder(currentPosition); // Moves the player if on a snake or ladder
 	    positionOfPlayers.put(player, currentPosition); // Updates player position
+	    
 	    updateBoard();
 	}
 	
@@ -318,14 +371,16 @@ public class SnakesAndLadders extends GameBoard {
 	
 	public void foundWinner(int playerNum) {
 		JOptionPane.showMessageDialog(null, "Player " + Integer.toString(playerNum) + " won!");
-
+		winner = playerNum;
 		gui.gameOver();
 	}
 
     public void actionPerformed(ActionEvent e) {
+    	
         SNLSpace spaceClicked = (SNLSpace) e.getSource();
-
+        
         if (spaceClicked.getValue() == "dice") {
+        	updatePlayerTurnLabel();
             advanceGame();
         }
     }

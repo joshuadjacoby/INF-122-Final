@@ -1,6 +1,4 @@
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -15,16 +13,15 @@ public class Othello extends GameBoard {
 	private Color playerColor = Color.BLACK;
 	private Color opponentColor = Color.WHITE;
 
-	private JLabel blackScoreLabel = new JLabel("Black: " + blackScore);
-	private JLabel whiteScoreLabel = new JLabel("White: " + whiteScore);
+	private JLabel blackScoreLabel;
+	private JLabel whiteScoreLabel;
+	
     private JLabel playerTurnLabel;
 
 	public Othello(int row, int col, GUI gui) {
 		super(row, col, gui);
 		setLayout(new GridLayout(0, col));
 		initializeButtons();
-		add(blackScoreLabel);
-		add(whiteScoreLabel);
 		allPossibleMoves();
 	}
 
@@ -59,6 +56,7 @@ public class Othello extends GameBoard {
 
     protected void statsPanelInfo(JPanel gameStatsPanel)
     {
+        Box box = Box.createVerticalBox();        
         TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Game Stats");
 
         gameStatsPanel.setBorder(title);
@@ -66,7 +64,7 @@ public class Othello extends GameBoard {
         // player turn
         JPanel playerTurnPanel = new JPanel();
         playerTurnLabel = new JLabel();
-        updatePlayerTurnLabel();
+        
         // player turn style
         title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Turn");
         title.setTitleJustification(TitledBorder.CENTER);
@@ -74,7 +72,19 @@ public class Othello extends GameBoard {
         playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
         // player turn add to panel
         playerTurnPanel.add(playerTurnLabel);
-        gameStatsPanel.add(playerTurnPanel);
+        
+        box.add(playerTurnLabel);
+        
+        blackScoreLabel = new JLabel(State.getInstance().getPlayerOne().getName() + ": " + blackScore + " (Black)");
+        whiteScoreLabel = new JLabel(State.getInstance().getPlayerTwo().getName() + ": " + whiteScore + " (White)");
+        
+        blackScoreLabel.setFont(new Font("", Font.BOLD, 24));
+        whiteScoreLabel.setFont(new Font("", Font.BOLD, 24));
+        
+        box.add(blackScoreLabel);
+        box.add(whiteScoreLabel);
+        updatePlayerTurnLabel();
+        gameStatsPanel.add(box);
     }
 
     private void updatePlayerTurnLabel()
@@ -101,7 +111,6 @@ public class Othello extends GameBoard {
                 playerTurnLabel.setBorder(title);
                 break;
             default:
-            	
                 if (playerColor.equals(Color.BLACK)) {
                     playerTurnLabel.setText(State.getInstance().getPlayerOne().getName());
                 } else {
@@ -119,8 +128,8 @@ public class Othello extends GameBoard {
 			blackScore -= black;
 			whiteScore += white;
 		}
-		blackScoreLabel.setText("Black: " + blackScore);
-		whiteScoreLabel.setText("White: " + whiteScore);
+      blackScoreLabel.setText(State.getInstance().getPlayerOne().getName() + ": " + blackScore + " (Black)");
+      whiteScoreLabel.setText(State.getInstance().getPlayerTwo().getName() + ": " + whiteScore + " (White)");
 	}
 	
 	public void allPossibleMoves() {
@@ -264,11 +273,11 @@ public class Othello extends GameBoard {
             allPossibleMoves();
             if (checkForWin()) {
                 if (blackScore>whiteScore)
-                    winner=1;//System.out.println("Player1 Won");
+                    winner=1;
                 else if (blackScore<whiteScore)
-                    winner=2;//System.out.println("Player2 Won");
+                    winner=2;
                 else
-                	winner=0;// tie
+                	winner=0;
                 updatePlayerTurnLabel();
                 gui.gameOver();
             }
