@@ -390,7 +390,9 @@ public class Checkers extends GameBoard {
         		}
         		if(pieceName == "blackking" || pieceName == "whiteking") {
                   //Calculate the possible moves when the user clicks the first piece'
-                  currentPossibleMoves.addAll(available1Dir1TileMoves(currSpaceClicked, "n"));
+        		  currentPossibleMoves = new ArrayList<Checkers>();
+        			
+        		  currentPossibleMoves.addAll(available1Dir1TileMoves(currSpaceClicked, "n"));
                   currentPossibleMoves.addAll(available1Dir2TileMoves(currSpaceClicked, "n"));
 
 
