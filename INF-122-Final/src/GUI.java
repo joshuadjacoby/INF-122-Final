@@ -160,10 +160,6 @@ public class GUI extends JFrame implements ActionListener {
         if (reply == JOptionPane.YES_OPTION) {
         	startGame(gameContainer, GameFactory.getInstance().makeGame(gameChoice, this));
         }
-        else {
-        	JOptionPane.showMessageDialog(null, "kbye");
-			showIntroPanel(gameContainer);
-        }
 	}
 
 

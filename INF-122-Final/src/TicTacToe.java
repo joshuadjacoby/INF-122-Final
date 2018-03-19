@@ -31,21 +31,39 @@ public class TicTacToe extends GameBoard {
     protected void statsPanelInfo(JPanel gameStatsPanel)
     {
         TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Game Stats");
-
         gameStatsPanel.setBorder(title);
+        gameStatsPanel.setLayout(new BoxLayout(gameStatsPanel, BoxLayout.Y_AXIS));
 
-        // player turn
+//        FlowLayout layout = new FlowLayout(FlowLayout.CENTER, 20, 20);
+//        gameStatsPanel.setLayout(layout);
+
+
+
+        // player turn panel
         JPanel playerTurnPanel = new JPanel();
+
+        // player turn label
         playerTurnLabel = new JLabel();
         updatePlayerTurnLabel();
-        // player turn style
-        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Turn");
+        playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
+        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Player Turn");
         title.setTitleJustification(TitledBorder.CENTER);
         playerTurnLabel.setBorder(title);
-        playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
+
+        // player info
+        JPanel playerInfoPanel = new JPanel();
+        playerInfoPanel.setLayout(new BoxLayout(playerInfoPanel, BoxLayout.Y_AXIS));
+        JLabel p1info = new JLabel(State.getInstance().getPlayerOne().getName() + " = X");
+        JLabel p2info = new JLabel(State.getInstance().getPlayerTwo().getName() + " = O");
+        p1info.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
+        p2info.setBorder(BorderFactory.createEmptyBorder(0,0,20,0));
+        playerInfoPanel.add(p1info);
+        playerInfoPanel.add(p2info);
+
         // player turn add to panel
         playerTurnPanel.add(playerTurnLabel);
         gameStatsPanel.add(playerTurnPanel);
+        gameStatsPanel.add(playerInfoPanel);
     }
 
     private void updatePlayerTurnLabel()
