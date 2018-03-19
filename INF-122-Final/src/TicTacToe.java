@@ -57,6 +57,9 @@ public class TicTacToe extends GameBoard {
         JLabel p2info = new JLabel(State.getInstance().getPlayerTwo().getName() + " = O");
         p1info.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
         p2info.setBorder(BorderFactory.createEmptyBorder(0,0,20,0));
+        
+        p1info.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        p2info.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
         playerInfoPanel.add(p1info);
         playerInfoPanel.add(p2info);
 
