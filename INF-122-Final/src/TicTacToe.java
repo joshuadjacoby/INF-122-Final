@@ -7,6 +7,7 @@ import javax.swing.border.TitledBorder;
 @SuppressWarnings("serial")
 public class TicTacToe extends GameBoard {
 	private int player = 1;
+    private int winner = -1; //it's a tie if 0, 1 if player 1 won...
 
     private JLabel playerTurnLabel;
 
@@ -50,7 +51,46 @@ public class TicTacToe extends GameBoard {
 
     private void updatePlayerTurnLabel()
     {
-        playerTurnLabel.setText("PLAYER " + player);
+        TitledBorder title;
+        switch(winner)
+        {
+
+            case 0:
+                playerTurnLabel.setText("NO WINNER");
+                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+                title.setTitleJustification(TitledBorder.CENTER);
+                playerTurnLabel.setBorder(title);
+                break;
+            case 1:
+                playerTurnLabel.setText(State.getInstance().getPlayerOne().getName() + " WINS!");
+                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+                title.setTitleJustification(TitledBorder.CENTER);
+                playerTurnLabel.setBorder(title);
+                break;
+            case 2:
+                playerTurnLabel.setText(State.getInstance().getPlayerTwo().getName() + " WINS!");
+                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+                title.setTitleJustification(TitledBorder.CENTER);
+                playerTurnLabel.setBorder(title);
+                break;
+            default:
+                if (player==1) {
+                    playerTurnLabel.setText(State.getInstance().getPlayerOne().getName());
+                } else {
+                    playerTurnLabel.setText(State.getInstance().getPlayerTwo().getName());
+                }
+                break;
+        }
+    }
+
+    public boolean isBoardFull() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (!getSpace(i,j).hasPiece()) // if no piece on this space then it is not full
+                    return false;
+            }
+        }
+        return true;
     }
 
 	public boolean checkForWin()
@@ -98,8 +138,7 @@ public class TicTacToe extends GameBoard {
 
 	private class TicTacToeButtonListener extends ButtonListener {
 		public void actionPerformed(ActionEvent e) {
-			TicTacToeSpace spaceClicked = (TicTacToeSpace) e.getSource();
-
+            TicTacToeSpace spaceClicked = (TicTacToeSpace) e.getSource();
             if (!spaceClicked.hasPiece()) {
                 if (player == 1) {
                     spaceClicked.setGamePiece(new TicTacToeX());
@@ -109,15 +148,22 @@ public class TicTacToe extends GameBoard {
                     spaceClicked.setGamePiece(new TicTacToeO());
                     player = 1;
                 }
-                else {
-
-                }
+                updatePlayerTurnLabel();
             }
-            if(checkForWin())
+            if( checkForWin() )
             {
+                if (player == 2)
+                    winner=1;//System.out.println("Player1 Won");
+                if (player == 1)
+                    winner=2;//System.out.println("Player2 Won");
+                updatePlayerTurnLabel();
                 gui.gameOver();
             }
-            updatePlayerTurnLabel();
+            else if (isBoardFull()) {
+                winner=0;
+                updatePlayerTurnLabel();
+                gui.gameOver();
+            }
 		}
 	}
 

@@ -47,7 +47,7 @@ public abstract class GameBoard extends JPanel {
     private class GameBoardButtonListener extends ButtonListener {
         public void actionPerformed(ActionEvent e) {
             JButton buttonClicked = (JButton) e.getSource();
-
+            
         }
     }
 }

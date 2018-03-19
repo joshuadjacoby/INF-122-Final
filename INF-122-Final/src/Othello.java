@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class Othello extends GameBoard {
 
 	private JLabel blackScoreLabel = new JLabel("Black: " + blackScore);
 	private JLabel whiteScoreLabel = new JLabel("White: " + whiteScore);
+    private JLabel playerTurnLabel;
 
 	public Othello(int row, int col, GUI gui) {
 		super(row, col, gui);
@@ -55,9 +57,45 @@ public class Othello extends GameBoard {
 		}
 	}
 
-    protected void statsPanelInfo(JPanel statsPanel)
+    protected void statsPanelInfo(JPanel gameStatsPanel)
     {
-        statsPanel.add(new JLabel("Custom TTT info"));
+        TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Game Stats");
+
+        gameStatsPanel.setBorder(title);
+
+        // player turn
+        JPanel playerTurnPanel = new JPanel();
+        playerTurnLabel = new JLabel();
+        updatePlayerTurnLabel();
+        // player turn style
+        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Turn");
+        title.setTitleJustification(TitledBorder.CENTER);
+        playerTurnLabel.setBorder(title);
+        playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
+        // player turn add to panel
+        playerTurnPanel.add(playerTurnLabel);
+        gameStatsPanel.add(playerTurnPanel);
+    }
+
+    private void updatePlayerTurnLabel()
+    {
+//        playerTurnLabel
+//
+//        if(winner > 0) {
+//            playerTurnLabel.setText("PLAYER " + winner + " WINS!");
+//            TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+//            title.setTitleJustification(TitledBorder.CENTER);
+//            playerTurnLabel.setBorder(title);
+//        }
+//        else if (winner == 0)
+//        {
+//            playerTurnLabel.setText("NO WINNER");
+//            TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+//            title.setTitleJustification(TitledBorder.CENTER);
+//        }
+//        else {
+//            playerTurnLabel.setText("PLAYER " + player);
+//        }
     }
 
 //	public void resetButtons() {

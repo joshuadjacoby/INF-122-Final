@@ -134,6 +134,10 @@ public class GUI extends JFrame implements ActionListener {
 		statsContainer = new JPanel();
 		statsContainer.setLayout(new BoxLayout(statsContainer, BoxLayout.PAGE_AXIS));
 
+        // custom game stats
+        JPanel gameStatsContainer = new JPanel();
+        game.statsPanelInfo(gameStatsContainer);
+        statsContainer.add(gameStatsContainer);
 
         // menu buttons
         JPanel menuButtons = new JPanel();
@@ -141,11 +145,6 @@ public class GUI extends JFrame implements ActionListener {
         menuButtons.add(new JButton("Restart Game"));
         menuButtons.add(new JButton("Quit Game"));
         statsContainer.add(menuButtons);
-
-        // custom game stats
-        JPanel gameStatsContainer = new JPanel();
-        game.statsPanelInfo(gameStatsContainer);
-        statsContainer.add(gameStatsContainer);
 	}
 
 	public void gameOver(/*String winningPlayer, String losingPlayer*/) {
