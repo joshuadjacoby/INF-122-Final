@@ -66,7 +66,7 @@ public class Othello extends GameBoard {
         
         // player turn label
         playerTurnLabel = new JLabel();
-        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Turn");
+        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Player Turn");
         title.setTitleJustification(TitledBorder.CENTER);
         playerTurnLabel.setBorder(title);
         playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
@@ -75,15 +75,19 @@ public class Othello extends GameBoard {
         // add to player turn panel
         playerTurnPanel.add(playerTurnLabel);
 
+
         // player info
         JPanel playerInfoPanel = new JPanel();
+        title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Score");
+        title.setTitleJustification(TitledBorder.CENTER);
+        playerInfoPanel.setBorder(title);
         playerInfoPanel.setLayout(new BoxLayout(playerInfoPanel, BoxLayout.Y_AXIS));
         blackScoreLabel = new JLabel(State.getInstance().getPlayerOne().getName() + " (BLACK) : " + blackScore);
         whiteScoreLabel = new JLabel(State.getInstance().getPlayerTwo().getName() + " (WHITE) : " + whiteScore);
-        blackScoreLabel.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
-        whiteScoreLabel.setBorder(BorderFactory.createEmptyBorder(0,0,20,0));
-        blackScoreLabel.setFont(new Font("", Font.PLAIN, 24));
-        whiteScoreLabel.setFont(new Font("", Font.PLAIN, 24));
+        blackScoreLabel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        whiteScoreLabel.setBorder(BorderFactory.createEmptyBorder(0,20,20,20));
+        blackScoreLabel.setFont(new Font("", Font.PLAIN, 20));
+        whiteScoreLabel.setFont(new Font("", Font.PLAIN, 20));
         playerInfoPanel.add(blackScoreLabel);
         playerInfoPanel.add(whiteScoreLabel);
 
