@@ -3,10 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame implements ActionListener {
@@ -36,6 +34,7 @@ public class GUI extends JFrame implements ActionListener {
         } catch(IOException e){
             introPanel = new JPanel();
         }
+
         introPanel.setLayout(new BoxLayout(introPanel, BoxLayout.PAGE_AXIS));
 	}
 

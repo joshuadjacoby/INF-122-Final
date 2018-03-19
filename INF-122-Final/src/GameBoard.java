@@ -4,7 +4,7 @@ public abstract class GameBoard extends JPanel {
 	protected int rows;
 	protected int cols;
 	private Player[] players;
-	protected BoardSpace[][] gameBoard;
+	private BoardSpace[][] gameBoard;
 
 	public GameBoard(int row, int col) {
 		gameBoard = new BoardSpace[row][col];

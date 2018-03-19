@@ -99,9 +99,9 @@ public class SnakesAndLadders extends GameBoard {
 
 	void setPlayers() {
 		//gameBoard[9][0].setText("Start");
-		gameBoard[0][0].setText("Finish");
+		getSpace(0,0).setText("Finish");
 		//gameBoard[player1x][player1y].setGamePiece(new SNLPieceBlack());
-		gameBoard[9][0].setGamePiece(new SNLBothPieces());
+		getSpace(9,0).setGamePiece(new SNLBothPieces());
 		
 	}
 	
@@ -137,7 +137,7 @@ public class SnakesAndLadders extends GameBoard {
 	}
 	
 	public void setSnakesandLadders() {
-		gameBoard[9][0].clearGamePiece();
+		getSpace(9,0).clearGamePiece();
 		System.out.println("first");
 		for(Map.Entry<ArrayList<Integer>, ArrayList<Integer>> coordinates : specialSpaces.entrySet()) {
 			int startRow = coordinates.getKey().get(0);
@@ -164,35 +164,36 @@ public class SnakesAndLadders extends GameBoard {
 			int player2y = getPlayer2Position().get(1);
 			
 			if (turn == 1) {
-				if (gameBoard[player1x][player1y].getText().equals("P1,P2")) { // if spot with P1 & P2
-					gameBoard[player2x][player2y].clearGamePiece(); // clears SNLBothPieces()
-					gameBoard[player2x][player2y].setGamePiece(new SNLPieceWhite()); // fill space with P2's piece
+				if (getSpace(player1x,player1y).getText().equals("P1,P2")) { // if spot with P1 & P2
+					getSpace(player2x,player2y).clearGamePiece(); // clears SNLBothPieces()
+                    getSpace(player2x,player2y).setGamePiece(new SNLPieceWhite()); // fill space with P2's piece
 				}
 				else { // otherwise, just clear the cell
-					gameBoard[player1x][player1y].clearGamePiece();
+					getSpace(player1x,player1y).clearGamePiece();
 				}
 			}
 			else {
-				if (gameBoard[player1x][player1y].getText().equals("P1,P2")) { // if spot with P1 & P2
-					gameBoard[player2x][player2y].clearGamePiece(); // clears SNLBothPieces()
-					gameBoard[player2x][player2y].setGamePiece(new SNLPieceBlack()); // fill space with P1's piece
+				if (getSpace(player1x,player1y).getText().equals("P1,P2")) { // if spot with P1 & P2
+					getSpace(player2x,player2y).clearGamePiece(); // clears SNLBothPieces()
+					getSpace(player2x,player2y).setGamePiece(new SNLPieceBlack()); // fill space with P1's piece
 				}
 				else { // otherwise, just clear the cell
-					gameBoard[player2x][player2y].clearGamePiece();
+                    getSpace(player2x,player2y).clearGamePiece();
 				}
 				
 			}
 			
 			if ((player1x == 0) && (player1y - roll <= 0) && (turn == 1)) {
-				gameBoard[0][0].setGamePiece(new SNLPieceBlack()); //
+				getSpace(0,0).setGamePiece(new SNLPieceBlack()); //
 				foundWinner(1);
 			}
-			
-			if ((player2x == 0) && (player2y - roll <= 0) && (turn == 2)) {
-				gameBoard[0][0].setGamePiece(new SNLPieceWhite()); //
+			else if ((player2x == 0) && (player2y - roll <= 0) && (turn == 2)) {
+				getSpace(0,0).setGamePiece(new SNLPieceWhite()); //
 				foundWinner(2);
 			}
-			advancePlayer(turn,roll);
+			else {
+                advancePlayer(turn, roll);
+            }
 				
 			
 			player1x = getPlayer1Position().get(0);
@@ -201,16 +202,16 @@ public class SnakesAndLadders extends GameBoard {
 			player2x = getPlayer2Position().get(0);
 			player2y = getPlayer2Position().get(1);
 			if (turn == 1) {
-				gameBoard[player1x][player1y].setGamePiece(new SNLPieceBlack());
+				getSpace(player1x,player1y).setGamePiece(new SNLPieceBlack());
 			}
-			
-			if ((player1x == player2x) && (player1y == player2y)) {
-				gameBoard[player1x][player1y].setGamePiece(new SNLBothPieces());
+            else if (turn == 2) {
+                getSpace(player2x,player2y).setGamePiece(new SNLPieceWhite());
+            }
+
+            if ((player1x == player2x) && (player1y == player2y)) {
+				getSpace(player1x,player1y).setGamePiece(new SNLBothPieces());
 			}
-			
-			else {
-				gameBoard[player2x][player2y].setGamePiece(new SNLPieceWhite());
-			}
+
 
 			turn = ((turn == 1) ? 2 : 1);
 	}
@@ -222,11 +223,11 @@ public class SnakesAndLadders extends GameBoard {
 	public void separatePieces() {
 		int currPlayerRow = positionOfPlayers.get(turn).get(0);
 		int currPlayerCol = positionOfPlayers.get(turn).get(1);
-		if(gameBoard[currPlayerRow][currPlayerCol].getValue().equals("P1,P2")) {
-			gameBoard[currPlayerRow][currPlayerCol].setValue(""+((turn == 1) ? "P2" : "P1"));
+		if(getSpace(currPlayerRow,currPlayerCol).getValue().equals("P1,P2")) {
+			getSpace(currPlayerRow,currPlayerCol).setValue(""+((turn == 1) ? "P2" : "P1"));
 		}	
 		else
-			gameBoard[currPlayerRow][currPlayerCol].setValue("");
+			getSpace(currPlayerRow,currPlayerCol).setValue("");
 	}
 	
 	public ArrayList<Integer> getPlayer1Position() {
@@ -241,11 +242,12 @@ public class SnakesAndLadders extends GameBoard {
 		int currPlayerRow = positionOfPlayers.get(turn).get(0);
 		int currPlayerCol = positionOfPlayers.get(turn).get(1);
 		System.out.println(currPlayerRow + " " + currPlayerCol);
-		if(gameBoard[currPlayerRow][currPlayerCol].getValue().equals(""))
-			gameBoard[currPlayerRow][currPlayerCol].setValue(""+((turn == 1) ? "P1" : "P2"));
-		else if(!gameBoard[currPlayerRow][currPlayerCol].getValue().equals(""))
-			gameBoard[currPlayerRow][currPlayerCol].setValue("P1,P2");
-		
+
+        if(getSpace(currPlayerRow,currPlayerCol).getValue().equals(""))
+            getSpace(currPlayerRow,currPlayerCol).setValue(""+((turn == 1) ? "P1" : "P2"));
+        else if(!getSpace(currPlayerRow,currPlayerCol).getValue().equals(""))
+            getSpace(currPlayerRow,currPlayerCol).setValue("P1,P2");
+
 	}
 	
 	public void advancePlayer(int player, int diceRoll){
@@ -313,6 +315,7 @@ public class SnakesAndLadders extends GameBoard {
 	
 	public void foundWinner(int playerNum) {
 		JOptionPane.showMessageDialog(null, "Player " + Integer.toString(playerNum) + " won!");
+
 		gui.gameOver();
 	}
 

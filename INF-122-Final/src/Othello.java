@@ -60,7 +60,7 @@ public class Othello extends GameBoard {
 	public void resetButtons() {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				gameBoard[i][j].setText("");
+				getSpace(i,j).setText("");
 			}
 		}
 	}
