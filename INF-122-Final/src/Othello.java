@@ -1,4 +1,3 @@
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,7 +10,8 @@ import java.util.ArrayList;
 public class Othello extends GameBoard {
 	private int blackScore = 2;
 	private int whiteScore = 2;
-
+	private int winner = -1;
+	
 	private Color playerColor = Color.BLACK;
 	private Color opponentColor = Color.WHITE;
 
@@ -79,32 +79,37 @@ public class Othello extends GameBoard {
 
     private void updatePlayerTurnLabel()
     {
-//        playerTurnLabel
-//
-//        if(winner > 0) {
-//            playerTurnLabel.setText("PLAYER " + winner + " WINS!");
-//            TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
-//            title.setTitleJustification(TitledBorder.CENTER);
-//            playerTurnLabel.setBorder(title);
-//        }
-//        else if (winner == 0)
-//        {
-//            playerTurnLabel.setText("NO WINNER");
-//            TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
-//            title.setTitleJustification(TitledBorder.CENTER);
-//        }
-//        else {
-//            playerTurnLabel.setText("PLAYER " + player);
-//        }
+        TitledBorder title;
+        switch(winner)
+        {
+            case 0:
+                playerTurnLabel.setText("NO WINNER");
+                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+                title.setTitleJustification(TitledBorder.CENTER);
+                playerTurnLabel.setBorder(title);
+                break;
+            case 1:
+                playerTurnLabel.setText(State.getInstance().getPlayerOne().getName() + " WINS!");
+                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+                title.setTitleJustification(TitledBorder.CENTER);
+                playerTurnLabel.setBorder(title);
+                break;
+            case 2:
+                playerTurnLabel.setText(State.getInstance().getPlayerTwo().getName() + " WINS!");
+                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Winner");
+                title.setTitleJustification(TitledBorder.CENTER);
+                playerTurnLabel.setBorder(title);
+                break;
+            default:
+            	
+                if (playerColor.equals(Color.BLACK)) {
+                    playerTurnLabel.setText(State.getInstance().getPlayerOne().getName());
+                } else {
+                    playerTurnLabel.setText(State.getInstance().getPlayerTwo().getName());
+                }
+                break;
+        }
     }
-
-//	public void resetButtons() {
-//		for (int i = 0; i < rows; i++) {
-//			for (int j = 0; j < cols; j++) {
-//				getSpace(i,j).setText("");
-//			}
-//		}
-//	}
 	
 	public void updateScore(Color player, int black, int white) {
 		if (player == Color.BLACK) {
@@ -245,6 +250,7 @@ public class Othello extends GameBoard {
                 updateScore(playerColor, 1, 0);
                 playerColor = Color.WHITE;
                 opponentColor = Color.BLACK;
+                
             } else {
                 spaceClicked.setGamePiece(new OthelloPieceWhite());
                 spaceClicked.unmark();
@@ -252,9 +258,18 @@ public class Othello extends GameBoard {
                 playerColor = Color.BLACK;
                 opponentColor = Color.WHITE;
             }
+            updatePlayerTurnLabel();
+            
             clearHintMarks();
             allPossibleMoves();
             if (checkForWin()) {
+                if (blackScore>whiteScore)
+                    winner=1;//System.out.println("Player1 Won");
+                else if (blackScore<whiteScore)
+                    winner=2;//System.out.println("Player2 Won");
+                else
+                	winner=0;// tie
+                updatePlayerTurnLabel();
                 gui.gameOver();
             }
         }
