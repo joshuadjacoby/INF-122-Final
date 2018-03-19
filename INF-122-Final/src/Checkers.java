@@ -135,6 +135,15 @@ public class Checkers extends GameBoard {
 
         return 1;
     }
+    
+    private int getOtherPlayer2() {
+    	if (currentPlayer==1)
+    		currentPlayer=2;
+    	else
+    		currentPlayer=1;
+    	return currentPlayer;
+    }
+    
     private String getOtherPlayerKingVal(){
 
         if(currentPlayer == 1){
@@ -304,6 +313,7 @@ public class Checkers extends GameBoard {
         p2Score = b;
         whiteScoreLabel.setText(State.getInstance().getPlayerOne().getName() + ": " + p1Score + " (White)");
         blackScoreLabel.setText(State.getInstance().getPlayerTwo().getName() + ": " + p2Score + " (Black)");
+        updatePlayerTurnLabel();
     }
 
     private void checkForOverWritesBasic(CheckersSpace spaceClicked, String direction){
