@@ -41,11 +41,7 @@ public class SnakesAndLadders extends GameBoard {
 	    specialSpaces.put(new ArrayList<Integer>
 	    	(Arrays.asList(1, 2)), new ArrayList<Integer>(Arrays.asList(4, 2)));
 	    specialSpaces.put(new ArrayList<Integer>
-	    	(Arrays.asList(3, 9)), new ArrayList<Integer>(Arrays.asList(4, 8)));
-	    specialSpaces.put(new ArrayList<Integer>
-	    	(Arrays.asList(5, 5)), new ArrayList<Integer>(Arrays.asList(7, 5)));
-	    specialSpaces.put(new ArrayList<Integer>
-	    	(Arrays.asList(7, 2)), new ArrayList<Integer>(Arrays.asList(9, 4)));	    
+	    	(Arrays.asList(6, 1)), new ArrayList<Integer>(Arrays.asList(9, 4)));	    
 	
 	    // Creates ladders
 	    specialSpaces.put(new ArrayList<Integer>
@@ -53,11 +49,9 @@ public class SnakesAndLadders extends GameBoard {
 	    specialSpaces.put(new ArrayList<Integer>
 	    	(Arrays.asList(4, 9)), new ArrayList<Integer>(Arrays.asList(1, 6)));
 	    specialSpaces.put(new ArrayList<Integer>
-	    	(Arrays.asList(7, 0)), new ArrayList<Integer>(Arrays.asList(6, 1)));
-	    specialSpaces.put(new ArrayList<Integer>
-	    	(Arrays.asList(7, 8)), new ArrayList<Integer>(Arrays.asList(6, 8)));
-	    specialSpaces.put(new ArrayList<Integer>
-	    	(Arrays.asList(9, 7)), new ArrayList<Integer>(Arrays.asList(8, 6)));
+	    	(Arrays.asList(6, 6)), new ArrayList<Integer>(Arrays.asList(3, 6)));
+	    
+	    
 	    
 	    setLayout(new GridLayout(0, col));
 	    initializeButtons();
