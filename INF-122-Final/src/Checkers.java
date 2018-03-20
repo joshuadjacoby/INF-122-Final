@@ -48,23 +48,13 @@ public class Checkers extends GameBoard {
                 if( theColor.equals(placeOnColor) && i >= 0 && i <= 2){
 
                     setSpace(i,j,  new CheckersSpace(i,j,"", new CheckersPieceWhite()));
-//                    gameBoard[i][j] = new GameButton<String>(i,j,"w", "w" );
-//                    gameBoard[i][j].setText("w");
-//                    ((GameButton)gameBoard[i][j]).setOwner("w");
-
                 }
                 else if(theColor.equals(placeOnColor) && i >= 5 && i <= 7){
                     setSpace(i,j ,  new CheckersSpace(i,j,"", new CheckersPieceBlack()));
 
-//                    gameBoard[i][j] = new GameButton<String>(i,j, "b", "w");
-//                    gameBoard[i][j].setText("b");
-//                    ((GameButton)gameBoard[i][j]).setOwner("b");
-
                 }
                 else{
                     setSpace(i,j , new CheckersSpace(i,j,""));
-//                    gameBoard[i][j] = new GameButton<String>(i,j,"", "");
-//                    gameBoard[i][j].setText("");
                 }
                 CheckersSpace tempSpace = (CheckersSpace) getSpace(i,j);
 
@@ -83,37 +73,44 @@ public class Checkers extends GameBoard {
     
     protected void statsPanelInfo(JPanel gameStatsPanel)
     {
-        Box box = Box.createVerticalBox();        
         TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Game Stats");
-
         gameStatsPanel.setBorder(title);
+        gameStatsPanel.setLayout(new BoxLayout(gameStatsPanel, BoxLayout.Y_AXIS));
 
-        // player turn
+        // player turn panel
         JPanel playerTurnPanel = new JPanel();
+
+        // player turn label
         playerTurnLabel = new JLabel();
-        
-        // player turn style
-        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Turn");
+        updatePlayerTurnLabel();
+        title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Player Turn");
         title.setTitleJustification(TitledBorder.CENTER);
         playerTurnLabel.setBorder(title);
         playerTurnLabel.setFont(new Font("", Font.BOLD, 24));
-        // player turn add to panel
+
+        // add to player turn panel
         playerTurnPanel.add(playerTurnLabel);
-        
-        box.add(playerTurnLabel);
-        
-        whiteScoreLabel = new JLabel(State.getInstance().getPlayerOne().getName() + ": " + p1Score + " (White)");
-        blackScoreLabel = new JLabel(State.getInstance().getPlayerTwo().getName() + ": " + p2Score + " (Black)");
-        
+
+        // player info
+        JPanel playerInfoPanel = new JPanel();
+        title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Pieces Remaining");
+        title.setTitleJustification(TitledBorder.CENTER);
+        playerInfoPanel.setBorder(title);
+        playerInfoPanel.setLayout(new BoxLayout(playerInfoPanel, BoxLayout.Y_AXIS));
+        whiteScoreLabel = new JLabel(State.getInstance().getPlayerOne().getName() + " (WHITE) : " + p1Score);
+        blackScoreLabel = new JLabel(State.getInstance().getPlayerTwo().getName() + " (BLACK) : " + p2Score);
+        whiteScoreLabel.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
+        blackScoreLabel.setBorder(BorderFactory.createEmptyBorder(0,0,20,0));
         blackScoreLabel.setFont(new Font("", Font.BOLD, 24));
         whiteScoreLabel.setFont(new Font("", Font.BOLD, 24));
+        blackScoreLabel.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        whiteScoreLabel.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        playerInfoPanel.add(whiteScoreLabel);
+        playerInfoPanel.add(blackScoreLabel);
         
-        
-        box.add(whiteScoreLabel);
-        box.add(blackScoreLabel);
-        updatePlayerTurnLabel();
-        
-        gameStatsPanel.add(box);
+
+        gameStatsPanel.add(playerTurnPanel);
+        gameStatsPanel.add(playerInfoPanel);
     }
 
     private void updatePlayerTurnLabel()
@@ -141,23 +138,12 @@ public class Checkers extends GameBoard {
                 break;
             default:
                 if (currentPlayer==1) {
-                    playerTurnLabel.setText(State.getInstance().getPlayerOne().getName());
+                    playerTurnLabel.setText(State.getInstance().getPlayerOne().getName() + " (WHITE)");
                 } else {
-                    playerTurnLabel.setText(State.getInstance().getPlayerTwo().getName());
+                    playerTurnLabel.setText(State.getInstance().getPlayerTwo().getName() + " (BLACK)");
                 }
                 break;
         }
-    }
-//    public boolean checkForWin()
-//    {
-//        //Change
-//        return false;
-//    }
-//
-    public void resetButtons()
-    {
-    	initializeButtons();
-    
     }
 
     private String getOtherDirection(){
@@ -176,14 +162,6 @@ public class Checkers extends GameBoard {
         }
 
         return 1;
-    }
-    
-    private int getOtherPlayer2() {
-    	if (currentPlayer==1)
-    		currentPlayer=2;
-    	else
-    		currentPlayer=1;
-    	return currentPlayer;
     }
     
     private String getOtherPlayerKingVal(){
@@ -260,9 +238,6 @@ public class Checkers extends GameBoard {
 		    try{
 	        	CheckersSpace se1 = (CheckersSpace) getSpace(theSpace.getPosX() + 1, theSpace.getPosY() + 1);
 	        	CheckersSpace se2 = (CheckersSpace) getSpace(theSpace.getPosX() + 2, theSpace.getPosY() + 2);
-
-//		        GameButton se1 =  getButtonAt(thebutton.getGridRowLoc() + 1, thebutton.getGridColLoc() + 1);
-//		        GameButton se2 =  getButtonAt(thebutton.getGridRowLoc() + 2, thebutton.getGridColLoc() + 2);
 	        	if(se1.getGamePiece() != null) {
 	        		if(se2.getGamePiece() == null && (se1.getGamePiece().getOwnerNum() == otherPlayer || se1.getGamePiece().getName() == otherKing)){
 			            tempList.add(se2);
@@ -277,9 +252,6 @@ public class Checkers extends GameBoard {
 		    try {
 		    	CheckersSpace sw1 = (CheckersSpace) getSpace(theSpace.getPosX() + 1, theSpace.getPosY() - 1);
 	        	CheckersSpace sw2 = (CheckersSpace) getSpace(theSpace.getPosX() + 2, theSpace.getPosY() - 2);
-	        	
-//		        GameButton sw1 = getButtonAt(thebutton.getGridRowLoc() + 1, thebutton.getGridColLoc() - 1);
-//		        GameButton sw2 = getButtonAt(thebutton.getGridRowLoc() + 2, thebutton.getGridColLoc() - 2);
 	        	if(sw1.getGamePiece() != null) {
 	        		if(sw2 != null && (sw1.getGamePiece().getOwnerNum() == otherPlayer || sw1.getGamePiece().getName() == otherKing) && sw2.getGamePiece() == null){
 			            tempList.add(sw2);
@@ -353,8 +325,8 @@ public class Checkers extends GameBoard {
 
         p1Score = w;
         p2Score = b;
-        whiteScoreLabel.setText(State.getInstance().getPlayerOne().getName() + ": " + p1Score + " (White)");
-        blackScoreLabel.setText(State.getInstance().getPlayerTwo().getName() + ": " + p2Score + " (Black)");
+        whiteScoreLabel.setText(State.getInstance().getPlayerOne().getName() + " (WHITE) : " + p1Score);
+        blackScoreLabel.setText(State.getInstance().getPlayerOne().getName() + " (BLACK) : " + p2Score);
         updatePlayerTurnLabel();
     }
 
@@ -472,13 +444,9 @@ public class Checkers extends GameBoard {
         CheckersSpace currSpaceClicked = (CheckersSpace) e.getSource();
         GamePiece currGamePiece = currSpaceClicked.getGamePiece();
 
-//          GameButton buttonClicked = (GameButton)e.getSource();
-//          System.out.println(buttonClicked.getButtonValue() + "  " + buttonClicked.getGridRowLoc() + "    " + buttonClicked.getGridColLoc());
-
         //Check to see is there is an item selected and item that was clicked now is the button that was selected,
         // then deselect the button and put item_selected = false;
-
-        if(currGamePiece != null && item_selected == true && currGamePiece.getOwnerNum() == currentPlayer && currSpaceClicked.isSelected()) {
+        if(currGamePiece != null && item_selected == true && currGamePiece.getOwnerNum() == currentPlayer) {
             currSpaceClicked.setBgColor(currSpaceClicked.getOriginalColor());
             currSpaceClicked.setSelected(false);
             unToggleAvailHint(currentPossibleMoves);
@@ -542,12 +510,12 @@ public class Checkers extends GameBoard {
                     movePieceToButton(currSpaceClicked);
                     unToggleAvailHint(currentPossibleMoves);
                     clearPrevMoveState();
+
                     if(itemchanged == true){
                         ArrayList newOptions = available1Dir2TileMoves(currSpaceClicked, moveFacing);
                         if(newOptions.size() != 0){
                             currentPlayer = getOtherPlayer();
                             moveFacing = getOtherDirection();
-
                         }
                         itemchanged = false;
                     }
@@ -581,7 +549,6 @@ public class Checkers extends GameBoard {
                 //Check to see if game is over
                 updateScore();
                 if(p1Score == 0){
-                    //HELP ME HERE**************************************************
                     winner = 2;
                     updatePlayerTurnLabel();
                     gui.gameOver();

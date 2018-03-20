@@ -50,20 +50,9 @@ public class TicTacToe extends GameBoard {
         title.setTitleJustification(TitledBorder.CENTER);
         playerTurnLabel.setBorder(title);
 
-        // player info
-        JPanel playerInfoPanel = new JPanel();
-        playerInfoPanel.setLayout(new BoxLayout(playerInfoPanel, BoxLayout.Y_AXIS));
-        JLabel p1info = new JLabel(State.getInstance().getPlayerOne().getName() + " = X");
-        JLabel p2info = new JLabel(State.getInstance().getPlayerTwo().getName() + " = O");
-        p1info.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
-        p2info.setBorder(BorderFactory.createEmptyBorder(0,0,20,0));
-        playerInfoPanel.add(p1info);
-        playerInfoPanel.add(p2info);
-
         // player turn add to panel
         playerTurnPanel.add(playerTurnLabel);
         gameStatsPanel.add(playerTurnPanel);
-        gameStatsPanel.add(playerInfoPanel);
     }
 
     private void updatePlayerTurnLabel()
@@ -92,9 +81,9 @@ public class TicTacToe extends GameBoard {
                 break;
             default:
                 if (player==1) {
-                    playerTurnLabel.setText(State.getInstance().getPlayerOne().getName());
+                    playerTurnLabel.setText(State.getInstance().getPlayerOne().getName() + " (X)");
                 } else {
-                    playerTurnLabel.setText(State.getInstance().getPlayerTwo().getName());
+                    playerTurnLabel.setText(State.getInstance().getPlayerTwo().getName() + " (O)");
                 }
                 break;
         }
