@@ -18,8 +18,8 @@ public class Othello extends GameBoard {
 	
     private JLabel playerTurnLabel;
 
-	public Othello(int row, int col, GUI gui) {
-		super(row, col, gui);
+	public Othello(int row, int col) {
+		super(row, col);
 		setLayout(new GridLayout(0, col));
 		initializeButtons();
 		allPossibleMoves();

@@ -10,8 +10,8 @@ public class TicTacToe extends GameBoard {
 
     private JLabel playerTurnLabel;
 
-	public TicTacToe(int row, int col, GUI gui) {
-		super(row, col, gui);
+	public TicTacToe(int row, int col) {
+		super(row, col);
 		setLayout(new GridLayout(0,col));
 		initializeButtons();
 	}

@@ -158,7 +158,7 @@ public class GUI extends JFrame implements ActionListener {
 	public void gameOver(/*String winningPlayer, String losingPlayer*/) {
 		int reply = JOptionPane.showConfirmDialog(null, "Do you want to play again?", "Game Over!", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-        	startGame(gameContainer, GameFactory.getInstance().makeGame(gameChoice, this));
+        	startGame(gameContainer, GameFactory.getInstance().makeGame(gameChoice));
         }
 	}
 
@@ -175,7 +175,7 @@ public class GUI extends JFrame implements ActionListener {
             {
                 int reply = JOptionPane.showConfirmDialog(null, "Restart Game?", "Restart Game", JOptionPane.YES_NO_OPTION);
                 if (reply == JOptionPane.YES_OPTION) {
-                    startGame(gameContainer, GameFactory.getInstance().makeGame(gameChoice, this));
+                    startGame(gameContainer, GameFactory.getInstance().makeGame(gameChoice));
                 }
             }
             else if(buttonClicked.getText().equals("Quit Game"))
@@ -186,7 +186,7 @@ public class GUI extends JFrame implements ActionListener {
                 }
             }
             else {
-                GameBoard game = GameFactory.getInstance().makeGame(gameChoice, this);
+                GameBoard game = GameFactory.getInstance().makeGame(gameChoice);
                 Player playerOne;
                 Player playerTwo;
                 if (!pm.playerExists(playerOneName.getText())) {

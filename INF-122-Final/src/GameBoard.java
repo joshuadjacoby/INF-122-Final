@@ -10,9 +10,9 @@ public abstract class GameBoard extends JPanel implements ActionListener {
 	private Player[] players;
 	private BoardSpace[][] gameBoard;
 
-	public GameBoard(int row, int col, GUI gui) {
+	public GameBoard(int row, int col) {
 		gameBoard = new BoardSpace[row][col];
-		this.gui = gui;
+		this.gui = GUI.getInstance();
         state = State.getInstance();
 		this.rows = row;
 		this.cols = col;

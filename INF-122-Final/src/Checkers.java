@@ -27,8 +27,8 @@ public class Checkers extends GameBoard {
     private int p1Score = 12;
     private int p2Score = 12;
 
-    Checkers (int row, int col, int starter, GUI gui){
-        super(row, col, gui);
+    Checkers (int row, int col, int starter){
+        super(row, col);
 
         setLayout(new GridLayout(row,col));
         initializeButtons();

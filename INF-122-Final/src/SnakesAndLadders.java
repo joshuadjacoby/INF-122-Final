@@ -28,8 +28,8 @@ public class SnakesAndLadders extends GameBoard {
 	private HashMap<Integer, ArrayList<Integer>> positionOfPlayers = new HashMap<Integer, ArrayList<Integer>>(){};
 	static HashMap<ArrayList<Integer>, ArrayList<Integer>> specialSpaces = new HashMap<ArrayList<Integer>, ArrayList<Integer>>();
 	
-	public SnakesAndLadders(int row, int col, GUI gui) {
-		super(row, col, gui);
+	public SnakesAndLadders(int row, int col) {
+		super(row, col);
 	
 		// Initializes player position at bottom left corner
 	    positionOfPlayers.put(1,new ArrayList<Integer>(Arrays.asList(9, 0)));
