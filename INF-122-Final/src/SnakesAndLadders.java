@@ -115,7 +115,10 @@ public class SnakesAndLadders extends GameBoard {
         JPanel gameStatusPanel = new JPanel();
         gameStatusPanel.setLayout(new BoxLayout(gameStatusPanel, BoxLayout.Y_AXIS));
         diceRollLabel = new JLabel("Dice Roll: __");
+        diceRollLabel.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        diceRollLabel.setFont(new Font("", Font.BOLD, 18));
         snlAlertLabel = new JLabel();
+        snlAlertLabel.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
         snlAlertLabel.setFont(new Font("", Font.BOLD, 20));
         snlAlertLabel.setVisible(false);
         gameStatusPanel.add(snlAlertLabel);
@@ -124,6 +127,14 @@ public class SnakesAndLadders extends GameBoard {
         // dice button panel
         JPanel dicePanel = new JPanel();
         diceButton = new JButton("Roll Dice!");
+        Image diceImg;
+        try {
+            diceImg = ImageIO.read(getClass().getResource("images/dice.png"));
+            diceButton.setIcon(new ImageIcon(diceImg));
+        }
+        catch (Exception ex) {
+            System.out.println(ex);
+        }
         diceButton.setName("dice");
         diceButton.addActionListener(this);
         diceButton.setEnabled(true);
@@ -137,6 +148,8 @@ public class SnakesAndLadders extends GameBoard {
         JLabel p2info = new JLabel(State.getInstance().getPlayerTwo().getName() + " = WHITE");
         p1info.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
         p2info.setBorder(BorderFactory.createEmptyBorder(0,0,20,0));
+        p1info.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        p2info.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
         playerInfoPanel.add(p1info);
         playerInfoPanel.add(p2info);
 
