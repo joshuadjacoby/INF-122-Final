@@ -86,6 +86,8 @@ public class Othello extends GameBoard {
         whiteScoreLabel = new JLabel(State.getInstance().getPlayerTwo().getName() + " (WHITE) : " + whiteScore);
         blackScoreLabel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         whiteScoreLabel.setBorder(BorderFactory.createEmptyBorder(0,20,20,20));
+        blackScoreLabel.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        whiteScoreLabel.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
         blackScoreLabel.setFont(new Font("", Font.PLAIN, 20));
         whiteScoreLabel.setFont(new Font("", Font.PLAIN, 20));
         playerInfoPanel.add(blackScoreLabel);
