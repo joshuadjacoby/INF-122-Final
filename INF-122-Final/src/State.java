@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class State {
 	private static State state;
 	private Player playerOne;
@@ -22,16 +24,16 @@ public class State {
 		if (playerOneScore > playerTwoScore) {
 			playerOne.incrementWins();
 			playerTwo.incrementLosses();
-			gui.gameOver(/*playerTwo.getName(), playerOne.getName()*/);
+			JOptionPane.showMessageDialog(gui.gameContainer, "Game Over!\n" + playerOne.getName() + " wins!\n{ Total wins: " + playerOne.getNumberOfWins());
 		} else if (playerOneScore < playerTwoScore) {
 			playerTwo.incrementWins();
 			playerOne.incrementLosses();
-			gui.gameOver(/*playerTwo.getName(), playerOne.getName()*/);
+			JOptionPane.showMessageDialog(gui.gameContainer, "Game Over!\n" + playerTwo.getName() + " wins!\nTotal wins: " + playerTwo.getNumberOfWins());
 		} else
 		{
 			playerOne.incrementTies();
 			playerTwo.incrementTies();
-			gui.gameOver(/*playerTwo.getName(), playerOne.getName()*/);
+			JOptionPane.showMessageDialog(gui.gameContainer, "Game Over!\n" + "It was a tie.");
 		}
 	}
 
@@ -70,5 +72,15 @@ public class State {
 
 	public void setPlayerTwoScore(int playerTwoScore) {
 		this.playerTwoScore = playerTwoScore;
+	}
+	
+	public void setPlayerScores(int p1score, int p2score) {
+		playerOneScore = p1score;
+		playerTwoScore = p2score;
+	}
+	
+	public void resetScores()
+	{
+		playerOneScore = playerTwoScore = 0;
 	}
 }

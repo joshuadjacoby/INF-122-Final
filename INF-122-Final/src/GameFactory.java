@@ -10,7 +10,8 @@ public class GameFactory {
 	}
 
 	public GameBoard makeGame(String newGameType) {
-
+		State.getInstance().resetScores();
+		
 		switch (newGameType) {
 		case "Tic-Tac-Toe":
 			return new TicTacToe(3, 3);

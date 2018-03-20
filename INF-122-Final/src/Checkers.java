@@ -514,13 +514,13 @@ public class Checkers extends GameBoard {
                     if(itemchanged == true){
                         ArrayList newOptions = available1Dir2TileMoves(currSpaceClicked, moveFacing);
                         if(newOptions.size() != 0){
+                        	JOptionPane.showMessageDialog(gui.gameContainer, "Multi-jump available!");
                             currentPlayer = getOtherPlayer();
                             moveFacing = getOtherDirection();
                         }
                         itemchanged = false;
                     }
-
-
+                    
                     currentPlayer  = getOtherPlayer();
                     moveFacing = getOtherDirection();
                 }
@@ -534,6 +534,7 @@ public class Checkers extends GameBoard {
                         ArrayList newOptionsN = available1Dir2TileMoves(currSpaceClicked, "n");
                         ArrayList newOptionsS = available1Dir2TileMoves(currSpaceClicked, "s");
                         if(newOptionsN.size() != 0 || newOptionsS.size() != 0){
+                        	JOptionPane.showMessageDialog(gui.gameContainer, "Multi-jump available!");
                             currentPlayer = getOtherPlayer();
                             moveFacing = getOtherDirection();
                         }
@@ -550,16 +551,13 @@ public class Checkers extends GameBoard {
                 updateScore();
                 if(p1Score == 0){
                     winner = 2;
-                    state.getPlayerTwo().incrementWins();
-                    state.getPlayerOne().incrementLosses();
-                    updatePlayerTurnLabel();
-                    gui.gameOver();
+                    state.setPlayerScores(0, 1);
+                    state.gameOver();
                 }else if(p2Score == 0){
                     winner = 1;
-					state.getPlayerOne().incrementWins();
-					state.getPlayerTwo().incrementLosses();
+					state.setPlayerScores(1, 0);
                     updatePlayerTurnLabel();
-                    gui.gameOver();
+                    state.gameOver();
                 }
 
                 return;

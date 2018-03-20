@@ -156,27 +156,26 @@ public class TicTacToe extends GameBoard {
         }
         if( checkForWin() )
         {
+        	String message = "";
+        	
             if (player == 2) {
 				winner=1;//System.out.println("Player1 Won");
-				state.getPlayerOne().incrementWins();
-				state.getPlayerTwo().incrementLosses();
+				state.setPlayerScores(1, 0);
 			}
 
             if (player == 1) {
 				winner=2;//System.out.println("Player2 Won");
-				state.getPlayerTwo().incrementWins();
-				state.getPlayerOne().incrementLosses();
+				state.setPlayerScores(0, 1);
 			}
 
             updatePlayerTurnLabel();
-            gui.gameOver();
+            state.gameOver();
         }
         else if (isBoardFull()) {
             winner=0;
-			state.getPlayerOne().incrementTies();
-			state.getPlayerTwo().incrementTies();
+			state.setPlayerScores(1, 1);
             updatePlayerTurnLabel();
-            gui.gameOver();
+            state.gameOver();
         }
     }
 

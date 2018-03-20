@@ -9,8 +9,8 @@ import java.io.IOException;
 @SuppressWarnings("serial")
 public class GUI extends JFrame implements ActionListener {
 	private static GUI gui = null;
-	private static final int introWidth = 700;
-	private static final int introHeight = 270;
+	private static final int introWidth = 740;
+	private static final int introHeight = 380;
 	private static final int gameWidth = 1500;
     private static final int gameHeight = 800;
 	String gameChoice;
@@ -34,7 +34,7 @@ public class GUI extends JFrame implements ActionListener {
         } catch(IOException e){
             introPanel = new JPanel();
         }
-
+        introPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 40, 20));
         introPanel.setLayout(new BoxLayout(introPanel, BoxLayout.PAGE_AXIS));
 	}
 
@@ -75,18 +75,20 @@ public class GUI extends JFrame implements ActionListener {
 		JPanel playerOnePanel = new JPanel();
 		playerOnePanel.setOpaque(false);
 		playerOnePanel.setLayout(new BoxLayout(playerOnePanel, BoxLayout.PAGE_AXIS));
-		JLabel playerOneLabel = new JLabel("Player 1");
+		JLabel playerOneLabel = new JLabel("Player 1 Name");
 		playerOneLabel.setForeground(Color.WHITE);
 		playerOneName = new JTextField("Player 1");
+		playerOnePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		playerOnePanel.add(playerOneLabel);
 		playerOnePanel.add(playerOneName);
 
 		JPanel playerTwoPanel = new JPanel();
 		playerTwoPanel.setOpaque(false);
 		playerTwoPanel.setLayout(new BoxLayout(playerTwoPanel, BoxLayout.PAGE_AXIS));
-		JLabel playerTwoLabel = new JLabel("Player 2");
+		JLabel playerTwoLabel = new JLabel("Player 2 Name");
 		playerTwoLabel.setForeground(Color.WHITE);
 		playerTwoName = new JTextField("Player 2");
+		playerTwoPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		playerTwoPanel.add(playerTwoLabel);
 		playerTwoPanel.add(playerTwoName);
 
@@ -102,6 +104,7 @@ public class GUI extends JFrame implements ActionListener {
 		gameSelectButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 		chooseGamePanel.add(gameText);
 		chooseGamePanel.add(gameList);
+		chooseGamePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		gameSelectButton.addActionListener(this);
 		introPanel.add(titleText);
 		introPanel.add(players);
@@ -154,14 +157,6 @@ public class GUI extends JFrame implements ActionListener {
 
         statsContainer.add(menuButtons);
 	}
-
-	public void gameOver(/*String winningPlayer, String losingPlayer*/) {
-		int reply = JOptionPane.showConfirmDialog(null, "Do you want to play again?", "Game Over!", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
-        	startGame(gameContainer, GameFactory.getInstance().makeGame(gameChoice));
-        }
-	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
