@@ -38,6 +38,48 @@ public class Checkers extends GameBoard {
 
 
     }
+
+    protected void initializeButtons() {
+        Color theColor = Color.RED;
+        Color placeOnColor = Color.decode("#191919");
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if( theColor.equals(placeOnColor) && i >= 0 && i <= 2){
+
+                    setSpace(i,j,  new CheckersSpace(i,j,"", new CheckersPieceWhite()));
+//                    gameBoard[i][j] = new GameButton<String>(i,j,"w", "w" );
+//                    gameBoard[i][j].setText("w");
+//                    ((GameButton)gameBoard[i][j]).setOwner("w");
+
+                }
+                else if(theColor.equals(placeOnColor) && i >= 5 && i <= 7){
+                    setSpace(i,j ,  new CheckersSpace(i,j,"", new CheckersPieceBlack()));
+
+//                    gameBoard[i][j] = new GameButton<String>(i,j, "b", "w");
+//                    gameBoard[i][j].setText("b");
+//                    ((GameButton)gameBoard[i][j]).setOwner("b");
+
+                }
+                else{
+                    setSpace(i,j , new CheckersSpace(i,j,""));
+//                    gameBoard[i][j] = new GameButton<String>(i,j,"", "");
+//                    gameBoard[i][j].setText("");
+                }
+                CheckersSpace tempSpace = (CheckersSpace) getSpace(i,j);
+
+                tempSpace.addActionListener(this);
+                tempSpace.setBgColor(theColor);
+                tempSpace.setOriginalColor(theColor);
+
+                theColor = _colorChanger(theColor);
+                add(getSpace(i,j));
+            }
+            theColor = _colorChanger(theColor);
+
+
+        }
+    }
     
     protected void statsPanelInfo(JPanel gameStatsPanel)
     {
@@ -164,7 +206,7 @@ public class Checkers extends GameBoard {
                 }
             }
             catch(Exception e){
-            	System.out.println(e);
+            	//System.out.println(e);
             }
 
 
@@ -176,7 +218,7 @@ public class Checkers extends GameBoard {
                 }
             }
             catch(Exception e){
-            	System.out.println(e);
+            	//System.out.println(e);
             }
 
         }
@@ -189,7 +231,7 @@ public class Checkers extends GameBoard {
 	          }
 	      }
 	      catch(Exception e){
-	    	  System.out.println(e);
+	    	  //System.out.println(e);
 	      }
           
           
@@ -202,7 +244,7 @@ public class Checkers extends GameBoard {
 		          }
 	        }
 	        catch(Exception e){
-	        	System.out.println(e);
+	        	//System.out.println(e);
 	        }
         }
         return tempList;
@@ -229,7 +271,7 @@ public class Checkers extends GameBoard {
 		
 		        
 		    }catch(Exception e){
-		    	System.out.println(e);
+		    	//System.out.println(e);
 		    }
 		
 		    try {
@@ -245,7 +287,7 @@ public class Checkers extends GameBoard {
 	        	}
 	        	
 		    }catch(Exception e){
-		    	System.out.println(e);
+		    	//System.out.println(e);
 		    }
 		
 		
@@ -262,7 +304,7 @@ public class Checkers extends GameBoard {
 	    	  
 	      }
 	      catch(Exception e){
-	    	  System.out.println(e);
+	    	  //System.out.println(e);
 	      }
 	      
         try{
@@ -278,7 +320,7 @@ public class Checkers extends GameBoard {
 	
 	    }
 		catch(Exception e){
-		    	System.out.println(e);
+		    	//System.out.println(e);
 		    }
 
         	
@@ -382,7 +424,7 @@ public class Checkers extends GameBoard {
     }
 
     
-    private void movePeiceToButton(CheckersSpace currAvailSpace){
+    private void movePieceToButton(CheckersSpace currAvailSpace){
         
     	GamePiece thePiece = currPressedSpace.getGamePiece();
     	currAvailSpace.setGamePiece(thePiece);
@@ -414,194 +456,10 @@ public class Checkers extends GameBoard {
 
     }
 
-        
-    private class buttonListener implements ActionListener
-    {
-    	
-        public void actionPerformed(ActionEvent e){
-        	CheckersSpace currSpaceClicked = (CheckersSpace) e.getSource();
-        	GamePiece currGamePiece = currSpaceClicked.getGamePiece();
-        	
-//          GameButton buttonClicked = (GameButton)e.getSource();
-//          System.out.println(buttonClicked.getButtonValue() + "  " + buttonClicked.getGridRowLoc() + "    " + buttonClicked.getGridColLoc());
-
-        	
-
-        	
-        	
-          //Check to see is there is an item selected and item that was clicked now is the button that was selected,
-          // then deselect the button and put item_selected = false;
-        	
-        	if(currGamePiece != null && item_selected == true && currGamePiece.getOwnerNum() == currentPlayer && currSpaceClicked.isSelected()) {
-        		currSpaceClicked.setBgColor(currSpaceClicked.getOriginalColor());
-        		currSpaceClicked.setSelected(false);
-        		unToggleAvailHint(currentPossibleMoves);
-        		item_selected = false;
-        		currPressedSpace = null;
-        		return;
-        	}
-        	if(currGamePiece != null && item_selected == false && currGamePiece.getOwnerNum() == currentPlayer) {
-        		item_selected = true;
-        		currSpaceClicked.setSelected(true);
-        		currSpaceClicked.setBgColor(Color.BLUE);
-        		String pieceName = currGamePiece.getName();
-                currentPossibleMoves = new ArrayList<Checkers>();
-        		
-        		if(pieceName == "black" || pieceName == "white") {
-                  currentPossibleMoves.addAll(available1Dir1TileMoves(currSpaceClicked, moveFacing));
-                  currentPossibleMoves.addAll(available1Dir2TileMoves(currSpaceClicked, moveFacing));
-                  currPressedSpace = currSpaceClicked;
-        			
-        		}
-        		if(pieceName == "blackking" || pieceName == "whiteking") {
-                  //Calculate the possible moves when the user clicks the first piece
-        			
-        		  currentPossibleMoves.addAll(available1Dir1TileMoves(currSpaceClicked, "n"));
-                  currentPossibleMoves.addAll(available1Dir2TileMoves(currSpaceClicked, "n"));
-
-
-                  currentPossibleMoves.addAll(available1Dir1TileMoves(currSpaceClicked, "s"));
-                  currentPossibleMoves.addAll(available1Dir2TileMoves(currSpaceClicked, "s"));
-                  currPressedSpace = currSpaceClicked;
-        		}
-                toggleAvailHint(currentPossibleMoves);
-                return;
-        	}
-        
-
-            //Check to see if there is an item selected, then check to see if the button they press was not the selected one and it is a valid move
-            //this creates an actual move
-            for(int a = 0; a < currentPossibleMoves.size();a++){
-            	CheckersSpace currSpaceOption = (CheckersSpace)(currentPossibleMoves.get(a));
-                if(item_selected == true && currSpaceClicked.getGamePiece() == null
-                        && currSpaceOption.getPosX() == currSpaceClicked.getPosX()
-                        && currSpaceOption.getPosY() == currSpaceClicked.getPosY()){
-
-
-                    if((currPressedSpace.getGamePiece().getName()).equals("white") && currSpaceClicked.getPosX() == rows -1){
-                        //White made it to the bottom of the board, King white
-
-                    	currPressedSpace.getGamePiece().setName("whiteking");
-
-                    }
-                    else if((currPressedSpace.getGamePiece().getName()).equals("black") && currSpaceClicked.getPosX() == 0){
-                    	currPressedSpace.getGamePiece().setName("blackking");
-                        //Black made it to the top, king black
-                    }
-                    //This is a legal move!
-                    //Do all of the changes to make the next move
-                    if ((currPressedSpace.getGamePiece().getName()).equals("white") || (currPressedSpace.getGamePiece().getName()).equals("black")){
-                        //Find out who is eaten
-                        checkForOverWritesBasic(currSpaceClicked, moveFacing );
-                        movePeiceToButton(currSpaceClicked);
-                        unToggleAvailHint(currentPossibleMoves);
-                        clearPrevMoveState();
-                        if(itemchanged == true){
-                            ArrayList newOptions = available1Dir2TileMoves(currSpaceClicked, moveFacing);
-                            if(newOptions.size() != 0){
-                                currentPlayer = getOtherPlayer();
-                                moveFacing = getOtherDirection();
-
-                            }
-                            itemchanged = false;
-                        }
-
-
-                        currentPlayer  = getOtherPlayer();
-                        moveFacing = getOtherDirection();
-                    }
-                    else if ((currPressedSpace.getGamePiece().getName()).equals("whiteking") || (currPressedSpace.getGamePiece().getName()).equals("blackking")){
-                        checkForOverWritesKing(currSpaceClicked);
-                        movePeiceToButton(currSpaceClicked);
-                        unToggleAvailHint(currentPossibleMoves);
-                        clearPrevMoveState();
-
-                        if(itemchanged == true){
-                            ArrayList newOptionsN = available1Dir2TileMoves(currSpaceClicked, "n");
-                            ArrayList newOptionsS = available1Dir2TileMoves(currSpaceClicked, "s");
-                            if(newOptionsN.size() != 0 || newOptionsS.size() != 0){
-                                currentPlayer = getOtherPlayer();
-                                moveFacing = getOtherDirection();
-                            }
-                            itemchanged = false;
-                        }
-
-
-                        currentPlayer  = getOtherPlayer();
-                        moveFacing = getOtherDirection();
-
-                    }
-
-                    //Check to see if game is over
-                    updateScore();
-                    if(p1Score == 0){
-                        //HELP ME HERE**************************************************
-                        JOptionPane.showConfirmDialog(null, "Game Over. Player 2 wins");
-                        winner = 2;
-                    }else if(p2Score == 0){
-                        JOptionPane.showConfirmDialog(null, "Game Over. Player 1 wins");
-                        winner = 1;
-                    }
-
-                    return;
-                }
-
-            }
-        }
-    }
-
-    @Override
-    protected void initializeButtons() {
-        Color theColor = Color.RED;
-        Color placeOnColor = Color.GRAY;
-
-
-        for (int i = 0; i < rows; i++) {
-
-            for (int j = 0; j < cols; j++) {
-
-                if( theColor == placeOnColor && i >= 0 && i <= 2){
-
-                    setSpace(i,j,  new CheckersSpace(i,j,"", new CheckersPieceWhite()));
-//                    gameBoard[i][j] = new GameButton<String>(i,j,"w", "w" );
-//                    gameBoard[i][j].setText("w");
-//                    ((GameButton)gameBoard[i][j]).setOwner("w");
-
-                }
-                else if(theColor == placeOnColor && i >= 5 && i <= 7){
-                    setSpace(i,j ,  new CheckersSpace(i,j,"", new CheckersPieceBlack()));
-
-//                    gameBoard[i][j] = new GameButton<String>(i,j, "b", "w");
-//                    gameBoard[i][j].setText("b");
-//                    ((GameButton)gameBoard[i][j]).setOwner("b");
-
-                }
-                else{
-                    setSpace(i,j , new CheckersSpace(i,j,""));
-//                    gameBoard[i][j] = new GameButton<String>(i,j,"", "");
-//                    gameBoard[i][j].setText("");
-                }
-                CheckersSpace tempSpace = (CheckersSpace) getSpace(i,j);
-                
-                tempSpace.addActionListener(new Checkers.buttonListener());
-                tempSpace.setBgColor(theColor);
-                tempSpace.setOriginalColor(theColor);
-
-                theColor = _colorChanger(theColor);
-                add(getSpace(i,j));
-            }
-            theColor = _colorChanger(theColor);
-
-
-        }
-
-
-    }
-
     private Color _colorChanger(Color currColor){
         Color tColor = currColor;
         if(tColor == Color.RED){
-            tColor = Color.GRAY;
+            tColor = Color.decode("#191919");
         }else {
             tColor = Color.RED;
         }
@@ -610,10 +468,133 @@ public class Checkers extends GameBoard {
     }
 
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+        CheckersSpace currSpaceClicked = (CheckersSpace) e.getSource();
+        GamePiece currGamePiece = currSpaceClicked.getGamePiece();
+
+//          GameButton buttonClicked = (GameButton)e.getSource();
+//          System.out.println(buttonClicked.getButtonValue() + "  " + buttonClicked.getGridRowLoc() + "    " + buttonClicked.getGridColLoc());
+
+        //Check to see is there is an item selected and item that was clicked now is the button that was selected,
+        // then deselect the button and put item_selected = false;
+
+        if(currGamePiece != null && item_selected == true && currGamePiece.getOwnerNum() == currentPlayer && currSpaceClicked.isSelected()) {
+            currSpaceClicked.setBgColor(currSpaceClicked.getOriginalColor());
+            currSpaceClicked.setSelected(false);
+            unToggleAvailHint(currentPossibleMoves);
+            item_selected = false;
+            currPressedSpace = null;
+            return;
+        }
+        if(currGamePiece != null && item_selected == false && currGamePiece.getOwnerNum() == currentPlayer) {
+            item_selected = true;
+            currSpaceClicked.setSelected(true);
+            currSpaceClicked.setBgColor(Color.BLUE);
+            String pieceName = currGamePiece.getName();
+            currentPossibleMoves = new ArrayList<Checkers>();
+
+            if(pieceName == "black" || pieceName == "white") {
+                currentPossibleMoves.addAll(available1Dir1TileMoves(currSpaceClicked, moveFacing));
+                currentPossibleMoves.addAll(available1Dir2TileMoves(currSpaceClicked, moveFacing));
+                currPressedSpace = currSpaceClicked;
+
+            }
+            if(pieceName == "blackking" || pieceName == "whiteking") {
+                //Calculate the possible moves when the user clicks the first piece
+
+                currentPossibleMoves.addAll(available1Dir1TileMoves(currSpaceClicked, "n"));
+                currentPossibleMoves.addAll(available1Dir2TileMoves(currSpaceClicked, "n"));
+
+
+                currentPossibleMoves.addAll(available1Dir1TileMoves(currSpaceClicked, "s"));
+                currentPossibleMoves.addAll(available1Dir2TileMoves(currSpaceClicked, "s"));
+                currPressedSpace = currSpaceClicked;
+            }
+            toggleAvailHint(currentPossibleMoves);
+            return;
+        }
+
+
+        //Check to see if there is an item selected, then check to see if the button they press was not the selected one and it is a valid move
+        //this creates an actual move
+        for(int a = 0; a < currentPossibleMoves.size();a++){
+            CheckersSpace currSpaceOption = (CheckersSpace)(currentPossibleMoves.get(a));
+            if(item_selected == true && currSpaceClicked.getGamePiece() == null
+                    && currSpaceOption.getPosX() == currSpaceClicked.getPosX()
+                    && currSpaceOption.getPosY() == currSpaceClicked.getPosY()){
+
+
+                if((currPressedSpace.getGamePiece().getName()).equals("white") && currSpaceClicked.getPosX() == rows -1){
+                    //White made it to the bottom of the board, King white
+
+                    currPressedSpace.setGamePiece(new CheckersPieceWhiteKing());
+
+                }
+                else if((currPressedSpace.getGamePiece().getName()).equals("black") && currSpaceClicked.getPosX() == 0){
+                    currPressedSpace.setGamePiece(new CheckersPieceBlackKing());
+                    //Black made it to the top, king black
+                }
+                //This is a legal move!
+                //Do all of the changes to make the next move
+                if ((currPressedSpace.getGamePiece().getName()).equals("white") || (currPressedSpace.getGamePiece().getName()).equals("black")){
+                    //Find out who is eaten
+                    checkForOverWritesBasic(currSpaceClicked, moveFacing );
+                    movePieceToButton(currSpaceClicked);
+                    unToggleAvailHint(currentPossibleMoves);
+                    clearPrevMoveState();
+                    if(itemchanged == true){
+                        ArrayList newOptions = available1Dir2TileMoves(currSpaceClicked, moveFacing);
+                        if(newOptions.size() != 0){
+                            currentPlayer = getOtherPlayer();
+                            moveFacing = getOtherDirection();
+
+                        }
+                        itemchanged = false;
+                    }
+
+
+                    currentPlayer  = getOtherPlayer();
+                    moveFacing = getOtherDirection();
+                }
+                else if ((currPressedSpace.getGamePiece().getName()).equals("whiteking") || (currPressedSpace.getGamePiece().getName()).equals("blackking")){
+                    checkForOverWritesKing(currSpaceClicked);
+                    movePieceToButton(currSpaceClicked);
+                    unToggleAvailHint(currentPossibleMoves);
+                    clearPrevMoveState();
+
+                    if(itemchanged == true){
+                        ArrayList newOptionsN = available1Dir2TileMoves(currSpaceClicked, "n");
+                        ArrayList newOptionsS = available1Dir2TileMoves(currSpaceClicked, "s");
+                        if(newOptionsN.size() != 0 || newOptionsS.size() != 0){
+                            currentPlayer = getOtherPlayer();
+                            moveFacing = getOtherDirection();
+                        }
+                        itemchanged = false;
+                    }
+
+
+                    currentPlayer  = getOtherPlayer();
+                    moveFacing = getOtherDirection();
+
+                }
+
+                //Check to see if game is over
+                updateScore();
+                if(p1Score == 0){
+                    //HELP ME HERE**************************************************
+                    winner = 2;
+                    updatePlayerTurnLabel();
+                    gui.gameOver();
+                }else if(p2Score == 0){
+                    winner = 1;
+                    updatePlayerTurnLabel();
+                    gui.gameOver();
+                }
+
+                return;
+            }
+
+        }
 	}
 
 

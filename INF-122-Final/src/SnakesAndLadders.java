@@ -408,7 +408,7 @@ public class SnakesAndLadders extends GameBoard {
 	}
 
     public void actionPerformed(ActionEvent e) {
-		if (e.getSource() instanceof JButton) {
+		if (e.getSource() instanceof JButton && !(e.getSource() instanceof SNLSpace)) {
 			JButton buttonClicked = (JButton) e.getSource();
 			if(buttonClicked.getName().equals("dice"))
 			{

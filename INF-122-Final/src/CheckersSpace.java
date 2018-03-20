@@ -1,3 +1,5 @@
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 
 public class CheckersSpace extends BoardSpace {
@@ -6,16 +8,37 @@ public class CheckersSpace extends BoardSpace {
     protected Color backgroundColor;
     protected Color originalColor;
 
+    Image blackImg;
+    Image whiteImg;
+    Image blackKingImg;
+    Image whiteKingImg;
+
     // construct empty space
     public CheckersSpace(int row, int col, String spaceValue) {
         super(row, col, spaceValue);
         hasMarker = false;
         markerColor = null;
+        loadImages();
     }
 
     // construct space with piece
     public CheckersSpace(int row, int col, String spaceValue, GamePiece gamePiece) {
         super(row, col, spaceValue, gamePiece);
+        hasMarker = false;
+        markerColor = null;
+        loadImages();
+    }
+
+    private void loadImages()
+    {
+        try {
+            blackImg = ImageIO.read(getClass().getResource("images/blackpiece.png"));
+            blackKingImg = ImageIO.read(getClass().getResource("images/blackking.png"));
+            whiteImg = ImageIO.read(getClass().getResource("images/whitepiece.png"));
+            whiteKingImg = ImageIO.read(getClass().getResource("images/whiteking.png"));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
     
     public void setOriginalColor(Color color){
@@ -44,9 +67,26 @@ public class CheckersSpace extends BoardSpace {
             g.setColor(markerColor);
             g.fillOval(getWidth() / 2 - 10, getHeight() / 2 - 10, 20, 20);
         } else if (hasPiece()){
-            g.setColor(piece.getColor());
-            g.fillOval(getWidth() / 2 - 30, getHeight() / 2 - 30, 60, 60);
+            if(getGamePiece() instanceof CheckersPieceBlack)
+            {
+                setIcon(new ImageIcon(blackImg));
+            }
+            else if(this.getGamePiece() instanceof CheckersPieceWhite)
+            {
+                setIcon(new ImageIcon(whiteImg));
+            }
+            else if(this.getGamePiece() instanceof CheckersPieceBlackKing)
+            {
+                setIcon(new ImageIcon(blackKingImg));
+            }
+            else if(this.getGamePiece() instanceof CheckersPieceWhiteKing)
+            {
+                setIcon(new ImageIcon(whiteKingImg));
+            }
+
         }
+        else
+            setIcon(null);
     }
 }
 
@@ -56,9 +96,23 @@ class CheckersPieceBlack extends GamePiece {
         super("black", Color.BLACK, 2);}
 }
 
+class CheckersPieceBlackKing extends GamePiece{
+    public CheckersPieceBlackKing()
+    {
+        super("blackking", Color.BLACK, 2);
+    }
+}
+
 class CheckersPieceWhite extends GamePiece {
     public CheckersPieceWhite()
     {
         super("white", Color.WHITE, 1);
+    }
+}
+
+class CheckersPieceWhiteKing extends GamePiece{
+    public CheckersPieceWhiteKing()
+    {
+        super("whiteking", Color.WHITE, 1);
     }
 }
