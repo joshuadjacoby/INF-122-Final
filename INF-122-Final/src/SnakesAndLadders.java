@@ -49,7 +49,7 @@ public class SnakesAndLadders extends GameBoard {
 	    specialSpaces.put(new ArrayList<Integer>
 	    	(Arrays.asList(4, 9)), new ArrayList<Integer>(Arrays.asList(1, 6)));
 	    specialSpaces.put(new ArrayList<Integer>
-	    	(Arrays.asList(6, 6)), new ArrayList<Integer>(Arrays.asList(3, 6)));
+	    	(Arrays.asList(6, 6)), new ArrayList<Integer>(Arrays.asList(4, 6)));
 	    
 	    
 	    
@@ -280,22 +280,15 @@ public class SnakesAndLadders extends GameBoard {
 		
 		if (turn == 1) {
 			if (getSpace(player1x,player1y).getValue().equals("P1,P2")) { // if spot with P1 & P2
-				getSpace(player2x,player2y).clearGamePiece(); // clears SNLBothPieces()
-				getSpace(player2x,player2y).setGamePiece(new SNLPieceWhite()); // fill space with P2's piece
-				
+				getSpace(player2x,player2y).setGamePiece(new SNLPieceWhite()); // fill space with P2's piece	
 			}
-			else { // if P1 & P2 on separate spaces, just clear the cell
-				getSpace(player1x,player1y).clearGamePiece();
-			}
+			getSpace(player1x,player1y).clearGamePiece(); // clears SNLBothPieces()
 		}
 		else { // if P2's turn
 			if (getSpace(player2x,player2y).getValue().equals("P1,P2")) { // if spot with P1 & P2
-				getSpace(player2x,player2y).clearGamePiece(); // clears SNLBothPieces()
 				getSpace(player1x,player1y).setGamePiece(new SNLPieceBlack()); // fill space with P1's piece
 			}
-			else { // otherwise, just clear the cell
-                getSpace(player2x,player2y).clearGamePiece();
-			}
+			getSpace(player2x,player2y).clearGamePiece(); // clears SNLBothPieces()
 		}
 		
 		//win conditions
