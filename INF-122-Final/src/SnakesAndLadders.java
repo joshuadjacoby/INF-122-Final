@@ -442,6 +442,13 @@ public class SnakesAndLadders extends GameBoard {
 	public void foundWinner(int playerNum) {
 		JOptionPane.showMessageDialog(null, "Player " + Integer.toString(playerNum) + " won!");
 		winner = playerNum;
+		if (winner == 1) {
+			state.getPlayerOne().incrementWins();
+			state.getPlayerTwo().incrementLosses();
+		} else {
+			state.getPlayerTwo().incrementWins();
+			state.getPlayerOne().incrementLosses();
+		}
 		diceButton.setEnabled(false);
 		gui.gameOver();
 	}

@@ -284,12 +284,22 @@ public class Othello extends GameBoard {
             clearHintMarks();
             allPossibleMoves();
             if (checkForWin()) {
-                if (blackScore>whiteScore)
-                    winner=1;
-                else if (blackScore<whiteScore)
-                    winner=2;
-                else
-                	winner=0;
+                if (blackScore>whiteScore) {
+					winner=1;
+					state.getPlayerOne().incrementWins();
+					state.getPlayerTwo().incrementLosses();
+				}
+                else if (blackScore<whiteScore) {
+					winner=2;
+					state.getPlayerTwo().incrementWins();
+					state.getPlayerOne().incrementLosses();
+				}
+                else {
+					winner=0;
+					state.getPlayerOne().incrementTies();
+					state.getPlayerTwo().incrementTies();
+				}
+
                 updatePlayerTurnLabel();
                 gui.gameOver();
             }

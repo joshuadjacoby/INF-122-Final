@@ -550,10 +550,14 @@ public class Checkers extends GameBoard {
                 updateScore();
                 if(p1Score == 0){
                     winner = 2;
+                    state.getPlayerTwo().incrementWins();
+                    state.getPlayerOne().incrementLosses();
                     updatePlayerTurnLabel();
                     gui.gameOver();
                 }else if(p2Score == 0){
                     winner = 1;
+					state.getPlayerOne().incrementWins();
+					state.getPlayerTwo().incrementLosses();
                     updatePlayerTurnLabel();
                     gui.gameOver();
                 }

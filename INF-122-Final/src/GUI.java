@@ -191,12 +191,14 @@ public class GUI extends JFrame implements ActionListener {
                 Player playerTwo;
                 if (!pm.playerExists(playerOneName.getText())) {
                     playerOne = new Player(playerOneName.getText(), pm.getPlayerIDCount());
+                    pm.addPlayer(playerOne);
                     pm.incrementPlayerIDCount();
                 } else {
                     playerOne = pm.findPlayer(playerOneName.getText());
                 }
                 if (!pm.playerExists(playerTwoName.getText())) {
                     playerTwo = new Player(playerTwoName.getText(), pm.getPlayerIDCount());
+					pm.addPlayer(playerTwo);
                     pm.incrementPlayerIDCount();
                 } else {
                     playerTwo = pm.findPlayer(playerTwoName.getText());
