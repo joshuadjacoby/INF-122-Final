@@ -8,6 +8,7 @@ public class TicTacToeSpace extends BoardSpace{
 
     Image xImg;
     Image oImg;
+    Image emptyImg;
 
 	public TicTacToeSpace(int row, int col, String spaceValue) {
 		super(row, col, spaceValue);
@@ -15,6 +16,7 @@ public class TicTacToeSpace extends BoardSpace{
         try {
             xImg = ImageIO.read(getClass().getResource("images/x.png"));
             oImg = ImageIO.read(getClass().getResource("images/o.png"));
+            emptyImg = ImageIO.read(getClass().getResource("images/emptyfiller.png"));
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -35,6 +37,10 @@ public class TicTacToeSpace extends BoardSpace{
                 setIcon(new ImageIcon(oImg));
             }
 		}
+		else
+        {
+            setIcon(new ImageIcon(emptyImg));
+        }
     	
 	}
 	
