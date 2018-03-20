@@ -293,11 +293,21 @@ public class SnakesAndLadders extends GameBoard {
 		
 		//win conditions
 		if ((player1x == 0) && (player1y - roll <= 0) && (turn == 1)) {
-			getSpace(0,0).setGamePiece(new SNLPieceBlack()); //
+			getSpace(0,0).setGamePiece(new SNLPieceBlack());
+			getSpace(player1x, player1y).clearGamePiece();
+			ArrayList<Integer> position = new ArrayList<Integer>();
+			position.add(0);
+			position.add(0);
+			positionOfPlayers.put(1, position);
 			foundWinner(1);
 		}
 		else if ((player2x == 0) && (player2y - roll <= 0) && (turn == 2)) {
-			getSpace(0,0).setGamePiece(new SNLPieceWhite()); //
+			getSpace(0,0).setGamePiece(new SNLPieceWhite());
+			getSpace(player2x, player2y).clearGamePiece();
+			ArrayList<Integer> position = new ArrayList<Integer>();
+			position.add(0);
+			position.add(0);
+			positionOfPlayers.put(2, position);
 			foundWinner(2);
 		}
 		//if no one won, advance player
